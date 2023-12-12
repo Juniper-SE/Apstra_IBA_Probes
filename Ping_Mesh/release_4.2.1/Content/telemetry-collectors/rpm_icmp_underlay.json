@@ -1,0 +1,27 @@
+{
+    "items": [
+      {
+        "platform": {
+          "os_type": "junos",
+          "os_version": "22.2r2",
+          "family": "junos,junos-ex,junos-qfx",
+          "model": ""
+        },
+        "source_type": "cli",
+        "cli": "show services rpm probe-results owner Underlay_Reachability",
+        "query": {
+          "accessors": {
+            "Source": "/probe-results/probe-test-results/source-address",
+            "Target": "/probe-results/probe-test-results/target-address",
+            "value": "/probe-results/probe-test-results/probe-last-test-results/probe-test-generic-results/probe-test-rtt/probe-summary-results/avg-delay"
+          },
+          "keys": {
+            "Source": "Source",
+            "Target": "Target"
+          },
+          "value": "int(int(value) / 1000 + 0.5)",
+          "filter": ""
+        }
+      }
+    ]
+  }

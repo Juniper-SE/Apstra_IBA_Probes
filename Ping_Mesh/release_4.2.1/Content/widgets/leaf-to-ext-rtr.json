@@ -1,0 +1,32 @@
+{
+    "__probe_label": "Ping Mesh", 
+    "__blueprint_id": "evpn-vex-virtual", 
+    "updated_at": "2023-07-04T10:16:16.361439+0000", 
+    "probe_id": "36524273-b6d1-46ed-be84-c459a5128ecf", 
+    "id": "9cfa03e0-273d-43fa-a552-71ba1dd5ab48", 
+    "updated_by": "admin", 
+    "aggregation_period": 300, 
+    "aggregation_type": "unset", 
+    "spotlight_mode": false, 
+    "label": "Leaf_to_Ext-Rtr", 
+    "__blueprint_label": "zz-gmat-evpn.vex.2485377892354-2095753894 - evpn-vex-virtual", 
+    "type": "stage", 
+    "stage_name": "ICMP_External", 
+    "show_context": false, 
+    "description": "", 
+    "anomalous_only": false, 
+    "orderby": "properties.Source_Leaf:ASC;properties.Source_Rack:ASC", 
+    "data_source": "real_time", 
+    "time_series_duration": 86400, 
+    "created_at": "2023-07-04T10:16:16.361439+0000", 
+    "max_items": 10, 
+    "filter": "", 
+    "combine_graphs": "none", 
+    "visible_columns": [
+        "properties.Source_Rack", 
+        "properties.Source_Leaf", 
+        "properties.Routing_Zone", 
+        "properties.External_Router", 
+        "value"
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "display_name": "RPM_Ping", 
+    "created_at": "2023-07-03T09:42:20.787813Z", 
+    "last_modified_at": "2023-07-04T10:00:17.161268Z", 
+    "generators": [
+        {
+            "config_style": "junos", 
+            "section": "system", 
+            "template_text": "services {\n    rpm {\n        probe Underlay_Reachability {\n            {% for leaf, ip in Underlay_Reachability['default']['Loopback'].items() %}\n                {% if leaf != name %}\n            test Underlay_{{ leaf }} {\n                probe-type icmp-ping;\n                target address {{ ip }};\n                probe-count 5;\n                probe-interval 1;\n                test-interval 5;\n                source-address {{ lo0_ipv4_address.split('/')[0] }};\n                thresholds {\n                    total-loss 3;\n                }\n            }\n                {% endif %}\n            {% endfor %}\n        }\n    }\n}", 
+            "negation_template_text": "", 
+            "filename": ""
+        }, 
+        {
+            "config_style": "junos", 
+            "section": "system", 
+            "template_text": "services {\n    rpm {\n        probe Overlay_Reachability {\n            {% for rz_name, rz_content in Overlay_Reachability.items() %}\n                {% for leaf, ip in rz_content['Loopback'].items() %}\n                    {% if leaf != name %}\n            test Overlay_{{ rz_name }}_{{ leaf }} {\n                routing-instance {{ rz_name }}\n                probe-type icmp-ping;\n                target address {{ ip }};\n                probe-count 5;\n                probe-interval 1;\n                test-interval 5;\n                source-address {{ security_zones[rz_name].loopback_ip }};\n                thresholds {\n                    total-loss 3;\n                }\n            }\n                    {% endif %}\n                {% endfor %}\n            {% endfor %}\n        }\n    }\n}", 
+            "negation_template_text": "", 
+            "filename": ""
+        }, 
+        {
+            "config_style": "junos", 
+            "section": "system", 
+            "template_text": "services {\n    rpm {\n        probe External_Reachability {\n            {% for session in bgp_sessions.values() %}\n                {% if session.role == 'leaf_router' and session.vrf_name != 'default' %}\n                    {% if session.address_families.ipv4 == True %}\n            test Ext_{{ session.vrf_name }}_{{ session.description | replace('facing_', '') }}_{{ session.dest_ip[-6:] }} {\n                routing-instance {{ session.vrf_name }}\n                probe-type icmp-ping;\n                target address {{ session.dest_ip }};\n                probe-count 5;\n                probe-interval 1;\n                test-interval 5;\n                source-address {{ session.source_ip }};\n                thresholds {\n                    total-loss 3;\n                }\n            }\n                    {% endif %}\n                {% endif %}\n            {% endfor %}\n        }\n    }\n}", 
+            "negation_template_text": "", 
+            "filename": ""
+        }
+    ], 
+    "ref_archs": [
+        "two_stage_l3clos"
+    ], 
+    "id": "6917f16c-bc48-4672-b58e-d017d3ee8653"
+}

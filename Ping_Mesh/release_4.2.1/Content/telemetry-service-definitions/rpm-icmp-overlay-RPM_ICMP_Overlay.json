@@ -1,0 +1,38 @@
+{
+    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data", 
+    "description": "", 
+    "service_name": "RPM_ICMP_Overlay", 
+    "application_schema": {
+        "required": [
+            "key", 
+            "value"
+        ], 
+        "type": "object", 
+        "properties": {
+            "value": {
+                "type": "integer"
+            }, 
+            "key": {
+                "required": [
+                    "Routing_Zone", 
+                    "Source", 
+                    "Target"
+                ], 
+                "type": "object", 
+                "properties": {
+                    "Source": {
+                        "type": "string"
+                    }, 
+                    "Target": {
+                        "type": "string"
+                    }, 
+                    "Routing_Zone": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }, 
+    "builtin": false, 
+    "version": "version_0"
+}

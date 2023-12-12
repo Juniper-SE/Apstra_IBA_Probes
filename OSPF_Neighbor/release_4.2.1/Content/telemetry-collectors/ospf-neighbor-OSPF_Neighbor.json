@@ -1,0 +1,33 @@
+{
+    "service_name": "OSPF_Neighbor",
+    "collectors": [
+        {
+            "platform": {
+                "os_type": "junos",
+                "os_version": "22.2r2",
+                "family": "junos,junos-ex,junos-qfx",
+                "model": ""
+            },
+            "source_type": "cli",
+            "cli": "show ospf neighbor instance OVERLAY extensive",
+            "query": {
+                "accessors": {
+                    "Adjacency_Time": "/ospf-neighbor-information/ospf-neighbor/neighbor-adjacency-time",
+                    "OSPF_Area": "/ospf-neighbor-information/ospf-neighbor/ospf-area",
+                    "Interface_Name": "/ospf-neighbor-information/ospf-neighbor/interface-name",
+                    "Neighbor_IP": "/ospf-neighbor-information/ospf-neighbor/neighbor-address",
+                    "Neighbor_State": "/ospf-neighbor-information/ospf-neighbor/ospf-neighbor-state"
+                },
+                "keys": {
+                    "Adjacency_Time": "Adjacency_Time",
+                    "OSPF_Area": "OSPF_Area",
+                    "Interface_Name": "Interface_Name",
+                    "Neighbor_IP": "Neighbor_IP"
+                },
+                "value": "0 if Neighbor_State == \"Attempt\" else 2 if Neighbor_State == \"Down\" else 3 if Neighbor_State == \"Exchange\" else 4 if Neighbor_State == \"ExStart\" else 5 if Neighbor_State == \"Init\" else 6 if Neighbor_State == \"Loading\" else 7 if Neighbor_State == \"2Way\" else 1 if Neighbor_State == \"Full\" else None",
+                "filter": ""
+            }
+        }
+    ],
+    "relaxed_schema_validation": true
+}

@@ -1,0 +1,24 @@
+{
+    "label": "OSPF Adjacencies On Border Leafs",
+    "description": "",
+    "grid": [
+        [
+            "8fb9e491-c919-45ed-bc55-0973c5ffd489"
+        ],
+        [
+            "0938eddc-ff61-42de-bb9f-899577588203"
+        ]
+    ],
+    "id": "e0036c0a-2548-45a2-9804-f1bf31794469",
+    "predefined_dashboard": "",
+    "created_at": "2023-12-06T12:24:08.317870+0000",
+    "updated_at": "2023-12-06T12:24:08.317870+0000",
+    "updated_by": "admin",
+    "default": false,
+    "__blueprint_id": "cf693ec7-ea25-4bd8-b281-7872e8b4575a",
+    "__blueprint_label": "Reference Design DC",
+    "__widget_id_label_dict": {
+        "8fb9e491-c919-45ed-bc55-0973c5ffd489": "OSPF Neighbor Count per Border Leaf",
+        "0938eddc-ff61-42de-bb9f-899577588203": "OSPF Neighbor State"
+    }
+}

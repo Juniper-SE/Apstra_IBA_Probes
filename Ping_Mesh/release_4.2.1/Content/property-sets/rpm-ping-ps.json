@@ -1,0 +1,34 @@
+{
+    "created_at": "2023-07-03T08:43:19.868746+0000", 
+    "updated_at": "2023-07-04T14:04:47.798931+0000", 
+    "values_yaml": "Overlay_Reachability:\n  blue:\n    Loopback:\n      leaf1: 10.0.0.8\n      leaf2: 10.0.0.9\n      leaf3: 10.0.0.10\n  red:\n    Loopback:\n      leaf1: 10.0.0.5\n      leaf2: 10.0.0.6\n      leaf3: 10.0.0.7\nUnderlay_Reachability:\n  default:\n    Loopback:\n      leaf1: 10.0.0.2\n      leaf2: 10.0.0.3\n      leaf3: 10.0.0.4\n", 
+    "values": {
+        "Underlay_Reachability": {
+            "default": {
+                "Loopback": {
+                    "leaf1": "10.0.0.2", 
+                    "leaf3": "10.0.0.4", 
+                    "leaf2": "10.0.0.3"
+                }
+            }
+        }, 
+        "Overlay_Reachability": {
+            "blue": {
+                "Loopback": {
+                    "leaf1": "10.0.0.8", 
+                    "leaf3": "10.0.0.10", 
+                    "leaf2": "10.0.0.9"
+                }
+            }, 
+            "red": {
+                "Loopback": {
+                    "leaf1": "10.0.0.5", 
+                    "leaf3": "10.0.0.7", 
+                    "leaf2": "10.0.0.6"
+                }
+            }
+        }
+    }, 
+    "label": "RPM_Ping_PS", 
+    "id": "d2906f7a-b4c2-425b-bd4f-496cb16039cf"
+}

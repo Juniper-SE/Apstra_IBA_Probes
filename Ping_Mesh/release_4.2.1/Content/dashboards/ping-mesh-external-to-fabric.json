@@ -1,0 +1,24 @@
+{
+    "description": "", 
+    "__widget_id_label_dict": {
+        "bb38ff4c-b2bd-41e6-b760-4796a0ec58d7": "External_RTT_Last_1H", 
+        "9cfa03e0-273d-43fa-a552-71ba1dd5ab48": "Leaf_to_Ext-Rtr"
+    }, 
+    "default": false, 
+    "created_at": "2023-07-05T11:26:56.487160+0000", 
+    "__blueprint_id": "evpn-vex-virtual", 
+    "updated_at": "2023-07-05T11:50:51.411838+0000", 
+    "label": "Ping Mesh External-to-Fabric", 
+    "grid": [
+        [
+            "9cfa03e0-273d-43fa-a552-71ba1dd5ab48"
+        ], 
+        [
+            "bb38ff4c-b2bd-41e6-b760-4796a0ec58d7"
+        ]
+    ], 
+    "__blueprint_label": "zz-gmat-evpn.vex.2485377892354-2095753894 - evpn-vex-virtual", 
+    "predefined_dashboard": "", 
+    "id": "7a4d4769-487f-45b4-8f55-8302c3c1759f", 
+    "updated_by": "admin"
+}

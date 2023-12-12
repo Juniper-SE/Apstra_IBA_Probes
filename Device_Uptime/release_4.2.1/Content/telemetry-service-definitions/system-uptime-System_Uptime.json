@@ -1,0 +1,34 @@
+{
+    "service_name": "System_Uptime",
+    "application_schema": {
+        "properties": {
+            "key": {
+                "properties": {
+                    "Clock_Source": {
+                        "type": "string"
+                    },
+                    "Uptime": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "Clock_Source",
+                    "Uptime"
+                ],
+                "type": "object"
+            },
+            "value": {
+                "type": "integer"
+            }
+        },
+        "required": [
+            "key",
+            "value"
+        ],
+        "type": "object"
+    },
+    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data",
+    "builtin": false,
+    "description": "",
+    "version": "version_0"
+}

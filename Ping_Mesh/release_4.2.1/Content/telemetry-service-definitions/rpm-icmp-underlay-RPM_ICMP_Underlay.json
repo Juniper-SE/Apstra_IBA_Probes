@@ -1,0 +1,34 @@
+{
+    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data", 
+    "description": "", 
+    "service_name": "RPM_ICMP_Underlay", 
+    "application_schema": {
+        "required": [
+            "key", 
+            "value"
+        ], 
+        "type": "object", 
+        "properties": {
+            "value": {
+                "type": "integer"
+            }, 
+            "key": {
+                "required": [
+                    "Source", 
+                    "Target"
+                ], 
+                "type": "object", 
+                "properties": {
+                    "Source": {
+                        "type": "string"
+                    }, 
+                    "Target": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }, 
+    "builtin": false, 
+    "version": "version_0"
+}

@@ -1,0 +1,250 @@
+{
+    "label": "OSPF Neighbour Check ",
+    "description": "",
+    "disabled": false,
+    "id": "8ac2e710-3007-4367-bc4f-869aea2c8fdf",
+    "tags": [],
+    "processors": [
+        {
+            "name": "OSPF Neighbor State",
+            "type": "extensible_data_collector",
+            "properties": {
+                "service_name": "OSPF_Neighbor",
+                "service_interval": "60",
+                "value_map": {
+                    "0": "Attempt",
+                    "1": "Full",
+                    "2": "Down",
+                    "3": "Exchange",
+                    "4": "ExStart",
+                    "5": "Init",
+                    "6": "Loading",
+                    "7": "2Way"
+                },
+                "graph_query": [
+                    "match(node('system', name='system', deploy_mode='deploy', role='leaf').out('interface_map').node('interface_map').out('device_profile').node('device_profile', name='DP'))"
+                ],
+                "service_input": "''",
+                "query_group_by": [],
+                "Device_Profile": "str(DP.label)",
+                "keys": [],
+                "ingestion_filter": {},
+                "data_type": "dynamic discrete state",
+                "query_tag_filter": {
+                    "filter": {
+                        "system": {
+                            "is_in": [
+                                "border_leaf"
+                            ]
+                        }
+                    },
+                    "operation": "and"
+                },
+                "execution_count": "-1",
+                "system_id": "system.system_id",
+                "query_expansion": {},
+                "enable_streaming": false
+            },
+            "inputs": {},
+            "outputs": {
+                "out": "OSPF Neighbor State"
+            }
+        },
+        {
+            "name": "Neighbor Count ",
+            "type": "match_count",
+            "properties": {
+                "group_by": [
+                    "system_id"
+                ],
+                "enable_streaming": false,
+                "reference_state": "Full"
+            },
+            "inputs": {
+                "in": {
+                    "stage": "OSPF Neighbor State",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Neighbor Count "
+            }
+        },
+        {
+            "name": "Minimum Neighbors",
+            "type": "range_check",
+            "properties": {
+                "property": "value",
+                "raise_anomaly": true,
+                "graph_query": [],
+                "anomaly_retention_duration": 86400,
+                "range": {
+                    "max": 1
+                },
+                "enable_streaming": false,
+                "anomaly_retention_size": 1073741824,
+                "enable_anomaly_logging": false
+            },
+            "inputs": {
+                "in": {
+                    "stage": "Neighbor Count ",
+                    "column": "total_count"
+                }
+            },
+            "outputs": {
+                "out": "Minimum Neighbors"
+            }
+        }
+    ],
+    "stages": [
+        {
+            "name": "Minimum Neighbors",
+            "description": "",
+            "type": "table",
+            "dynamic": true,
+            "keys": {
+                "system_id": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Discrete State Value",
+                    "type": "string",
+                    "possible_values": [
+                        "false",
+                        "true"
+                    ]
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": true,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "OSPF Neighbor State",
+            "description": "",
+            "type": "table",
+            "dynamic": true,
+            "keys": {
+                "Device_Profile": "string",
+                "Adjacency_Time": "string",
+                "OSPF_Area": "string",
+                "Neighbor_IP": "string",
+                "system_id": "string",
+                "Interface_Name": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Discrete State Value",
+                    "type": "string",
+                    "possible_values": [
+                        "Attempt",
+                        "ExStart",
+                        "Down",
+                        "Loading",
+                        "Full",
+                        "Init",
+                        "Exchange",
+                        "2Way"
+                    ]
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": true,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "Neighbor Count ",
+            "description": "",
+            "type": "table",
+            "dynamic": true,
+            "keys": {
+                "system_id": "string"
+            },
+            "values": {
+                "total_count": {
+                    "name": "total_count",
+                    "title": "Total count",
+                    "description": "Total count of input series",
+                    "type": "s64",
+                    "possible_values": []
+                },
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Numeric Value",
+                    "type": "s64",
+                    "possible_values": []
+                }
+            },
+            "units": {
+                "total_count": "",
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": false,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        }
+    ],
+    "state": "operational",
+    "probe_state": {
+        "final": {
+            "state": "operational",
+            "message": "",
+            "timestamp": "1970-01-01T00:00:00.000000+0000",
+            "detailed_error": null
+        },
+        "processors_configuration": {
+            "state": "operational",
+            "message": "The probe is already up to date.",
+            "timestamp": "2023-12-06T10:46:39.729248+0000",
+            "detailed_error": null
+        },
+        "pipeline": {
+            "state": "operational",
+            "message": "All the resources for probe status version 4 have been processed.",
+            "timestamp": "2023-12-06T10:25:59.417791+0000",
+            "detailed_error": null
+        },
+        "telemetry_service": {
+            "state": "operational",
+            "message": "TS: configuration completed",
+            "timestamp": "2023-12-06T10:25:59.403931+0000",
+            "detailed_error": null
+        }
+    },
+    "last_error": null,
+    "config_started_at": "2023-12-06T10:25:59.394847+0000",
+    "config_completed_at": "2023-12-06T10:25:59.401145+0000",
+    "anomaly_count": 0,
+    "version": 4,
+    "iba_unit": "0da54a9d-cbef-4427-a33d-5dd260c6b297",
+    "host_node": "AosController",
+    "task_state": "running",
+    "task_error": "",
+    "predefined_probe": "",
+    "updated_at": "2023-12-06T10:25:59.382089+0000",
+    "updated_by": "admin",
+    "blueprint_id": "cf693ec7-ea25-4bd8-b281-7872e8b4575a"
+}

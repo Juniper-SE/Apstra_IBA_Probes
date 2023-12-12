@@ -1,0 +1,455 @@
+{
+    "task_error": "", 
+    "updated_by": "admin", 
+    "tags": [], 
+    "last_error": null, 
+    "updated_at": "2023-07-05T11:32:48.986483+0000", 
+    "disabled": false, 
+    "host_node": "AosController", 
+    "probe_state": {
+        "telemetry_service": {
+            "timestamp": "2023-07-05T11:32:49.079437+0000", 
+            "state": "operational", 
+            "message": "TS: configuration completed", 
+            "detailed_error": null
+        }, 
+        "pipeline": {
+            "timestamp": "2023-07-05T11:32:49.088315+0000", 
+            "state": "operational", 
+            "message": "All the resources for probe status version 3 have been processed.", 
+            "detailed_error": null
+        }, 
+        "processors_configuration": {
+            "timestamp": "2023-07-05T11:32:49.065708+0000", 
+            "state": "operational", 
+            "message": "Processors configured", 
+            "detailed_error": null
+        }, 
+        "final": {
+            "timestamp": "1970-01-01T00:00:00.000000+0000", 
+            "state": "operational", 
+            "message": "", 
+            "detailed_error": null
+        }
+    }, 
+    "id": "36524273-b6d1-46ed-be84-c459a5128ecf", 
+    "description": "", 
+    "task_state": "running", 
+    "processors": [
+        {
+            "inputs": {}, 
+            "type": "extensible_data_collector", 
+            "name": "ICMP_External", 
+            "outputs": {
+                "out": "ICMP_External"
+            }, 
+            "properties": {
+                "Source_Leaf": "str(system.label)", 
+                "query_group_by": [], 
+                "enable_streaming": false, 
+                "data_type": "number", 
+                "graph_query": [
+                    "match(node('system', name='system', role=is_in(['leaf', 'spine', 'superspine']), system_id=not_none(), deploy_mode=is_in(['deploy', 'drain'])).out('hosted_interfaces').node('interface', if_type='ethernet').out('composed_of').node('interface', if_type='subinterface', name='local_leaf_loopback').in_('layered_over').node('protocol_endpoint').in_('instantiates').node('protocol_session').out('instantiates').node('protocol_endpoint').out('layered_over').node('interface', if_type=is_in(['loopback', 'subinterface']), name='external_router_loopback').in_('composed_of').node('interface').in_('hosted_interfaces').node('system', name='external_router'), node(name='local_leaf_loopback').in_('member_interfaces').node('sz_instance').in_('instantiated_by').node('security_zone', sz_type='evpn', name='routing_zone'), node(name='system').out('part_of_rack').node('rack', name='local_leaf_rack')).ensure_different('local_leaf_loopback', 'external_router_loopback').where(lambda local_leaf_loopback, external_router_loopback: bool(external_router_loopback.ipv4_addr or local_leaf_loopback.ipv6_addr))"
+                ], 
+                "service_interval": "5", 
+                "keys": [
+                    "Routing_Zone", 
+                    "Source", 
+                    "Target"
+                ], 
+                "service_name": "RPM_ICMP_External", 
+                "query_expansion": {}, 
+                "query_tag_filter": {
+                    "filter": {}, 
+                    "operation": "and"
+                }, 
+                "Source": "local_leaf_loopback.ipv4_addr.split(\"/\")[0]", 
+                "execution_count": "-1", 
+                "Source_Rack": "str(local_leaf_rack.label)", 
+                "service_input": "''", 
+                "Target": "external_router_loopback.ipv4_addr.split(\"/\")[0]", 
+                "Routing_Zone": "routing_zone.label", 
+                "External_Router": "str(external_router.label)", 
+                "system_id": "system.system_id", 
+                "ingestion_filter": {}
+            }
+        }, 
+        {
+            "inputs": {}, 
+            "type": "extensible_data_collector", 
+            "name": "ICMP_Overlay", 
+            "outputs": {
+                "out": "ICMP_Overlay"
+            }, 
+            "properties": {
+                "Source_Leaf": "str(system.label)", 
+                "query_group_by": [], 
+                "data_type": "number", 
+                "graph_query": [
+                    "match(node('system', name='system', deploy_mode='deploy', role='leaf').out('hosted_interfaces').node('interface').out('link').node('link').in_('link').node('interface').in_('hosted_interfaces').node('system', role='spine').out('hosted_interfaces').node('interface').out('link').node('link').in_('link').node('interface').in_('hosted_interfaces').node('system', role='leaf', name='remote_system'), node(name='system').out('hosted_sz_instances').node('sz_instance', name='local_sz_instance').out('member_interfaces').node('interface', if_type='loopback', name='local_leaf_loopback'), node(name='local_sz_instance').in_('instantiated_by').node('security_zone', name='local_routing_zone', sz_type='evpn'), node(name='remote_system').out('hosted_sz_instances').node('sz_instance', name='remote_sz_instance').out('member_interfaces').node('interface', if_type='loopback', name='remote_leaf_loopback'), node(name='remote_sz_instance').in_('instantiated_by').node('security_zone', name='remote_routing_zone', sz_type='evpn'), node(name='system').out('part_of_rack').node('rack', name='local_leaf_rack'), node(name='remote_system').out('part_of_rack').node('rack', name='remote_leaf_rack')).ensure_different('remote_system', 'system').where(lambda local_leaf_loopback, remote_leaf_loopback: local_leaf_loopback.loopback_id == remote_leaf_loopback.loopback_id).distinct()"
+                ], 
+                "service_interval": "5", 
+                "keys": [
+                    "Routing_Zone", 
+                    "Source", 
+                    "Target"
+                ], 
+                "service_name": "RPM_ICMP_Overlay", 
+                "Dest_Leaf": "str(remote_system.label)", 
+                "query_expansion": {}, 
+                "query_tag_filter": {
+                    "filter": {}, 
+                    "operation": "and"
+                }, 
+                "Source": "local_leaf_loopback.ipv4_addr.split(\"/\")[0]", 
+                "execution_count": "-1", 
+                "Dest_Rack": "str(remote_leaf_rack.label)", 
+                "Source_Rack": "str(local_leaf_rack.label)", 
+                "service_input": "''", 
+                "Target": "remote_leaf_loopback.ipv4_addr.split(\"/\")[0]", 
+                "Routing_Zone": "local_routing_zone.label", 
+                "enable_streaming": false, 
+                "system_id": "system.system_id", 
+                "ingestion_filter": {}
+            }
+        }, 
+        {
+            "inputs": {}, 
+            "type": "extensible_data_collector", 
+            "name": "ICMP_Underlay", 
+            "outputs": {
+                "out": "ICMP_Underlay"
+            }, 
+            "properties": {
+                "Source_Leaf": "str(system.label)", 
+                "query_group_by": [], 
+                "data_type": "number", 
+                "graph_query": [
+                    "match(node('system', name='system', deploy_mode='deploy', role='leaf').out('hosted_interfaces').node('interface').out('link').node('link').in_('link').node('interface').in_('hosted_interfaces').node('system', role='spine').out('hosted_interfaces').node('interface').out('link').node('link').in_('link').node('interface').in_('hosted_interfaces').node('system', role='leaf', name='remote_system'), node(name='system').out('hosted_interfaces').node('interface', if_type='logical_vtep', name='local_leaf_VTEP'), node(name='remote_system').out('hosted_interfaces').node('interface', if_type='logical_vtep', name='remote_leaf_VTEP'), node(name='system').out('part_of_rack').node('rack', name='local_leaf_rack'), node(name='remote_system').out('part_of_rack').node('rack', name='remote_leaf_rack')).ensure_different('remote_system', 'system').distinct(names=['remote_system', 'system'])"
+                ], 
+                "service_interval": "5", 
+                "keys": [
+                    "Source", 
+                    "Target"
+                ], 
+                "service_name": "RPM_ICMP_Underlay", 
+                "Dest_Leaf": "str(remote_system.label)", 
+                "query_expansion": {}, 
+                "query_tag_filter": {
+                    "filter": {}, 
+                    "operation": "and"
+                }, 
+                "Source": "local_leaf_VTEP.ipv4_addr.split(\"/\")[0]", 
+                "execution_count": "-1", 
+                "Dest_Rack": "str(remote_leaf_rack.label)", 
+                "Source_Rack": "str(local_leaf_rack.label)", 
+                "service_input": "''", 
+                "Target": "remote_leaf_VTEP.ipv4_addr.split(\"/\")[0]", 
+                "enable_streaming": false, 
+                "system_id": "system.system_id", 
+                "ingestion_filter": {}
+            }
+        }, 
+        {
+            "inputs": {
+                "in": {
+                    "column": "value", 
+                    "stage": "ICMP_External"
+                }
+            }, 
+            "type": "range_check", 
+            "name": "External_RTT_Above_Threshold", 
+            "outputs": {
+                "out": "External_RTT_Above_Threshold"
+            }, 
+            "properties": {
+                "graph_query": [], 
+                "anomaly_retention_size": 1073741824, 
+                "anomaly_retention_duration": 86400, 
+                "range": {
+                    "min": 10
+                }, 
+                "raise_anomaly": true, 
+                "enable_streaming": false, 
+                "property": "value", 
+                "enable_anomaly_logging": false
+            }
+        }, 
+        {
+            "inputs": {
+                "in": {
+                    "column": "value", 
+                    "stage": "ICMP_Overlay"
+                }
+            }, 
+            "type": "range_check", 
+            "name": "Overlay_RTT_Above_Threshold", 
+            "outputs": {
+                "out": "Overlay_RTT_Above_Threshold"
+            }, 
+            "properties": {
+                "graph_query": [], 
+                "anomaly_retention_size": 1073741824, 
+                "anomaly_retention_duration": 86400, 
+                "range": {
+                    "min": 10
+                }, 
+                "raise_anomaly": true, 
+                "enable_streaming": false, 
+                "property": "value", 
+                "enable_anomaly_logging": false
+            }
+        }, 
+        {
+            "inputs": {
+                "in": {
+                    "column": "value", 
+                    "stage": "ICMP_Underlay"
+                }
+            }, 
+            "type": "range_check", 
+            "name": "Underlay_RTT_Above_Threshold", 
+            "outputs": {
+                "out": "Underlay_RTT_Above_Threshold"
+            }, 
+            "properties": {
+                "graph_query": [], 
+                "anomaly_retention_size": 1073741824, 
+                "anomaly_retention_duration": 86400, 
+                "range": {
+                    "min": 10
+                }, 
+                "raise_anomaly": true, 
+                "enable_streaming": false, 
+                "property": "value", 
+                "enable_anomaly_logging": false
+            }
+        }
+    ], 
+    "anomaly_count": 2, 
+    "config_started_at": "2023-07-05T11:32:49.035560+0000", 
+    "blueprint_id": "evpn-vex-virtual", 
+    "stages": [
+        {
+            "enable_metric_logging": true, 
+            "name": "Underlay_RTT_Above_Threshold", 
+            "anomaly_count": 0, 
+            "tags": [], 
+            "keys": {
+                "Target": "any", 
+                "Dest_Leaf": "string", 
+                "Source": "any", 
+                "Dest_Rack": "string", 
+                "system_id": "string", 
+                "Source_Leaf": "string", 
+                "Source_Rack": "string"
+            }, 
+            "graph_annotation_properties": {}, 
+            "dynamic": false, 
+            "retention_duration": 2592000, 
+            "values": {
+                "value": {
+                    "possible_values": [
+                        "false", 
+                        "true"
+                    ], 
+                    "description": "Discrete State Value", 
+                    "type": "string", 
+                    "name": "value", 
+                    "title": "Value"
+                }
+            }, 
+            "warnings": 0, 
+            "units": {
+                "value": ""
+            }, 
+            "retention_size": 0, 
+            "type": "table", 
+            "description": ""
+        }, 
+        {
+            "enable_metric_logging": true, 
+            "name": "External_RTT_Above_Threshold", 
+            "anomaly_count": 0, 
+            "tags": [], 
+            "keys": {
+                "Target": "any", 
+                "Source": "any", 
+                "system_id": "string", 
+                "Source_Leaf": "string", 
+                "Routing_Zone": "any", 
+                "External_Router": "string", 
+                "Source_Rack": "string"
+            }, 
+            "graph_annotation_properties": {}, 
+            "dynamic": false, 
+            "retention_duration": 2592000, 
+            "values": {
+                "value": {
+                    "possible_values": [
+                        "false", 
+                        "true"
+                    ], 
+                    "description": "Discrete State Value", 
+                    "type": "string", 
+                    "name": "value", 
+                    "title": "Value"
+                }
+            }, 
+            "warnings": 0, 
+            "units": {
+                "value": ""
+            }, 
+            "retention_size": 0, 
+            "type": "table", 
+            "description": ""
+        }, 
+        {
+            "enable_metric_logging": true, 
+            "name": "ICMP_Underlay", 
+            "anomaly_count": 0, 
+            "tags": [], 
+            "keys": {
+                "Target": "any", 
+                "Dest_Leaf": "string", 
+                "Source": "any", 
+                "Dest_Rack": "string", 
+                "system_id": "string", 
+                "Source_Leaf": "string", 
+                "Source_Rack": "string"
+            }, 
+            "graph_annotation_properties": {}, 
+            "dynamic": false, 
+            "retention_duration": 2592000, 
+            "values": {
+                "value": {
+                    "possible_values": [], 
+                    "description": "Numeric Value", 
+                    "type": "s64", 
+                    "name": "value", 
+                    "title": "Value"
+                }
+            }, 
+            "warnings": 0, 
+            "units": {
+                "value": "sec"
+            }, 
+            "retention_size": 0, 
+            "type": "table", 
+            "description": ""
+        }, 
+        {
+            "enable_metric_logging": true, 
+            "name": "Overlay_RTT_Above_Threshold", 
+            "anomaly_count": 2, 
+            "tags": [], 
+            "keys": {
+                "Target": "any", 
+                "Dest_Leaf": "string", 
+                "Source": "any", 
+                "Dest_Rack": "string", 
+                "system_id": "string", 
+                "Source_Leaf": "string", 
+                "Routing_Zone": "any", 
+                "Source_Rack": "string"
+            }, 
+            "graph_annotation_properties": {}, 
+            "dynamic": false, 
+            "retention_duration": 2592000, 
+            "values": {
+                "value": {
+                    "possible_values": [
+                        "false", 
+                        "true"
+                    ], 
+                    "description": "Discrete State Value", 
+                    "type": "string", 
+                    "name": "value", 
+                    "title": "Value"
+                }
+            }, 
+            "warnings": 0, 
+            "units": {
+                "value": ""
+            }, 
+            "retention_size": 0, 
+            "type": "table", 
+            "description": ""
+        }, 
+        {
+            "enable_metric_logging": true, 
+            "name": "ICMP_External", 
+            "anomaly_count": 0, 
+            "tags": [], 
+            "keys": {
+                "Target": "any", 
+                "Source": "any", 
+                "system_id": "string", 
+                "Source_Leaf": "string", 
+                "Routing_Zone": "any", 
+                "External_Router": "string", 
+                "Source_Rack": "string"
+            }, 
+            "graph_annotation_properties": {}, 
+            "dynamic": false, 
+            "retention_duration": 2592000, 
+            "values": {
+                "value": {
+                    "possible_values": [], 
+                    "description": "Numeric Value", 
+                    "type": "s64", 
+                    "name": "value", 
+                    "title": "Value"
+                }
+            }, 
+            "warnings": 0, 
+            "units": {
+                "value": "sec"
+            }, 
+            "retention_size": 0, 
+            "type": "table", 
+            "description": ""
+        }, 
+        {
+            "enable_metric_logging": true, 
+            "name": "ICMP_Overlay", 
+            "anomaly_count": 0, 
+            "tags": [], 
+            "keys": {
+                "Target": "any", 
+                "Dest_Leaf": "string", 
+                "Source": "any", 
+                "Dest_Rack": "string", 
+                "system_id": "string", 
+                "Source_Leaf": "string", 
+                "Routing_Zone": "any", 
+                "Source_Rack": "string"
+            }, 
+            "graph_annotation_properties": {}, 
+            "dynamic": false, 
+            "retention_duration": 2592000, 
+            "values": {
+                "value": {
+                    "possible_values": [], 
+                    "description": "Numeric Value", 
+                    "type": "s64", 
+                    "name": "value", 
+                    "title": "Value"
+                }
+            }, 
+            "warnings": 0, 
+            "units": {
+                "value": "sec"
+            }, 
+            "retention_size": 0, 
+            "type": "table", 
+            "description": ""
+        }
+    ], 
+    "predefined_probe": "", 
+    "label": "Ping Mesh", 
+    "config_completed_at": "2023-07-05T11:32:49.065854+0000", 
+    "state": "operational", 
+    "version": 3, 
+    "iba_unit": "69728476-20be-4142-b0f4-39d31c01e7db"
+}
