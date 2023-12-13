@@ -1,0 +1,31 @@
+{
+    "service_name": "Interface_Queue_Transmitted_PPS",
+    "collectors": [
+        {
+            "platform": {
+                "os_type": "junos",
+                "os_version": "22.2r2",
+                "family": "junos,junos-ex,junos-qfx",
+                "model": ""
+            },
+            "source_type": "cli",
+            "cli": "show interfaces queue",
+            "query": {
+                "accessors": {
+                    "Forwarding_Class": "/interface-information/physical-interface/queue-counters/queue/forwarding-class-name",
+                    "Interface_Name": "/interface-information/physical-interface/name",
+                    "Queue_Number": "/interface-information/physical-interface/queue-counters/queue/queue-number",
+                    "value": "/interface-information/physical-interface/queue-counters/queue/queue-counters-trans-packets-rate"
+                },
+                "keys": {
+                    "Forwarding_Class": "Forwarding_Class",
+                    "Interface_Name": "Interface_Name",
+                    "Queue_Number": "Queue_Number"
+                },
+                "value": "int(value)",
+                "filter": "key['Interface_Name'].startswith((\"et-\", \"xe-\", \"ge-\"))"
+            }
+        }
+    ],
+    "relaxed_schema_validation": true
+}

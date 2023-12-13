@@ -5,7 +5,7 @@
     ],
     "created_at": "2023-11-22T15:43:28.720863Z",
     "last_modified_at": "2023-11-22T15:43:28.720863Z",
-    "display_name": "Hacky OSPF on Border",
+    "display_name": "OSPF on Border",
     "generators": [
         {
             "config_style": "junos",
