@@ -1,0 +1,53 @@
+<rpc-reply xmlns:junos="http://xml.juniper.net/junos/23.2R1.14/junos">
+    <ospf-neighbor-information xmlns="http://xml.juniper.net/junos/23.2R0/junos-routing">
+        <ospf-neighbor>
+            <neighbor-address>10.110.36.3</neighbor-address>
+            <interface-name>irb.1390</interface-name>
+            <ospf-neighbor-state>Full</ospf-neighbor-state>
+            <neighbor-id>10.252.0.7</neighbor-id>
+            <neighbor-priority>128</neighbor-priority>
+            <activity-timer>38</activity-timer>
+            <ospf-area>0.0.0.0</ospf-area>
+            <options>0x52</options>
+            <dr-address>10.110.36.62</dr-address>
+            <bdr-address>10.110.36.2</bdr-address>
+            <neighbor-up-time junos:seconds="490384">
+                5d 16:13:04
+            </neighbor-up-time>
+            <neighbor-adjacency-time junos:seconds="490384">
+                5d 16:13:04
+            </neighbor-adjacency-time>
+            <ospf-neighbor-topology>
+                <ospf-topology-name>default</ospf-topology-name>
+                <ospf-topology-id>0</ospf-topology-id>
+                <ospf-neighbor-topology-state>Bidirectional</ospf-neighbor-topology-state>
+            </ospf-neighbor-topology>
+        </ospf-neighbor>
+        <ospf-neighbor>
+            <neighbor-address>10.110.36.62</neighbor-address>
+            <interface-name>irb.1390</interface-name>
+            <ospf-neighbor-state>Full</ospf-neighbor-state>
+            <neighbor-id>192.168.255.255</neighbor-id>
+            <neighbor-priority>128</neighbor-priority>
+            <activity-timer>32</activity-timer>
+            <ospf-area>0.0.0.0</ospf-area>
+            <options>0x52</options>
+            <dr-address>10.110.36.62</dr-address>
+            <bdr-address>10.110.36.2</bdr-address>
+            <neighbor-up-time junos:seconds="692345">
+                1w1d 00:19:05
+            </neighbor-up-time>
+            <neighbor-adjacency-time junos:seconds="692344">
+                1w1d 00:19:04
+            </neighbor-adjacency-time>
+            <ospf-neighbor-topology>
+                <ospf-topology-name>default</ospf-topology-name>
+                <ospf-topology-id>0</ospf-topology-id>
+                <ospf-neighbor-topology-state>Bidirectional</ospf-neighbor-topology-state>
+            </ospf-neighbor-topology>
+        </ospf-neighbor>
+    </ospf-neighbor-information>
+    <cli>
+        <banner></banner>
+    </cli>
+</rpc-reply>
