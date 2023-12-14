@@ -2,9 +2,9 @@
 
 ## Description
 
-![Ping-Mesh_Dashboard_External-to-Fabric](images/Ping-Mesh_Dashboard_External-to-Fabric.png)
+![Ping-Mesh_Dashboard_External-to-Fabric](/images/Ping-Mesh_Dashboard_External-to-Fabric.png)
 
-![Ping-Mesh_Dashboard_Intra-Fabric](images/Ping-Mesh_Dashboard_Intra-Fabric.png)
+![Ping-Mesh_Dashboard_Intra-Fabric](/images/Ping-Mesh_Dashboard_Intra-Fabric.png)
 
 - Using a Configlet to enable Junos RPM probes funtionality, executing continuous PINGs to verify end-to-end reachability both intra-fabric (Underlay and Overlay) and external to the fabric (facing the External routers).
 - Definition of three Telemetry services, each one collecting the results of a specific RPM probe: `Underlay_Reachbility`, `Overlay_Reachability` and `External_Reachability`.
@@ -19,11 +19,11 @@
 ├── configlets
     └── rpm-ping.json
 ```
-![Ping-Mesh_Configlet_Underlay-Reachability](images/Ping-Mesh_Configlet_Underlay-Reachability.png)
+![Ping-Mesh_Configlet_Underlay-Reachability](/images/Ping-Mesh_Configlet_Underlay-Reachability.png)
 
-![Ping-Mesh_Configlet_Overlay-Reachability](images/Ping-Mesh_Configlet_Overlay-Reachability.png)
+![Ping-Mesh_Configlet_Overlay-Reachability](/images/Ping-Mesh_Configlet_Overlay-Reachability.png)
 
-![Ping-Mesh_Configlet_External-Reachability](images/Ping-Mesh_Configlet_External-Reachability.png)
+![Ping-Mesh_Configlet_External-Reachability](/images/Ping-Mesh_Configlet_External-Reachability.png)
 
 ### Property Sets
 
@@ -32,7 +32,7 @@
     └── rpm-ping-ps.json
 ```
 
-![Ping-Mesh_Property-Sets](images/Ping-Mesh_Property-Sets.png)
+![Ping-Mesh_Property-Sets](/images/Ping-Mesh_Property-Sets.png)
 
 ### Telemetry Service Definitions 
 ```
@@ -42,11 +42,11 @@
     └── rpm-icmp-underlay-RPM_ICMP_Underlay.json
 ```
 
-![Ping-Mesh_Schema_Underlay-Reachability](images/Ping-Mesh_Schema_Underlay-Reachability.png)
+![Ping-Mesh_Schema_Underlay-Reachability](/images/Ping-Mesh_Schema_Underlay-Reachability.png)
 
-![Ping-Mesh_Schema_Overlay-Reachability](images/Ping-Mesh_Schema_Overlay-Reachability.png)
+![Ping-Mesh_Schema_Overlay-Reachability](/images/Ping-Mesh_Schema_Overlay-Reachability.png)
 
-![Ping-Mesh_Schema_External-Reachability](images/Ping-Mesh_Schema_External-Reachability.png)
+![Ping-Mesh_Schema_External-Reachability](/images/Ping-Mesh_Schema_External-Reachability.png)
 
 ### Telemetry Collectors
 ```
@@ -56,9 +56,9 @@
     └── rpm_icmp_underlay.json
 ```
 
-![Ping-Mesh_Configlet_Underlay-Reachability](images/Ping-Mesh_Configlet_Underlay-Reachability.png)
+![Ping-Mesh_Configlet_Underlay-Reachability](/images/Ping-Mesh_Configlet_Underlay-Reachability.png)
 
-![Ping-Mesh_Configlet_Overlay-Reachability](images/Ping-Mesh_Configlet_Overlay-Reachability.png)
+![Ping-Mesh_Configlet_Overlay-Reachability](/images/Ping-Mesh_Configlet_Overlay-Reachability.png)
 
 ![Ping-Mesh_Configlet_External-Reachability](images/Ping-Mesh_Configlet_External-Reachability.png)
 
@@ -68,7 +68,7 @@
 │   └── ping-mesh.json
 ```
 
-![Ping-Mesh_Probe](images/Ping-Mesh_Probe.png)
+![Ping-Mesh_Probe](/images/Ping-Mesh_Probe.png)
 
 ### Widgets
 ```
@@ -81,7 +81,7 @@
     └── underlay-rtt-last-1h.json
 ```
 
-![Ping-Mesh_Widget](images/Ping-Mesh_Widget.png)
+![Ping-Mesh_Widget](/images/Ping-Mesh_Widget.png)
 
 ### Dashboards
 
@@ -91,6 +91,6 @@
     └── ping-mesh-intra-fabric.json
 ```
 
-![Ping-Mesh_Dashboard_External-to-Fabric](images/Ping-Mesh_Dashboard_External-to-Fabric.png)
+![Ping-Mesh_Dashboard_External-to-Fabric](/images/Ping-Mesh_Dashboard_External-to-Fabric.png)
 
-![Ping-Mesh_Dashboard_Intra-Fabric](images/Ping-Mesh_Dashboard_Intra-Fabric.png)
+![Ping-Mesh_Dashboard_Intra-Fabric](/images/Ping-Mesh_Dashboard_Intra-Fabric.png)

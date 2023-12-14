@@ -1,4 +1,4 @@
-# Custom IBA Probes
+# Custom IBA Probes in Apstra
 
 To do (WIP Mehdi):
 - Examples to add:
@@ -11,11 +11,22 @@ To do (WIP Mehdi):
 - Structure of the repo:
   - Clean the content of some json files to focus only on the required elements.
 
+---
 
 ## Goals of this repository
 - Learn thourgh practical examples how to create a custom IBA probe, from the definition of a Custom Telemetry Collector to using it in a Custom IBA probe.
 - The examples in this repository are provided for educational purposes and are expected to be tested and customised to your specific needs before deploying them in your production blueprints.
 
+---
+
+## Content of this repository
+- ![Ping Mesh](Ping_Mesh/release_4.2.1/README.md) 
+- ![Device Uptime](Device_Uptime/release_4.2.1/README.md) 
+- ![OSPF Neighbor](OSPF_Neighbor/release_4.2.1/README.md)
+- ![Interface_Queue](Interface_Queue/release_4.2.1/README.md)
+- ![Interface_Flap](Interface_Flap/release_4.2.1/README.md)
+
+---
 
 ## How to use this repository?
 - Git clone the repository: `git clone git@github.com:mab27/Apstra_IBA_Probes.git`
@@ -57,9 +68,11 @@ To do (WIP Mehdi):
 > Note that this repositorty `main` branch is set as a protected branch. Hence contributions cannot be ade directly against this branch but rather through merging of feature branches after peer reviews. This allows to scale the collaboraiton on this repository.
 - Request a Pull Request and Merge Request.
 
+---
 
 ## High-Level Architecture of IBA
 Explain the notion of Probe, Collector, Grpah Query ..
+
 ### Key elements of Custom Telemetry Collectors
   - High-level pointers to Custom Collectors such as the notion of OS Variant etc ... 
 (Pick slides from the Tech-Fest)

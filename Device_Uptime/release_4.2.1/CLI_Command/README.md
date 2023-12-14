@@ -11,7 +11,7 @@ Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
 - Fields of interest:
 | Field | Information |
 | --- | --- |
-| `Time Source` | Time source that the system is locked to. Possible values are `LOCAL CLOCK`, `NTP CLOCK`, |
+| `Time Source` | Time source that the system is locked to. Possible values are `LOCAL CLOCK`, `NTP CLOCK` |
 | `System booted` | Time system was last booted |
 - Notes:
   - The format of the `System booted` value varies depending on how long the device is up and running. Examples values includes:
