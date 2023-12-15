@@ -41,7 +41,7 @@ xml
     └── 
 ```
 
-### Telemetry Service Definitions 
+### Telemetry Service Schema 
 ```
 ├── telemetry-service-definitions
     ├── 
