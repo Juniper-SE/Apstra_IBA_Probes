@@ -6,6 +6,8 @@ To do (WIP Mehdi):
     - Find a device with running traffic to execute the command on, get the output and document it. 
     - Design the probe. 
 
+- OPSF Neighbor Check
+  - Enhance the configlet, leverage Device-Context and add a Property-set
 
 - Interface flap
     - Grab it from Boris Env.

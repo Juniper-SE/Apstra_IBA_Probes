@@ -94,50 +94,88 @@ Address          Interface              State           ID               Pri  De
 ## Content
 
 ### Configlets
-
 ```
-├── configlets
-    └── 
+configlets
+└── ospf-configlet.json
 ```
 
 ### Property Sets
+- No Property Sets used in this example.
 
+### Telemetry Service Schema 
 ```
-├── property-sets
-    └── 
+telemetry-service-definitions
+└── ospf-neighbor-OSPF_Neighbor.json
 ```
-
-### Telemetry Service Definitions 
-```
-├── telemetry-service-definitions
-    ├── 
-    ├── 
-```
+![OSPF-Neighbor_Probe_Source_Processor](images/OSPF-Neighbor_Service_Schema.png)
 
 ### Telemetry Collectors
 ```
-├── telemetry-collectors
-    ├── 
-    ├── 
+telemetry-collectors
+└── ospf-neighbor-OSPF_Neighbor.json
+```
+![OSPF-Neighbor_Collector](images/OSPF-Neighbor_Collector.png)
+
+- Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `/ospf-neighbor-information/ospf-neighbor/ospf-neighbor-state` XML path into an integer value which will then be converted back to an enum using the "Value map" processor property of the `Extensible_Service_Data_Collector_Processor` (See probe's configuration).
+
+```python
+0 if Neighbor_State == "Attempt" 
+else 2 if Neighbor_State == "Down" 
+else 3 if Neighbor_State == "Exchange" 
+else 4 if Neighbor_State == "ExStart" 
+else 5 if Neighbor_State == "Init" 
+else 6 if Neighbor_State == "Loading" 
+else 7 if Neighbor_State == "2Way" 
+else 1 if Neighbor_State == "Full" 
+else None
 ```
 
 ### Probes
 ```
-├── probes
-│   └── 
+probes
+└── ospf-neighbour-check.json
 ```
+- Source Processor configuration:
+
+![OSPF-Neighbor_Probe_Source_Processor](images/OSPF-Neighbor_Probe_Source_Processor.png)
+
+- IBA Probe pipeline representaiton:
+
+![OSPF-Neighbor_Probe_Pipeline_Vertical](images/OSPF-Neighbor_Probe_Pipeline_Vertical.png)
+
+- Below a view from the first output stage:
+
+![OSPF-Neighbor_Probe_Stage_1](Images/OSPF-Neighbor_Probe_Stage_1.png)
+
+- Below a view from the second output stage:
+
+![OSPF-Neighbor_Probe_Stage_2](Images/OSPF-Neighbor_Probe_Stage_2.png)
+
+- Below a view from the third output stage:
+
+![OSPF-Neighbor_Probe_Stage_3](Images/OSPF-Neighbor_Probe_Stage_3.png)
+
+
 
 ### Widgets
 ```
-└── widgets
-    ├── 
-    ├── 
+widgets
+├── ospf-neighbor-count-per-border-leaf.json
+└── ospf-neighbor-state.json
 ```
+
+- Configuration of the first widget: 
+
+![OSPF-Neighbor_Probe_Stage_Widget1](Images/OSPF-Neighbor_Probe_Stage_Widget1.png)
+
+- Configuration of the second widget:
+![OSPF-Neighbor_Probe_Stage_Widget2](Images/OSPF-Neighbor_Probe_Stage_Widget2.png)
+
 
 ### Dashboards
+```
+dashboards
+└── ospf-adjacencies-on-border-leafs.json
+```
 
-```
-├── dashboards
-    ├── 
-    └── 
-```
+![OSPF-Neighbor_Dashboard](Images/OSPF-Neighbor_Dashboard.png)

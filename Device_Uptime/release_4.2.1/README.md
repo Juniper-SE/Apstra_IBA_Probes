@@ -66,18 +66,18 @@ Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
 ## Content
 
 ### Configlets
-- No configlet needed.
+- No configlet  used in this example.
 
 ### Property Sets
-- No Property Sets needed.
+- No Property Sets  used in this example.
 
-### Telemetry Service Definitions 
+### Telemetry Service Schema 
 ```
 ├── telemetry-service-definitions
     └── system-uptime-System_Uptime.json
 ```
 
-![Device-Uptime_Schema_Registry](Images/Device-Uptime_Schema_Registry.png)
+![Device-Uptime_Schema_Registry](Images/Device-Uptime_Service_Schema.png)
 
 ### Telemetry Collectors
 ```
