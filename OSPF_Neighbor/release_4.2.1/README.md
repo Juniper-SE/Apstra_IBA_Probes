@@ -169,6 +169,7 @@ widgets
 ![OSPF-Neighbor_Probe_Stage_Widget1](Images/OSPF-Neighbor_Probe_Stage_Widget1.png)
 
 - Configuration of the second widget:
+  
 ![OSPF-Neighbor_Probe_Stage_Widget2](Images/OSPF-Neighbor_Probe_Stage_Widget2.png)
 
 
