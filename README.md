@@ -2,23 +2,24 @@
 
 To do (WIP Mehdi):
 
-- Interface queue.
+- Interface flap
+    - Grab it from Boris Env.
+
+- Interface Queue.
     - Find a device with running traffic to execute the command on, get the output and document it. 
     - Design the probe. 
 
 - OPSF Neighbor Check
   - Enhance the configlet, leverage Device-Context and add a Property-set
 
-- Interface flap
-    - Grab it from Boris Env.
-
-
 - Examples to add:
   - BFD telemetry (less important, since already documented)
-  - ROCev2
+  - RoCEv2
 
 - Structure of the repo:
   - Clean the content of some json files to focus only on the required elements.
+
+- Add a nice picture in the front Readme (identity of the repo)
 
 ---
 
@@ -38,12 +39,16 @@ To do (WIP Mehdi):
 ---
 
 ## How to use this repository?
-- Git clone the repository: `git clone git@github.com:mab27/Apstra_IBA_Probes.git`
-- Copy the content of `content` folder for the example your are an interested to a locaiton that you mount as a volume of your Apstra-cli utililty. See Apstra-CLI [documentaiton](https://www.juniper.net/documentation/us/en/software/apstra4.2/apstra-user-guide/topics/topic-map/apstra-cli.html) for more details on how ot use docker volume mount.
+- Git clone the repository: `git clone git@github.com:mab27/Apstra_IBA_Probes.git`.
+- Import the different JSON files inthe `content` folder of any given example into your running Apstra instance. You can do that via import buttons in the UI for most items, except the `telemetry-collectors`, or you can use the REST APIs to automating pushing those files. 
+> [!IMPORTANT]
+>  A sequence is to be follosed to ensure the files are correctly accepted by the receiving Apstra instance: (1) **Configlets** --> (2) **Property-Sets** --> (3)**telemetry-service-definitions** --> (4) **telemetry-collectors** --> (5) **probes** --> (6) **widgets** --> and (7) **dashboards**.
+> To make this process easiser you can use the Apstra-Cli utility, a wrappwer around Aprstra's API that delivers safe workflows including taking care of the right sequence during import of JSON payloads.
+- Copy the content of `content` folder for the example your are an interested to a location that you mount as a volume of your Apstra-cli utililty. See Apstra-CLI [documentaiton](https://www.juniper.net/documentation/us/en/software/apstra4.2/apstra-user-guide/topics/topic-map/apstra-cli.html) for more details on how ot use docker volume mount.
 - From the Apstra-cli prompt execute `content import` command by pasing the folder path through the `--folder` argument.
 ![Apstra-cli_Content_Import](_Images/Apstra-cli_Content_Import.png)
 > [!IMPORTANT]
-> Until 4.2.1 included, IBA Widgets and Dashboards JSON definition must respectively include the Probe_ID and the Blueprint_ID (This will change in `5.0.0` to have a more loosely coupled design). Therefore, when importing the content into any `4.2.1` instance you must prior to that edit the JSON files for `/widgets` and `dashboards` to include your Probe ID and Dashboard ID, otherwise this part of the `content import` will fail. 
+> Until 4.2.1 included, IBA Widgets and Dashboards JSON definitions must respectively include the Probe_ID and the Blueprint_ID (This will change in `5.0.0` to have a more loosely coupled design). Therefore, when importing the content into any `4.2.1` instance you must prior to that edit the JSON files for `/widgets` and `dashboards` to include your Probe ID and Dashboard ID, otherwise this part of the `content import` will fail. 
 
 ---
 
