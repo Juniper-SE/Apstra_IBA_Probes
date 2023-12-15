@@ -17,7 +17,10 @@ Protocols started: 2023-10-30 17:32:34 UTC (6w2d 17:59 ago)
 Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
 11:31AM  up 44 days, 18 hrs, 0 users, load averages: 1.30, 0.95, 0.83
 ```
-- Sample XML Output:
+
+<details>
+    <summary>Sample XML Output:</summary>
+
 ```xml
 <rpc-reply xmlns:junos="http://xml.juniper.net/junos/23.2R1.14/junos">
     <system-uptime-information xmlns="http://xml.juniper.net/junos/23.2R0/junos">
@@ -54,6 +57,9 @@ Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
     </cli>
 </rpc-reply>
 ```
+</details>
+  
+<br>
 
 - Fields of interest:
 

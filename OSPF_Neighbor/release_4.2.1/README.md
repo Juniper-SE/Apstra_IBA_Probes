@@ -20,7 +20,9 @@ Address          Interface              State           ID               Pri  De
   Up 1w1d 00:14:44, adjacent 1w1d 00:14:43
   Topology default (ID 0) -> Bidirectional
 ```
-- Sample XML Output:
+<details>
+    <summary>Sample XML Output:</summary>
+
 ```xml
 <rpc-reply xmlns:junos="http://xml.juniper.net/junos/23.2R1.14/junos">
     <ospf-neighbor-information xmlns="http://xml.juniper.net/junos/23.2R0/junos-routing">
@@ -76,6 +78,9 @@ Address          Interface              State           ID               Pri  De
     </cli>
 </rpc-reply>
 ```
+</details>
+  
+<br>
 
 - Fields of interest:
 
@@ -107,14 +112,14 @@ configlets
 telemetry-service-definitions
 └── ospf-neighbor-OSPF_Neighbor.json
 ```
-![OSPF-Neighbor_Probe_Source_Processor](images/OSPF-Neighbor_Service_Schema.png)
+![OSPF-Neighbor_Probe_Source_Processor](Images/OSPF-Neighbor_Service_Schema.png)
 
 ### Telemetry Collectors
 ```
 telemetry-collectors
 └── ospf-neighbor-OSPF_Neighbor.json
 ```
-![OSPF-Neighbor_Collector](images/OSPF-Neighbor_Collector.png)
+![OSPF-Neighbor_Collector](Images/OSPF-Neighbor_Collector.png)
 
 - Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `/ospf-neighbor-information/ospf-neighbor/ospf-neighbor-state` XML path into an integer value which will then be converted back to an enum using the "Value map" processor property of the `Extensible_Service_Data_Collector_Processor` (See probe's configuration).
 
@@ -137,11 +142,11 @@ probes
 ```
 - Source Processor configuration:
 
-![OSPF-Neighbor_Probe_Source_Processor](images/OSPF-Neighbor_Probe_Source_Processor.png)
+![OSPF-Neighbor_Probe_Source_Processor](Images/OSPF-Neighbor_Probe_Source_Processor.png)
 
 - IBA Probe pipeline representaiton:
 
-![OSPF-Neighbor_Probe_Pipeline_Vertical](images/OSPF-Neighbor_Probe_Pipeline_Vertical.png)
+![OSPF-Neighbor_Probe_Pipeline_Vertical](Images/OSPF-Neighbor_Probe_Pipeline_Vertical.png)
 
 - Below a view from the first output stage:
 
