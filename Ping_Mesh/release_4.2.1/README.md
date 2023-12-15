@@ -84,566 +84,572 @@
       Measurement: Negative round trip jitter
         Samples: 242956, Minimum: 1 usec, Maximum: 339985 usec, Average: 2625 usec, Peak to peak: 339984 usec, Stddev: 8976 usec, Sum: 637720941 usec
 ```
-- Sample XML Output:
-```xml
-<rpc-reply xmlns:junos="http://xml.juniper.net/junos/22.2R0/junos">
-    <probe-results>
-        <probe-test-results>
-            <owner>Overlay_Reachability</owner>
-            <test-name>Overlay_red_leaf2</test-name>
-            <target-address>10.0.0.6</target-address>
-            <source-address>10.0.0.5</source-address>
-            <probe-type>icmp-ping</probe-type>
-            <icmp-id>23</icmp-id>
-            <routing-instance-name>red</routing-instance-name>
-            <test-size junos:format="5 probes">
-                5
-            </test-size>
-            <probe-single-results junos:style="verbose">
-                <probe-status>Response received</probe-status>
-                <probe-sent-time junos:seconds="1702661696">
-                    Fri Dec 15 17:34:56 2023
-                </probe-sent-time>
-                <probe-time junos:seconds="1702661696">
-                    Fri Dec 15 17:34:56 2023
-                </probe-time>
-                <hardware-timestamp-status>No hardware timestamps</hardware-timestamp-status>
-                <rtt>2131</rtt>
-                <round-trip-jitter>-207</round-trip-jitter>
-                <round-trip-interarrival-jitter>4817</round-trip-interarrival-jitter>
-            </probe-single-results>
-            <probe-test-current-results>
-                <probe-test-generic-results>
-                    <results-scope>current test</results-scope>
-                    <probes-sent>5</probes-sent>
-                    <probe-responses>5</probe-responses>
-                    <loss-percentage>0.000000</loss-percentage>
-                    <probe-test-rtt>
-                        <probe-summary-results>
-                            <probe-results-type>Round trip time</probe-results-type>
-                            <samples>5</samples>
-                            <min-delay junos:format="1929 usec">
-                                1929
-                            </min-delay>
-                            <max-delay junos:format="42995 usec">
-                                42995
-                            </max-delay>
-                            <avg-delay junos:format="10319 usec">
-                                10319
-                            </avg-delay>
-                            <jitter-delay junos:format="41066 usec">
-                                41066
-                            </jitter-delay>
-                            <stddev-delay junos:format="16339 usec">
-                                16339
-                            </stddev-delay>
-                            <sum-delay junos:format="51593 usec">
-                                51593
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-rtt>
-                    <probe-test-positive-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Positive round trip jitter</probe-results-type>
-                            <samples>2</samples>
-                            <min-delay junos:format="138 usec">
-                                138
-                            </min-delay>
-                            <max-delay junos:format="41066 usec">
-                                41066
-                            </max-delay>
-                            <avg-delay junos:format="20602 usec">
-                                20602
-                            </avg-delay>
-                            <jitter-delay junos:format="40928 usec">
-                                40928
-                            </jitter-delay>
-                            <stddev-delay junos:format="20464 usec">
-                                20464
-                            </stddev-delay>
-                            <sum-delay junos:format="41204 usec">
-                                41204
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-positive-round-trip-jitter>
-                    <probe-test-negative-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Negative round trip jitter</probe-results-type>
-                            <samples>3</samples>
-                            <min-delay junos:format="207 usec">
-                                207
-                            </min-delay>
-                            <max-delay junos:format="40795 usec">
-                                40795
-                            </max-delay>
-                            <avg-delay junos:format="13989 usec">
-                                13989
-                            </avg-delay>
-                            <jitter-delay junos:format="40588 usec">
-                                40588
-                            </jitter-delay>
-                            <stddev-delay junos:format="18957 usec">
-                                18957
-                            </stddev-delay>
-                            <sum-delay junos:format="41967 usec">
-                                41967
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-negative-round-trip-jitter>
-                </probe-test-generic-results>
-            </probe-test-current-results>
-            <probe-last-test-results>
-                <probe-test-generic-results>
-                    <results-scope>last test</results-scope>
-                    <probes-sent>5</probes-sent>
-                    <probe-responses>5</probe-responses>
-                    <loss-percentage>0.000000</loss-percentage>
-                    <probe-last-test-info>
-                        <last-test-time junos:seconds="1702661696">
-                            Fri Dec 15 17:34:56 2023
-                        </last-test-time>
-                    </probe-last-test-info>
-                    <probe-test-rtt>
-                        <probe-summary-results>
-                            <probe-results-type>Round trip time</probe-results-type>
-                            <samples>5</samples>
-                            <min-delay junos:format="1929 usec">
-                                1929
-                            </min-delay>
-                            <max-delay junos:format="42995 usec">
-                                42995
-                            </max-delay>
-                            <avg-delay junos:format="10319 usec">
-                                10319
-                            </avg-delay>
-                            <jitter-delay junos:format="41066 usec">
-                                41066
-                            </jitter-delay>
-                            <stddev-delay junos:format="16339 usec">
-                                16339
-                            </stddev-delay>
-                            <sum-delay junos:format="51593 usec">
-                                51593
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-rtt>
-                    <probe-test-positive-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Positive round trip jitter</probe-results-type>
-                            <samples>2</samples>
-                            <min-delay junos:format="138 usec">
-                                138
-                            </min-delay>
-                            <max-delay junos:format="41066 usec">
-                                41066
-                            </max-delay>
-                            <avg-delay junos:format="20602 usec">
-                                20602
-                            </avg-delay>
-                            <jitter-delay junos:format="40928 usec">
-                                40928
-                            </jitter-delay>
-                            <stddev-delay junos:format="20464 usec">
-                                20464
-                            </stddev-delay>
-                            <sum-delay junos:format="41204 usec">
-                                41204
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-positive-round-trip-jitter>
-                    <probe-test-negative-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Negative round trip jitter</probe-results-type>
-                            <samples>3</samples>
-                            <min-delay junos:format="207 usec">
-                                207
-                            </min-delay>
-                            <max-delay junos:format="40795 usec">
-                                40795
-                            </max-delay>
-                            <avg-delay junos:format="13989 usec">
-                                13989
-                            </avg-delay>
-                            <jitter-delay junos:format="40588 usec">
-                                40588
-                            </jitter-delay>
-                            <stddev-delay junos:format="18957 usec">
-                                18957
-                            </stddev-delay>
-                            <sum-delay junos:format="41967 usec">
-                                41967
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-negative-round-trip-jitter>
-                </probe-test-generic-results>
-            </probe-last-test-results>
-            <probe-test-global-results>
-                <probe-test-generic-results>
-                    <results-scope>all tests</results-scope>
-                    <probes-sent>486505</probes-sent>
-                    <probe-responses>486218</probe-responses>
-                    <loss-percentage>0.058992</loss-percentage>
-                    <probe-test-rtt>
-                        <probe-summary-results>
-                            <probe-results-type>Round trip time</probe-results-type>
-                            <samples>486218</samples>
-                            <min-delay junos:format="1220 usec">
-                                1220
-                            </min-delay>
-                            <max-delay junos:format="327814 usec">
-                                327814
-                            </max-delay>
-                            <avg-delay junos:format="3540 usec">
-                                3540
-                            </avg-delay>
-                            <jitter-delay junos:format="326594 usec">
-                                326594
-                            </jitter-delay>
-                            <stddev-delay junos:format="6988 usec">
-                                6988
-                            </stddev-delay>
-                            <sum-delay junos:format="1721434735 usec">
-                                1721434735
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-rtt>
-                    <probe-test-positive-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Positive round trip jitter</probe-results-type>
-                            <samples>243505</samples>
-                            <min-delay junos:format="0 usec">
-                                0
-                            </min-delay>
-                            <max-delay junos:format="317054 usec">
-                                317054
-                            </max-delay>
-                            <avg-delay junos:format="2568 usec">
-                                2568
-                            </avg-delay>
-                            <jitter-delay junos:format="317054 usec">
-                                317054
-                            </jitter-delay>
-                            <stddev-delay junos:format="9086 usec">
-                                9086
-                            </stddev-delay>
-                            <sum-delay junos:format="625327103 usec">
-                                625327103
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-positive-round-trip-jitter>
-                    <probe-test-negative-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Negative round trip jitter</probe-results-type>
-                            <samples>242712</samples>
-                            <min-delay junos:format="1 usec">
-                                1
-                            </min-delay>
-                            <max-delay junos:format="316191 usec">
-                                316191
-                            </max-delay>
-                            <avg-delay junos:format="2576 usec">
-                                2576
-                            </avg-delay>
-                            <jitter-delay junos:format="316190 usec">
-                                316190
-                            </jitter-delay>
-                            <stddev-delay junos:format="9161 usec">
-                                9161
-                            </stddev-delay>
-                            <sum-delay junos:format="625327171 usec">
-                                625327171
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-negative-round-trip-jitter>
-                </probe-test-generic-results>
-            </probe-test-global-results>
-            <delay-thresh>0</delay-thresh>
-            <jitter-thresh>0</jitter-thresh>
-            <stddev-thresh>0</stddev-thresh>
-            <loss-thresh-total>3</loss-thresh-total>
-            <loss-thresh-succ>1</loss-thresh-succ>
-        </probe-test-results>
-        <probe-test-results>
-            <owner>Overlay_Reachability</owner>
-            <test-name>Overlay_red_leaf3</test-name>
-            <target-address>10.0.0.7</target-address>
-            <source-address>10.0.0.5</source-address>
-            <probe-type>icmp-ping</probe-type>
-            <icmp-id>23</icmp-id>
-            <routing-instance-name>red</routing-instance-name>
-            <test-size junos:format="5 probes">
-                5
-            </test-size>
-            <probe-single-results junos:style="verbose">
-                <probe-status>Response received</probe-status>
-                <probe-sent-time junos:seconds="1702661696">
-                    Fri Dec 15 17:34:56 2023
-                </probe-sent-time>
-                <probe-time junos:seconds="1702661696">
-                    Fri Dec 15 17:34:56 2023
-                </probe-time>
-                <hardware-timestamp-status>No hardware timestamps</hardware-timestamp-status>
-                <rtt>3189</rtt>
-                <round-trip-jitter>375</round-trip-jitter>
-                <round-trip-interarrival-jitter>4810</round-trip-interarrival-jitter>
-            </probe-single-results>
-            <probe-test-current-results>
-                <probe-test-generic-results>
-                    <results-scope>current test</results-scope>
-                    <probes-sent>5</probes-sent>
-                    <probe-responses>5</probe-responses>
-                    <loss-percentage>0.000000</loss-percentage>
-                    <probe-test-rtt>
-                        <probe-summary-results>
-                            <probe-results-type>Round trip time</probe-results-type>
-                            <samples>5</samples>
-                            <min-delay junos:format="2814 usec">
-                                2814
-                            </min-delay>
-                            <max-delay junos:format="42943 usec">
-                                42943
-                            </max-delay>
-                            <avg-delay junos:format="10940 usec">
-                                10940
-                            </avg-delay>
-                            <jitter-delay junos:format="40129 usec">
-                                40129
-                            </jitter-delay>
-                            <stddev-delay junos:format="16002 usec">
-                                16002
-                            </stddev-delay>
-                            <sum-delay junos:format="54701 usec">
-                                54701
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-rtt>
-                    <probe-test-positive-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Positive round trip jitter</probe-results-type>
-                            <samples>3</samples>
-                            <min-delay junos:format="11 usec">
-                                11
-                            </min-delay>
-                            <max-delay junos:format="40077 usec">
-                                40077
-                            </max-delay>
-                            <avg-delay junos:format="13488 usec">
-                                13488
-                            </avg-delay>
-                            <jitter-delay junos:format="40066 usec">
-                                40066
-                            </jitter-delay>
-                            <stddev-delay junos:format="18802 usec">
-                                18802
-                            </stddev-delay>
-                            <sum-delay junos:format="40463 usec">
-                                40463
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-positive-round-trip-jitter>
-                    <probe-test-negative-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Negative round trip jitter</probe-results-type>
-                            <samples>2</samples>
-                            <min-delay junos:format="75 usec">
-                                75
-                            </min-delay>
-                            <max-delay junos:format="40054 usec">
-                                40054
-                            </max-delay>
-                            <avg-delay junos:format="20065 usec">
-                                20065
-                            </avg-delay>
-                            <jitter-delay junos:format="39979 usec">
-                                39979
-                            </jitter-delay>
-                            <stddev-delay junos:format="19990 usec">
-                                19990
-                            </stddev-delay>
-                            <sum-delay junos:format="40129 usec">
-                                40129
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-negative-round-trip-jitter>
-                </probe-test-generic-results>
-            </probe-test-current-results>
-            <probe-last-test-results>
-                <probe-test-generic-results>
-                    <results-scope>last test</results-scope>
-                    <probes-sent>5</probes-sent>
-                    <probe-responses>5</probe-responses>
-                    <loss-percentage>0.000000</loss-percentage>
-                    <probe-last-test-info>
-                        <last-test-time junos:seconds="1702661696">
-                            Fri Dec 15 17:34:56 2023
-                        </last-test-time>
-                    </probe-last-test-info>
-                    <probe-test-rtt>
-                        <probe-summary-results>
-                            <probe-results-type>Round trip time</probe-results-type>
-                            <samples>5</samples>
-                            <min-delay junos:format="2814 usec">
-                                2814
-                            </min-delay>
-                            <max-delay junos:format="42943 usec">
-                                42943
-                            </max-delay>
-                            <avg-delay junos:format="10940 usec">
-                                10940
-                            </avg-delay>
-                            <jitter-delay junos:format="40129 usec">
-                                40129
-                            </jitter-delay>
-                            <stddev-delay junos:format="16002 usec">
-                                16002
-                            </stddev-delay>
-                            <sum-delay junos:format="54701 usec">
-                                54701
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-rtt>
-                    <probe-test-positive-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Positive round trip jitter</probe-results-type>
-                            <samples>3</samples>
-                            <min-delay junos:format="11 usec">
-                                11
-                            </min-delay>
-                            <max-delay junos:format="40077 usec">
-                                40077
-                            </max-delay>
-                            <avg-delay junos:format="13488 usec">
-                                13488
-                            </avg-delay>
-                            <jitter-delay junos:format="40066 usec">
-                                40066
-                            </jitter-delay>
-                            <stddev-delay junos:format="18802 usec">
-                                18802
-                            </stddev-delay>
-                            <sum-delay junos:format="40463 usec">
-                                40463
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-positive-round-trip-jitter>
-                    <probe-test-negative-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Negative round trip jitter</probe-results-type>
-                            <samples>2</samples>
-                            <min-delay junos:format="75 usec">
-                                75
-                            </min-delay>
-                            <max-delay junos:format="40054 usec">
-                                40054
-                            </max-delay>
-                            <avg-delay junos:format="20065 usec">
-                                20065
-                            </avg-delay>
-                            <jitter-delay junos:format="39979 usec">
-                                39979
-                            </jitter-delay>
-                            <stddev-delay junos:format="19990 usec">
-                                19990
-                            </stddev-delay>
-                            <sum-delay junos:format="40129 usec">
-                                40129
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-negative-round-trip-jitter>
-                </probe-test-generic-results>
-            </probe-last-test-results>
-            <probe-test-global-results>
-                <probe-test-generic-results>
-                    <results-scope>all tests</results-scope>
-                    <probes-sent>486520</probes-sent>
-                    <probe-responses>486465</probe-responses>
-                    <loss-percentage>0.011305</loss-percentage>
-                    <probe-test-rtt>
-                        <probe-summary-results>
-                            <probe-results-type>Round trip time</probe-results-type>
-                            <samples>486465</samples>
-                            <min-delay junos:format="1767 usec">
-                                1767
-                            </min-delay>
-                            <max-delay junos:format="347417 usec">
-                                347417
-                            </max-delay>
-                            <avg-delay junos:format="4246 usec">
-                                4246
-                            </avg-delay>
-                            <jitter-delay junos:format="345650 usec">
-                                345650
-                            </jitter-delay>
-                            <stddev-delay junos:format="6848 usec">
-                                6848
-                            </stddev-delay>
-                            <sum-delay junos:format="2065758151 usec">
-                                2065758151
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-rtt>
-                    <probe-test-positive-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Positive round trip jitter</probe-results-type>
-                            <samples>243490</samples>
-                            <min-delay junos:format="0 usec">
-                                0
-                            </min-delay>
-                            <max-delay junos:format="330144 usec">
-                                330144
-                            </max-delay>
-                            <avg-delay junos:format="2619 usec">
-                                2619
-                            </avg-delay>
-                            <jitter-delay junos:format="330144 usec">
-                                330144
-                            </jitter-delay>
-                            <stddev-delay junos:format="8875 usec">
-                                8875
-                            </stddev-delay>
-                            <sum-delay junos:format="637767537 usec">
-                                637767537
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-positive-round-trip-jitter>
-                    <probe-test-negative-round-trip-jitter>
-                        <probe-summary-results>
-                            <probe-results-type>Negative round trip jitter</probe-results-type>
-                            <samples>242974</samples>
-                            <min-delay junos:format="1 usec">
-                                1
-                            </min-delay>
-                            <max-delay junos:format="339985 usec">
-                                339985
-                            </max-delay>
-                            <avg-delay junos:format="2625 usec">
-                                2625
-                            </avg-delay>
-                            <jitter-delay junos:format="339984 usec">
-                                339984
-                            </jitter-delay>
-                            <stddev-delay junos:format="8976 usec">
-                                8976
-                            </stddev-delay>
-                            <sum-delay junos:format="637767127 usec">
-                                637767127
-                            </sum-delay>
-                        </probe-summary-results>
-                    </probe-test-negative-round-trip-jitter>
-                </probe-test-generic-results>
-            </probe-test-global-results>
-            <delay-thresh>0</delay-thresh>
-            <jitter-thresh>0</jitter-thresh>
-            <stddev-thresh>0</stddev-thresh>
-            <loss-thresh-total>3</loss-thresh-total>
-            <loss-thresh-succ>1</loss-thresh-succ>
-        </probe-test-results>
-    </probe-results>
-    <cli>
-        <banner></banner>
-    </cli>
-</rpc-reply>
-```
+
+<details>
+  <summary>XML Output:</summary>
+  
+    ```xml
+    <rpc-reply xmlns:junos="http://xml.juniper.net/junos/22.2R0/junos">
+        <probe-results>
+            <probe-test-results>
+                <owner>Overlay_Reachability</owner>
+                <test-name>Overlay_red_leaf2</test-name>
+                <target-address>10.0.0.6</target-address>
+                <source-address>10.0.0.5</source-address>
+                <probe-type>icmp-ping</probe-type>
+                <icmp-id>23</icmp-id>
+                <routing-instance-name>red</routing-instance-name>
+                <test-size junos:format="5 probes">
+                    5
+                </test-size>
+                <probe-single-results junos:style="verbose">
+                    <probe-status>Response received</probe-status>
+                    <probe-sent-time junos:seconds="1702661696">
+                        Fri Dec 15 17:34:56 2023
+                    </probe-sent-time>
+                    <probe-time junos:seconds="1702661696">
+                        Fri Dec 15 17:34:56 2023
+                    </probe-time>
+                    <hardware-timestamp-status>No hardware timestamps</hardware-timestamp-status>
+                    <rtt>2131</rtt>
+                    <round-trip-jitter>-207</round-trip-jitter>
+                    <round-trip-interarrival-jitter>4817</round-trip-interarrival-jitter>
+                </probe-single-results>
+                <probe-test-current-results>
+                    <probe-test-generic-results>
+                        <results-scope>current test</results-scope>
+                        <probes-sent>5</probes-sent>
+                        <probe-responses>5</probe-responses>
+                        <loss-percentage>0.000000</loss-percentage>
+                        <probe-test-rtt>
+                            <probe-summary-results>
+                                <probe-results-type>Round trip time</probe-results-type>
+                                <samples>5</samples>
+                                <min-delay junos:format="1929 usec">
+                                    1929
+                                </min-delay>
+                                <max-delay junos:format="42995 usec">
+                                    42995
+                                </max-delay>
+                                <avg-delay junos:format="10319 usec">
+                                    10319
+                                </avg-delay>
+                                <jitter-delay junos:format="41066 usec">
+                                    41066
+                                </jitter-delay>
+                                <stddev-delay junos:format="16339 usec">
+                                    16339
+                                </stddev-delay>
+                                <sum-delay junos:format="51593 usec">
+                                    51593
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-rtt>
+                        <probe-test-positive-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Positive round trip jitter</probe-results-type>
+                                <samples>2</samples>
+                                <min-delay junos:format="138 usec">
+                                    138
+                                </min-delay>
+                                <max-delay junos:format="41066 usec">
+                                    41066
+                                </max-delay>
+                                <avg-delay junos:format="20602 usec">
+                                    20602
+                                </avg-delay>
+                                <jitter-delay junos:format="40928 usec">
+                                    40928
+                                </jitter-delay>
+                                <stddev-delay junos:format="20464 usec">
+                                    20464
+                                </stddev-delay>
+                                <sum-delay junos:format="41204 usec">
+                                    41204
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-positive-round-trip-jitter>
+                        <probe-test-negative-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Negative round trip jitter</probe-results-type>
+                                <samples>3</samples>
+                                <min-delay junos:format="207 usec">
+                                    207
+                                </min-delay>
+                                <max-delay junos:format="40795 usec">
+                                    40795
+                                </max-delay>
+                                <avg-delay junos:format="13989 usec">
+                                    13989
+                                </avg-delay>
+                                <jitter-delay junos:format="40588 usec">
+                                    40588
+                                </jitter-delay>
+                                <stddev-delay junos:format="18957 usec">
+                                    18957
+                                </stddev-delay>
+                                <sum-delay junos:format="41967 usec">
+                                    41967
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-negative-round-trip-jitter>
+                    </probe-test-generic-results>
+                </probe-test-current-results>
+                <probe-last-test-results>
+                    <probe-test-generic-results>
+                        <results-scope>last test</results-scope>
+                        <probes-sent>5</probes-sent>
+                        <probe-responses>5</probe-responses>
+                        <loss-percentage>0.000000</loss-percentage>
+                        <probe-last-test-info>
+                            <last-test-time junos:seconds="1702661696">
+                                Fri Dec 15 17:34:56 2023
+                            </last-test-time>
+                        </probe-last-test-info>
+                        <probe-test-rtt>
+                            <probe-summary-results>
+                                <probe-results-type>Round trip time</probe-results-type>
+                                <samples>5</samples>
+                                <min-delay junos:format="1929 usec">
+                                    1929
+                                </min-delay>
+                                <max-delay junos:format="42995 usec">
+                                    42995
+                                </max-delay>
+                                <avg-delay junos:format="10319 usec">
+                                    10319
+                                </avg-delay>
+                                <jitter-delay junos:format="41066 usec">
+                                    41066
+                                </jitter-delay>
+                                <stddev-delay junos:format="16339 usec">
+                                    16339
+                                </stddev-delay>
+                                <sum-delay junos:format="51593 usec">
+                                    51593
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-rtt>
+                        <probe-test-positive-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Positive round trip jitter</probe-results-type>
+                                <samples>2</samples>
+                                <min-delay junos:format="138 usec">
+                                    138
+                                </min-delay>
+                                <max-delay junos:format="41066 usec">
+                                    41066
+                                </max-delay>
+                                <avg-delay junos:format="20602 usec">
+                                    20602
+                                </avg-delay>
+                                <jitter-delay junos:format="40928 usec">
+                                    40928
+                                </jitter-delay>
+                                <stddev-delay junos:format="20464 usec">
+                                    20464
+                                </stddev-delay>
+                                <sum-delay junos:format="41204 usec">
+                                    41204
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-positive-round-trip-jitter>
+                        <probe-test-negative-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Negative round trip jitter</probe-results-type>
+                                <samples>3</samples>
+                                <min-delay junos:format="207 usec">
+                                    207
+                                </min-delay>
+                                <max-delay junos:format="40795 usec">
+                                    40795
+                                </max-delay>
+                                <avg-delay junos:format="13989 usec">
+                                    13989
+                                </avg-delay>
+                                <jitter-delay junos:format="40588 usec">
+                                    40588
+                                </jitter-delay>
+                                <stddev-delay junos:format="18957 usec">
+                                    18957
+                                </stddev-delay>
+                                <sum-delay junos:format="41967 usec">
+                                    41967
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-negative-round-trip-jitter>
+                    </probe-test-generic-results>
+                </probe-last-test-results>
+                <probe-test-global-results>
+                    <probe-test-generic-results>
+                        <results-scope>all tests</results-scope>
+                        <probes-sent>486505</probes-sent>
+                        <probe-responses>486218</probe-responses>
+                        <loss-percentage>0.058992</loss-percentage>
+                        <probe-test-rtt>
+                            <probe-summary-results>
+                                <probe-results-type>Round trip time</probe-results-type>
+                                <samples>486218</samples>
+                                <min-delay junos:format="1220 usec">
+                                    1220
+                                </min-delay>
+                                <max-delay junos:format="327814 usec">
+                                    327814
+                                </max-delay>
+                                <avg-delay junos:format="3540 usec">
+                                    3540
+                                </avg-delay>
+                                <jitter-delay junos:format="326594 usec">
+                                    326594
+                                </jitter-delay>
+                                <stddev-delay junos:format="6988 usec">
+                                    6988
+                                </stddev-delay>
+                                <sum-delay junos:format="1721434735 usec">
+                                    1721434735
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-rtt>
+                        <probe-test-positive-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Positive round trip jitter</probe-results-type>
+                                <samples>243505</samples>
+                                <min-delay junos:format="0 usec">
+                                    0
+                                </min-delay>
+                                <max-delay junos:format="317054 usec">
+                                    317054
+                                </max-delay>
+                                <avg-delay junos:format="2568 usec">
+                                    2568
+                                </avg-delay>
+                                <jitter-delay junos:format="317054 usec">
+                                    317054
+                                </jitter-delay>
+                                <stddev-delay junos:format="9086 usec">
+                                    9086
+                                </stddev-delay>
+                                <sum-delay junos:format="625327103 usec">
+                                    625327103
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-positive-round-trip-jitter>
+                        <probe-test-negative-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Negative round trip jitter</probe-results-type>
+                                <samples>242712</samples>
+                                <min-delay junos:format="1 usec">
+                                    1
+                                </min-delay>
+                                <max-delay junos:format="316191 usec">
+                                    316191
+                                </max-delay>
+                                <avg-delay junos:format="2576 usec">
+                                    2576
+                                </avg-delay>
+                                <jitter-delay junos:format="316190 usec">
+                                    316190
+                                </jitter-delay>
+                                <stddev-delay junos:format="9161 usec">
+                                    9161
+                                </stddev-delay>
+                                <sum-delay junos:format="625327171 usec">
+                                    625327171
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-negative-round-trip-jitter>
+                    </probe-test-generic-results>
+                </probe-test-global-results>
+                <delay-thresh>0</delay-thresh>
+                <jitter-thresh>0</jitter-thresh>
+                <stddev-thresh>0</stddev-thresh>
+                <loss-thresh-total>3</loss-thresh-total>
+                <loss-thresh-succ>1</loss-thresh-succ>
+            </probe-test-results>
+            <probe-test-results>
+                <owner>Overlay_Reachability</owner>
+                <test-name>Overlay_red_leaf3</test-name>
+                <target-address>10.0.0.7</target-address>
+                <source-address>10.0.0.5</source-address>
+                <probe-type>icmp-ping</probe-type>
+                <icmp-id>23</icmp-id>
+                <routing-instance-name>red</routing-instance-name>
+                <test-size junos:format="5 probes">
+                    5
+                </test-size>
+                <probe-single-results junos:style="verbose">
+                    <probe-status>Response received</probe-status>
+                    <probe-sent-time junos:seconds="1702661696">
+                        Fri Dec 15 17:34:56 2023
+                    </probe-sent-time>
+                    <probe-time junos:seconds="1702661696">
+                        Fri Dec 15 17:34:56 2023
+                    </probe-time>
+                    <hardware-timestamp-status>No hardware timestamps</hardware-timestamp-status>
+                    <rtt>3189</rtt>
+                    <round-trip-jitter>375</round-trip-jitter>
+                    <round-trip-interarrival-jitter>4810</round-trip-interarrival-jitter>
+                </probe-single-results>
+                <probe-test-current-results>
+                    <probe-test-generic-results>
+                        <results-scope>current test</results-scope>
+                        <probes-sent>5</probes-sent>
+                        <probe-responses>5</probe-responses>
+                        <loss-percentage>0.000000</loss-percentage>
+                        <probe-test-rtt>
+                            <probe-summary-results>
+                                <probe-results-type>Round trip time</probe-results-type>
+                                <samples>5</samples>
+                                <min-delay junos:format="2814 usec">
+                                    2814
+                                </min-delay>
+                                <max-delay junos:format="42943 usec">
+                                    42943
+                                </max-delay>
+                                <avg-delay junos:format="10940 usec">
+                                    10940
+                                </avg-delay>
+                                <jitter-delay junos:format="40129 usec">
+                                    40129
+                                </jitter-delay>
+                                <stddev-delay junos:format="16002 usec">
+                                    16002
+                                </stddev-delay>
+                                <sum-delay junos:format="54701 usec">
+                                    54701
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-rtt>
+                        <probe-test-positive-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Positive round trip jitter</probe-results-type>
+                                <samples>3</samples>
+                                <min-delay junos:format="11 usec">
+                                    11
+                                </min-delay>
+                                <max-delay junos:format="40077 usec">
+                                    40077
+                                </max-delay>
+                                <avg-delay junos:format="13488 usec">
+                                    13488
+                                </avg-delay>
+                                <jitter-delay junos:format="40066 usec">
+                                    40066
+                                </jitter-delay>
+                                <stddev-delay junos:format="18802 usec">
+                                    18802
+                                </stddev-delay>
+                                <sum-delay junos:format="40463 usec">
+                                    40463
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-positive-round-trip-jitter>
+                        <probe-test-negative-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Negative round trip jitter</probe-results-type>
+                                <samples>2</samples>
+                                <min-delay junos:format="75 usec">
+                                    75
+                                </min-delay>
+                                <max-delay junos:format="40054 usec">
+                                    40054
+                                </max-delay>
+                                <avg-delay junos:format="20065 usec">
+                                    20065
+                                </avg-delay>
+                                <jitter-delay junos:format="39979 usec">
+                                    39979
+                                </jitter-delay>
+                                <stddev-delay junos:format="19990 usec">
+                                    19990
+                                </stddev-delay>
+                                <sum-delay junos:format="40129 usec">
+                                    40129
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-negative-round-trip-jitter>
+                    </probe-test-generic-results>
+                </probe-test-current-results>
+                <probe-last-test-results>
+                    <probe-test-generic-results>
+                        <results-scope>last test</results-scope>
+                        <probes-sent>5</probes-sent>
+                        <probe-responses>5</probe-responses>
+                        <loss-percentage>0.000000</loss-percentage>
+                        <probe-last-test-info>
+                            <last-test-time junos:seconds="1702661696">
+                                Fri Dec 15 17:34:56 2023
+                            </last-test-time>
+                        </probe-last-test-info>
+                        <probe-test-rtt>
+                            <probe-summary-results>
+                                <probe-results-type>Round trip time</probe-results-type>
+                                <samples>5</samples>
+                                <min-delay junos:format="2814 usec">
+                                    2814
+                                </min-delay>
+                                <max-delay junos:format="42943 usec">
+                                    42943
+                                </max-delay>
+                                <avg-delay junos:format="10940 usec">
+                                    10940
+                                </avg-delay>
+                                <jitter-delay junos:format="40129 usec">
+                                    40129
+                                </jitter-delay>
+                                <stddev-delay junos:format="16002 usec">
+                                    16002
+                                </stddev-delay>
+                                <sum-delay junos:format="54701 usec">
+                                    54701
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-rtt>
+                        <probe-test-positive-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Positive round trip jitter</probe-results-type>
+                                <samples>3</samples>
+                                <min-delay junos:format="11 usec">
+                                    11
+                                </min-delay>
+                                <max-delay junos:format="40077 usec">
+                                    40077
+                                </max-delay>
+                                <avg-delay junos:format="13488 usec">
+                                    13488
+                                </avg-delay>
+                                <jitter-delay junos:format="40066 usec">
+                                    40066
+                                </jitter-delay>
+                                <stddev-delay junos:format="18802 usec">
+                                    18802
+                                </stddev-delay>
+                                <sum-delay junos:format="40463 usec">
+                                    40463
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-positive-round-trip-jitter>
+                        <probe-test-negative-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Negative round trip jitter</probe-results-type>
+                                <samples>2</samples>
+                                <min-delay junos:format="75 usec">
+                                    75
+                                </min-delay>
+                                <max-delay junos:format="40054 usec">
+                                    40054
+                                </max-delay>
+                                <avg-delay junos:format="20065 usec">
+                                    20065
+                                </avg-delay>
+                                <jitter-delay junos:format="39979 usec">
+                                    39979
+                                </jitter-delay>
+                                <stddev-delay junos:format="19990 usec">
+                                    19990
+                                </stddev-delay>
+                                <sum-delay junos:format="40129 usec">
+                                    40129
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-negative-round-trip-jitter>
+                    </probe-test-generic-results>
+                </probe-last-test-results>
+                <probe-test-global-results>
+                    <probe-test-generic-results>
+                        <results-scope>all tests</results-scope>
+                        <probes-sent>486520</probes-sent>
+                        <probe-responses>486465</probe-responses>
+                        <loss-percentage>0.011305</loss-percentage>
+                        <probe-test-rtt>
+                            <probe-summary-results>
+                                <probe-results-type>Round trip time</probe-results-type>
+                                <samples>486465</samples>
+                                <min-delay junos:format="1767 usec">
+                                    1767
+                                </min-delay>
+                                <max-delay junos:format="347417 usec">
+                                    347417
+                                </max-delay>
+                                <avg-delay junos:format="4246 usec">
+                                    4246
+                                </avg-delay>
+                                <jitter-delay junos:format="345650 usec">
+                                    345650
+                                </jitter-delay>
+                                <stddev-delay junos:format="6848 usec">
+                                    6848
+                                </stddev-delay>
+                                <sum-delay junos:format="2065758151 usec">
+                                    2065758151
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-rtt>
+                        <probe-test-positive-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Positive round trip jitter</probe-results-type>
+                                <samples>243490</samples>
+                                <min-delay junos:format="0 usec">
+                                    0
+                                </min-delay>
+                                <max-delay junos:format="330144 usec">
+                                    330144
+                                </max-delay>
+                                <avg-delay junos:format="2619 usec">
+                                    2619
+                                </avg-delay>
+                                <jitter-delay junos:format="330144 usec">
+                                    330144
+                                </jitter-delay>
+                                <stddev-delay junos:format="8875 usec">
+                                    8875
+                                </stddev-delay>
+                                <sum-delay junos:format="637767537 usec">
+                                    637767537
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-positive-round-trip-jitter>
+                        <probe-test-negative-round-trip-jitter>
+                            <probe-summary-results>
+                                <probe-results-type>Negative round trip jitter</probe-results-type>
+                                <samples>242974</samples>
+                                <min-delay junos:format="1 usec">
+                                    1
+                                </min-delay>
+                                <max-delay junos:format="339985 usec">
+                                    339985
+                                </max-delay>
+                                <avg-delay junos:format="2625 usec">
+                                    2625
+                                </avg-delay>
+                                <jitter-delay junos:format="339984 usec">
+                                    339984
+                                </jitter-delay>
+                                <stddev-delay junos:format="8976 usec">
+                                    8976
+                                </stddev-delay>
+                                <sum-delay junos:format="637767127 usec">
+                                    637767127
+                                </sum-delay>
+                            </probe-summary-results>
+                        </probe-test-negative-round-trip-jitter>
+                    </probe-test-generic-results>
+                </probe-test-global-results>
+                <delay-thresh>0</delay-thresh>
+                <jitter-thresh>0</jitter-thresh>
+                <stddev-thresh>0</stddev-thresh>
+                <loss-thresh-total>3</loss-thresh-total>
+                <loss-thresh-succ>1</loss-thresh-succ>
+            </probe-test-results>
+        </probe-results>
+        <cli>
+            <banner></banner>
+        </cli>
+    </rpc-reply>
+    ```
+</details>
+
+
 
 - Fields of interest:
 
@@ -664,12 +670,15 @@
     └── rpm-ping.json
 ```
 - Configlet section for `Underlay Reachability` RPM probe: 
+
 ![Ping-Mesh_Configlet_Underlay-Reachability](images/Ping-Mesh_Configlet_Underlay-Reachability.png)
 
 - Configlet section for `Overlay Reachability` RPM probe: 
+
 ![Ping-Mesh_Configlet_Overlay-Reachability](images/Ping-Mesh_Configlet_Overlay-Reachability.png)
 
 - Configlet section for `External Reachability` RPM probe: 
+
 ![Ping-Mesh_Configlet_External-Reachability](images/Ping-Mesh_Configlet_External-Reachability.png)
 
 ### Property Sets
