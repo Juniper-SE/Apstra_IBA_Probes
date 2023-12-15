@@ -1,13 +1,20 @@
 # Custom IBA Probes in Apstra
 
 To do (WIP Mehdi):
-- Examples to add:
-  - Interface queue. 
+
+- Interface queue.
     - Find a device with running traffic to execute the command on, get the output and document it. 
     - Design the probe. 
-  - Interface flap
+
+
+- Interface flap
     - Grab it from Boris Env.
+
+
+- Examples to add:
   - BFD telemetry (less important, since already documented)
+  - ROCev2
+
 - Structure of the repo:
   - Clean the content of some json files to focus only on the required elements.
 
@@ -20,11 +27,11 @@ To do (WIP Mehdi):
 ---
 
 ## Content of this repository
-- ![Ping Mesh](Ping_Mesh/release_4.2.1/README.md) 
-- ![Device Uptime](Device_Uptime/release_4.2.1/README.md) 
-- ![OSPF Neighbor](OSPF_Neighbor/release_4.2.1/README.md)
-- ![Interface_Queue](Interface_Queue/release_4.2.1/README.md)
-- ![Interface_Flap](Interface_Flap/release_4.2.1/README.md)
+- [Ping Mesh](Ping_Mesh/release_4.2.1/README.md) 
+- [Device Uptime](Device_Uptime/release_4.2.1/README.md) 
+- [OSPF Neighbor](OSPF_Neighbor/release_4.2.1/README.md)
+- [Interface_Queue](Interface_Queue/release_4.2.1/README.md)
+- [Interface_Flap](Interface_Flap/release_4.2.1/README.md)
 
 ---
 
@@ -36,19 +43,18 @@ To do (WIP Mehdi):
 > [!IMPORTANT]
 > Until 4.2.1 included, IBA Widgets and Dashboards JSON definition must respectively include the Probe_ID and the Blueprint_ID (This will change in `5.0.0` to have a more loosely coupled design). Therefore, when importing the content into any `4.2.1` instance you must prior to that edit the JSON files for `/widgets` and `dashboards` to include your Probe ID and Dashboard ID, otherwise this part of the `content import` will fail. 
 
+---
+
 ## How to contribute to this repository?
 - Git clone the repository: `git clone git@github.com:mab27/Apstra_IBA_Probes.git`
 - Move to the repository `cd Apstra_IBA_Probes` and create a new branch: `git checkout -b <Your-Branch-Name>`.
 > [!TIP]
 > Name the branch after the change you are planning to do to facilitate its identification locally, when you work on it, and remotely when you later pusch it for collaboration and review. For example if you are creating a new probe, your branch name could be something like "Monitor metric foo on external links". If you are adding another release variant to existing probe because you want to benefit from the new feature enhancements, your branch name could be "release_5.0.0 for Ping Mesh".
-- Create the folder structure for your new Probe: `mkdir -p IBA_Probe_Example/release_X.Y.Z/{CLI_Command,Content/{configlets,property-sets,telemetry-service-definitions,telemetry-collectors,probes,widgets,dashboards},Images} && touch IBA_Probe_Example/README.md && touch IBA_Probe_Example/CLI_Command/README.md && touch IBA_Probe_Example/CLI_Command/xml_command_output.xml`. It is important to follow this structure to streamline collaboraiton and testing. 
+- Create the folder structure for your new Probe: `mkdir -p IBA_Probe_Example/release_X.Y.Z/{Content/{configlets,property-sets,telemetry-service-definitions,telemetry-collectors,probes,widgets,dashboards},Images} && touch IBA_Probe_Example/README.md`. It is important to follow this structure to streamline collaboraiton and testing. 
   - This will generate the following hierarchy:
 ```
 ├── IBA_Probe_Example
 │   └── release_X.Y.Z
-│       ├── CLI_Command
-│       │   ├── README.md
-│       │   └── xml_command_output.xml
 │       ├── Content
 │       │   ├── configlets
 │       │   ├── dashboards

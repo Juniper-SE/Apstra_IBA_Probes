@@ -19,7 +19,7 @@
                     "Clock_Source": "Clock_Source",
                     "Uptime": "System_Uptime"
                 },
-                "value": "int(System_Uptime.split('w')[0]) * 10080 + int(System_Uptime.split('w')[-1].split('d')[0]) * 1440 + int(System_Uptime.split()[-1].split(':')[0]) * 60 + int(System_Uptime.split()[-1].split(':')[1]) if 'w' in System_Uptime else int(System_Uptime.split('d')[0]) * 1440 + int(System_Uptime.split()[-1].split(':')[0]) * 60 + int(System_Uptime.split()[-1].split(':')[1]) if 'd' in System_Uptime else int(System_Uptime.split(':')[0]) * 60 + int(System_Uptime.split(':')[1])",
+                "value": "int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080 + int(re_search(r'(\d+)(?=\sd)', System_Uptime) or 0) * 1440 + int(re_search(r'(\d+)(?=:)', System_Uptime.split()[-1]) or 0) * 60 + int(re_search(r'(?<=:)(\d+)', System_Uptime.split()[-1]) or 0) if 'w' in System_Uptime or 'd' in System_Uptime or ':' in System_Uptime else int(re_search(r'(\d+)(?=\smins)', System_Uptime) or 0)",
                 "filter": ""
             },
             "relaxed_schema_validation": true

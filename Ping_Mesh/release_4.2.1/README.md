@@ -1,6 +1,9 @@
 # Ping Mesh
 
-## Description
+## Description of the use-case
+
+- xxx
+- xxx
 
 ![Ping-Mesh_Dashboard_External-to-Fabric](/images/Ping-Mesh_Dashboard_External-to-Fabric.png)
 
@@ -10,6 +13,26 @@
 - Definition of three Telemetry services, each one collecting the results of a specific RPM probe: `Underlay_Reachbility`, `Overlay_Reachability` and `External_Reachability`.
 - Creation of an IBA probe running those three services. Sepecific Graph Queries used in the source processor in order to match the services significant keys as well as defining additionnal keys to enrich the probe output with Graph context. Adding analytics processors (`Range`) to the probe to raise anomalies when measurements exceeds a defined threshold (expressed in seconds).
 -  Different Widgets extracting different stages views from the IBA Probe. Widgets are grouped in Dashboards for easier consumption by the operator. 
+
+## Identification of the source data (raw data)
+
+- CLI Command: `show xxx` - [Junos documentation page](). 
+- Sample Text Output:
+```
+xxx
+```
+- Sample XML Output:
+```xml
+xml
+```
+
+- Fields of interest:
+
+| Field | Information |
+| --- | --- |
+| `Field_1` | Field_1. |
+| `Field_2` | Field_2. |
+
 
 ## Content
 
