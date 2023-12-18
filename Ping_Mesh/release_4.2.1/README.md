@@ -1,11 +1,15 @@
 # Ping Mesh
 
+<br>
+
 ## Description of the use-case
 
 - Using a Configlet to enable Junos RPM probes funtionality, executing continuous PINGs to verify end-to-end reachability both intra-fabric (Underlay and Overlay) and external to the fabric (facing the External routers).
 - Definition of three Telemetry services, each one collecting the results of a specific RPM probe: `Underlay_Reachbility`, `Overlay_Reachability` and `External_Reachability`.
 - Creation of an IBA probe running those three services. Sepecific Graph Queries used in the source processor in order to match the services significant keys as well as defining additionnal keys to enrich the probe output with Graph context. Adding analytics processors (`Range`) to the probe to raise anomalies when measurements exceeds a defined threshold (expressed in seconds).
 -  Different Widgets extracting different stages views from the IBA Probe. Widgets are grouped in Dashboards for easier consumption by the operator. 
+
+<br>
 
 ## Identification of the source data (raw data)
 
@@ -660,6 +664,7 @@
 | `Target address` | Destination address used by the RPM probe. |
 | `Average Delay Time` | Average measurement Round trip time. Note this is a part of the fields dependant on the RPM Probe time. It appears for any RPM Probe of type ICMP, under the `probe-summary-results` path. |
 
+<br>
 
 ## Content
 

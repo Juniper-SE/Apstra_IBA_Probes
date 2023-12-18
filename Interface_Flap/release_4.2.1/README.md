@@ -1,9 +1,13 @@
 # Interface Flap
 
+<br>
+
 ## Description of the use-case
 
 - xxx
 - xxx
+
+<br>
 
 ## Identification of the source data (raw data)
 - CLI Command: `show interface extensive` - [Junos documentation page](https://www.juniper.net/documentation/us/en/software/junos/interfaces-ethernet-switches/topics/ref/command/show-interfaces-extensive.html). 
@@ -611,6 +615,7 @@ Physical interface: et-0/0/24, Enabled, Physical link is Up
 > [!TIP]
 > In this use-case we will consider an interface flap as a carrier transitions count of 2.
 
+<br>
 
 ## Content
 

@@ -1,9 +1,12 @@
 # Device Uptime
+<br>
 
 ## Description of the use-case
 
 - Collect device's system uptime for all devices in my blueprint, raise an anomaly if the device rebooted in the last 1h, one day, or one week. 
 - Store the historical result so I can see when the anomalies occurred.
+
+<br>
 
 ## Identification of the source data (raw data)
 
@@ -68,6 +71,7 @@ Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
 | `Time Source` | Time source that the system is locked to. Possible values are `LOCAL CLOCK`, `NTP CLOCK`. |
 | `System booted` | Time system was last booted. |
 
+<br>
 
 ## Content
 
