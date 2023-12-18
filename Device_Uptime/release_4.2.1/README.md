@@ -147,3 +147,4 @@ int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080
 ├── dashboards
     └── system-rebooted-in-last-history.json
 ```
+![Device-Uptime_Dashboard](Images/Device-Uptime_Dashboard.png)
