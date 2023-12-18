@@ -1,10 +1,13 @@
 # Custom IBA Probes in Apstra
+<br>
+<br>
 
 ![Homepage_logo](_Images/Homepage_logo.png) 
 
 <!-- To do (WIP Mehdi):
 
 - Interface flap
+    - Add Description of the use-case
     - Add the widgets payloads
     - Explain why Static stages vs Dynamic (graph-driven telemery ingestion, more control)
 
@@ -22,23 +25,27 @@
 
 - Examples to add:
   - BFD telemetry (less important, since already documented)
-  - RoCEv2
+  - RoCEv2 -->
 
----
+<br>
+<br>
 
 ## Goals of this repository
 - Learn thourgh practical examples how to create a custom IBA probe, from the definition of a Custom Telemetry Collector to using it in a Custom IBA probe.
 - The examples in this repository are provided for educational purposes and are expected to be tested and customised to your specific needs before deploying them in your production blueprints.
 
+<br>
 ---
 
 ## Content of this repository
+The following examples of IBA probes are listed in this repository.
 - [Ping Mesh](Ping_Mesh/release_4.2.1/README.md) 
 - [Device Uptime](Device_Uptime/release_4.2.1/README.md) 
 - [OSPF Neighbor](OSPF_Neighbor/release_4.2.1/README.md)
-- [Interface_Queue](Interface_Queue/release_4.2.1/README.md)
 - [Interface_Flap](Interface_Flap/release_4.2.1/README.md)
+- [Interface_Queue](Interface_Queue/release_4.2.1/README.md)
 
+<br>
 ---
 
 ## How to use this repository?
@@ -53,6 +60,7 @@
 > [!IMPORTANT]
 > Until 4.2.1 included, IBA Widgets and Dashboards JSON definitions must respectively include the Probe_ID and the Blueprint_ID (This will change in `5.0.0` to have a more loosely coupled design). Therefore, when importing the content into any `4.2.1` instance you must prior to that edit the JSON files for `/widgets` and `dashboards` to include your Probe ID and Dashboard ID, otherwise this part of the `content import` will fail. 
 
+<br>
 ---
 
 ## How to contribute to this repository?
@@ -84,6 +92,7 @@
 > Note that this repositorty `main` branch is set as a protected branch. Hence contributions cannot be ade directly against this branch but rather through merging of feature branches after peer reviews. This allows to scale the collaboraiton on this repository.
 - Request a Pull Request and Merge Request.
 
+<br>
 ---
 
 ## High-Level Architecture of IBA
