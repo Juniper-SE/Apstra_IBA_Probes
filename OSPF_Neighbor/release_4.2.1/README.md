@@ -7,7 +7,7 @@
 
 ## Identification of the source data (raw data)
 
-- CLI Command: `show ospf neighbor instance OVERLAY extensive` - [Junos documentation page](https://www.juniper.net/documentation/us/en/software/junos/ospf/topics/ref/command/show-ospf-ospf3-neighbor.html). 
+- CLI Command: `show ospf neighbor instance <routing-instance-name> extensive` - [Junos documentation page](https://www.juniper.net/documentation/us/en/software/junos/ospf/topics/ref/command/show-ospf-ospf3-neighbor.html). 
 - Sample Text Output:
 ```
 Address          Interface              State           ID               Pri  Dead

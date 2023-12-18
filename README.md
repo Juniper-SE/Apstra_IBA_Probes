@@ -1,9 +1,12 @@
 # Custom IBA Probes in Apstra
 
-To do (WIP Mehdi):
+![Homepage_logo](_Images/Homepage_logo.png) 
+
+<!-- To do (WIP Mehdi):
 
 - Interface flap
-    - Grab it from Boris Env.
+    - Add the widgets payloads
+    - Explain why Static stages vs Dynamic (graph-driven telemery ingestion, more control)
 
 - Interface Queue.
     - Find a device with running traffic to execute the command on, get the output and document it. 
@@ -12,14 +15,14 @@ To do (WIP Mehdi):
 - OPSF Neighbor Check
   - Enhance the configlet, leverage Device-Context and add a Property-set
 
-- Examples to add:
-  - BFD telemetry (less important, since already documented)
-  - RoCEv2
+- Re-size the images for better readability
 
 - Structure of the repo:
   - Clean the content of some json files to focus only on the required elements.
 
-- Add a nice picture in the front Readme (identity of the repo)
+- Examples to add:
+  - BFD telemetry (less important, since already documented)
+  - RoCEv2
 
 ---
 
