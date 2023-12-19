@@ -4,6 +4,16 @@
 
 ![Homepage_logo](_Images/Homepage_logo.png) 
 
+
+Table of Contents:
+- [Custom IBA Probes in Apstra](#custom-iba-probes-in-apstra)
+  - [Goals of this repository](#goals-of-this-repository)
+  - [Content of this repository](#content-of-this-repository)
+  - [How to use this repository?](#how-to-use-this-repository)
+  - [How to contribute to this repository?](#how-to-contribute-to-this-repository)
+  - [High-Level Architecture of IBA (WIP)](#high-level-architecture-of-iba-wip)
+    - [Custom Telemetry Collectors](#custom-telemetry-collectors)
+
 <!-- To do (WIP Mehdi):
 
 - Interface flap
@@ -16,14 +26,13 @@
 - OPSF Neighbor Check
   - Enhance the configlet, leverage Device-Context and add a Property-set
 
-- Structure of the repo:
-  - Clean the content of some json files to focus only on the required elements.
+- Githib actions:
+  - Investigate automation. Example check that .json files aare proper JSON, check that Images directory only contains .png, check that a folder is in a gi ven sturcture.
 
 - Examples to add:
   - BFD telemetry (less important, since already documented)
   - RoCEv2  We should have a public roadmap -->
 
-<br>
 <br>
 
 ## Goals of this repository
@@ -87,9 +96,32 @@ The following examples of IBA probes are listed in this repository.
 
 <br>
 
-## High-Level Architecture of IBA
+## High-Level Architecture of IBA (WIP)
 Explain the notion of Probe, Collector, Grpah Query ..
 
-### Key elements of Custom Telemetry Collectors
-  - High-level pointers to Custom Collectors such as the notion of OS Variant etc ... 
-(Pick slides from the Tech-Fest)
+### Custom Telemetry Collectors
+
+- Selection of the OS Variant (in the `Platform` tab of Custom Collector):
+  - Junos:
+
+| OS Variant | Models |
+| --- | --- |
+| `junos-qfx` | QFX5110<br>QFX5120<br>QFX5210<br>QFX10k<br>EX4650 |
+| `junos-ex` | EX4400 |
+| `junos` | vJunos-switch |
+
+<br>
+
+  - Junos-Evovled:
+
+| OS Variant | Models |
+| --- | --- |
+| `qfx-ms-fixed` | QFX5130<br>QFX5700<br>QFX5220 |
+| `acx-f` | ACX7100<br>ACX7024 |
+| `ptx1k` | PTX10001-36MR |
+| `ptx` | PTX10004 / 8 / 16 |
+|  | vJunosEvolved |
+
+
+> [!IMPORTANT]
+> If no 'Junos-Evo' collector definition is defined, the collector will fallback to corresponding 'Junos' definition.”
