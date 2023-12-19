@@ -1,4 +1,18 @@
 # Device Uptime
+
+Table of Contents:
+- [Device Uptime](#device-uptime)
+  - [Description of the use-case](#description-of-the-use-case)
+  - [Identification of the source data (raw data)](#identification-of-the-source-data-raw-data)
+  - [Content](#content)
+    - [Configlets](#configlets)
+    - [Property Sets](#property-sets)
+    - [Telemetry Service Schema](#telemetry-service-schema)
+    - [Telemetry Collectors](#telemetry-collectors)
+    - [Probes](#probes)
+    - [Widgets](#widgets)
+    - [Dashboards](#dashboards)
+
 <br>
 
 ## Description of the use-case
@@ -78,8 +92,12 @@ Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
 ### Configlets
 - No configlet  used in this example.
 
+<br>
+
 ### Property Sets
 - No Property Sets  used in this example.
+
+<br>
 
 ### Telemetry Service Schema 
 ```
@@ -87,7 +105,9 @@ Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
     └── system-uptime-System_Uptime.json
 ```
 
-![Device-Uptime_Schema_Registry](Images/Device-Uptime_Service_Schema.png)
+<img src="Images/Device-Uptime_Service_Schema.png" width="70%" height="70%">
+
+<br>
 
 ### Telemetry Collectors
 ```
@@ -112,6 +132,8 @@ int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080
   - Handling `"xx mins"`Format: If none of the characters `('w', 'd', ':')` are present, the expression assumes the format might be a simple minute representation like `"xx mins"`. It then searches for a number followed by `" mins"` using `re_search(r'(\d+)(?=\smins)', System_Uptime)` and takes this value as the total minutes.
   - **Default Case**: In all these operations, if a particular time component (**weeks**, **days**, **hours**, **minutes**) is not found, or 0 is used to ensure that the expression defaults to `0` instead of causing an error.
 
+<br>
+
 ### Probes
 ```
 ├── probes
@@ -124,11 +146,15 @@ int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080
 - IBA Probe pipeline representaiton:
   - To implement the anomaly raising logic for reboot in last **1h** / **1 day** / **1 week** without duplicating the anomalies (i.e having a device which rebooted 45mn ago to appear in both 1h and 1day) we will configure the Range check processors in secitons: one section for uptime <= `60` mn, a second section for uptime > `60` mn and <= `1440` mn (total minutes count for a **day**) and a third seciton  for uptime > `1440` mn and <= `10080` mn (total minutes count for a **week**).
 
-![Device-Uptime_Probe_Expanded](Images/Device-Uptime_Probe_Vertical.png)
+<img src="Images/Device-Uptime_Probe_Vertical.png" width="30%" height="30%">
+
+<br>
 
 - IBA Probe stage view:
 
 ![Device-Uptime_Probe_Stage](Images/Device-Uptime_Probe_Stage.png)
+
+<br>
 
 ### Widgets
 ```
@@ -138,8 +164,9 @@ int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080
     └── system-rebooted-in-last-week.json
 ```
 
-![Device-Uptime_Probe_Stage_Widget_1](Images/Device-Uptime_Probe_Stage_Widget_1.png)
+<img src="Images/Device-Uptime_Probe_Stage_Widget_1.png" width="50%" height="50%">
 
+<br>
 
 ### Dashboards
 

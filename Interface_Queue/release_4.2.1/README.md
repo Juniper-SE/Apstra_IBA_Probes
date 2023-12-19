@@ -1,5 +1,18 @@
 # Interface Queue
 
+Table of Contents:
+- [Interface Queue](#interface-queue)
+  - [Description of the use-case](#description-of-the-use-case)
+  - [Identification of the source data (raw data)](#identification-of-the-source-data-raw-data)
+  - [Content](#content)
+    - [Configlets](#configlets)
+    - [Property Sets](#property-sets)
+    - [Telemetry Service Schema](#telemetry-service-schema)
+    - [Telemetry Collectors](#telemetry-collectors)
+    - [Probes](#probes)
+    - [Widgets](#widgets)
+    - [Dashboards](#dashboards)
+
 <br>
 
 ## Description of the use-case

@@ -1,9 +1,26 @@
 # OPSF Neighbor Check
 
+
+Table of Contents:
+- [OPSF Neighbor Check](#opsf-neighbor-check)
+  - [Description of the use-case](#description-of-the-use-case)
+  - [Identification of the source data (raw data)](#identification-of-the-source-data-raw-data)
+  - [Content](#content)
+    - [Configlets](#configlets)
+    - [Property Sets](#property-sets)
+    - [Telemetry Service Schema](#telemetry-service-schema)
+    - [Telemetry Collectors](#telemetry-collectors)
+    - [Probes](#probes)
+    - [Widgets](#widgets)
+    - [Dashboards](#dashboards)
+
+<br>
+
 ## Description of the use-case
 
-- xxx
-- xxx
+- Colect OSPF adjacencies and raise an anomaly if you have less than two OSPF neighbour in Full state on each Border-Leaf.
+
+<br>
 
 ## Identification of the source data (raw data)
 
@@ -96,6 +113,8 @@ Address          Interface              State           ID               Pri  De
 > [!IMPORTANT]
 > We must specfiy the routing-instance (VRF) in the CLI command, otherwise the command is executed only on the default routing instance and will return an `OSPF instance is not running` message if no OSPF is enabled on that instance.
 
+<br>
+
 ## Content
 
 ### Configlets
@@ -104,15 +123,25 @@ configlets
 └── ospf-configlet.json
 ```
 
+> [!IMPORTANT]
+> This configilet is provided only as an example. Customise to your own environement and always run Commit-Check from the Uncommitted tab prior to a blueprint commit.
+
+
+<br>
+
 ### Property Sets
 - No Property Sets used in this example.
+
+<br>
 
 ### Telemetry Service Schema 
 ```
 telemetry-service-definitions
 └── ospf-neighbor-OSPF_Neighbor.json
 ```
-![OSPF-Neighbor_Probe_Source_Processor](Images/OSPF-Neighbor_Service_Schema.png)
+<img src="Images/OSPF-Neighbor_Service_Schema.png" width="70%" height="70%">
+
+<br>
 
 ### Telemetry Collectors
 ```
@@ -135,31 +164,44 @@ else 1 if Neighbor_State == "Full"
 else None
 ```
 
+<br>
+
 ### Probes
 ```
 probes
 └── ospf-neighbour-check.json
 ```
 - Source Processor configuration:
+  - Considering the keys defined in the `OSPF_neighbor` service cannot be derived from the graph, we need to define the probe using a **Dynamic Stages** approach. With that, the IBA processors series, i.e rows in the output stage, are controlled by the collector instead of being controlled by the graph query like for **Static Stages** approach. The count of those series dynamically reacts to the collector's output. It is only required to map the system_ID to a to a graph node's property. Other collectors key do not requires any mapping to the Graph. To define the probe as  **Dynamic Stages** one we will choose a data type of `Dynamic Discrete State`, because our service value data type is `integer`.
 
-![OSPF-Neighbor_Probe_Source_Processor](Images/OSPF-Neighbor_Probe_Source_Processor.png)
+<img src="Images/OSPF-Neighbor_Probe_Source_Processor.png" width="80%" height="80%">
+
+<br>
 
 - IBA Probe pipeline representaiton:
 
-![OSPF-Neighbor_Probe_Pipeline_Vertical](Images/OSPF-Neighbor_Probe_Pipeline_Vertical.png)
+<img src="Images/OSPF-Neighbor_Probe_Pipeline_Vertical.png" width="30%" height="30%">
+
+
+<br>
 
 - Below a view from the first output stage:
 
 ![OSPF-Neighbor_Probe_Stage_1](Images/OSPF-Neighbor_Probe_Stage_1.png)
 
+<br>
+
 - Below a view from the second output stage:
 
 ![OSPF-Neighbor_Probe_Stage_2](Images/OSPF-Neighbor_Probe_Stage_2.png)
+
+<br>
 
 - Below a view from the third output stage:
 
 ![OSPF-Neighbor_Probe_Stage_3](Images/OSPF-Neighbor_Probe_Stage_3.png)
 
+<br>
 
 
 ### Widgets
@@ -169,14 +211,19 @@ widgets
 └── ospf-neighbor-state.json
 ```
 
+<br>
+
 - Configuration of the first widget: 
 
-![OSPF-Neighbor_Probe_Stage_Widget1](Images/OSPF-Neighbor_Probe_Stage_Widget1.png)
+<img src="Images/OSPF-Neighbor_Probe_Stage_Widget1.png" width="50%" height="50%">
+
+<br>
 
 - Configuration of the second widget:
   
-![OSPF-Neighbor_Probe_Stage_Widget2](Images/OSPF-Neighbor_Probe_Stage_Widget2.png)
+<img src="Images/OSPF-Neighbor_Probe_Stage_Widget2.png" width="50%" height="50%">
 
+<br>
 
 ### Dashboards
 ```

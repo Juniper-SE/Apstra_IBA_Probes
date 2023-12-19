@@ -1,11 +1,24 @@
 # Interface Flap
 
+Table of Contents:
+- [Interface Flap](#interface-flap)
+  - [Description of the use-case](#description-of-the-use-case)
+  - [Identification of the source data (raw data)](#identification-of-the-source-data-raw-data)
+  - [Content](#content)
+    - [Configlets](#configlets)
+    - [Property Sets](#property-sets)
+    - [Telemetry Service Schema](#telemetry-service-schema)
+    - [Telemetry Collectors](#telemetry-collectors)
+    - [Probes](#probes)
+    - [Widgets](#widgets)
+    - [Dashboards](#dashboards)
+
 <br>
 
 ## Description of the use-case
 
-- xxx
-- xxx
+- Monitor interfaces flaps and raise anomalies if an interface flaps more than "replace-with-your-expectaitons" times betwen two collection intervals.
+- For the context, there is a predefined probe called `Interface Flaps` wich consumes `interface` built-in telemetry service. However that probe has a known issue whereby it can in some situaitons miss reporting some flaps. That known issue will be addressed by moving the `interface` service form poll-based to a push-based approach with gNMI. Meanwhile, the probe described in this page is an example at addressing the issue by staying on a poll-based approach but using a different CLI command.
 
 <br>
 
@@ -58,7 +71,7 @@ Physical interface: pfe-0/0/0, Enabled, Physical link is Up
   Output errors:
     Carrier transitions: 0, Errors: 0, Drops: 0, MTU errors: 0, Resource errors: 0
 ...
-<trimmed>
+<truncated>
 ...
 Physical interface: et-0/0/24, Enabled, Physical link is Up
   Interface index: 649, SNMP ifIndex: 550, Generation: 140
@@ -157,7 +170,7 @@ Physical interface: et-0/0/24, Enabled, Physical link is Up
         Validated Bytes                 : 0
         Decrypted Bytes                 : 0
 ...
-<trimmed>
+<truncated>
 ...
 ```
 <details>
@@ -630,7 +643,8 @@ Physical interface: et-0/0/24, Enabled, Physical link is Up
 telemetry-service-definitions
 └── interface-flap-Interface_Flap
 ```
-![Interface-Flap_Service_Schema](Images/Interface-Flap_Service_Schema.png)
+<img src="Images/Interface-Flap_Service_Schema.png" width="70%" height="70%">
+
 
 ### Telemetry Collectors
 ```
@@ -639,16 +653,22 @@ telemetry-collectors
 ```
 ![Interface-Flap_Collector](Images/Interface-Flap_Collector.png)
 
-- Pay attention to the expression used in the `Value` which returns `0` if it does not finds a `value`. This differs from the usual `int(value)` because in this situaitons the expression that `Value` will translate to, the `interface-information/physical-interface/output-error-list/carrier-transitions` XML tag mught not always exist for every interface. Some interfaces might not have the XML tag or may have it but without any value. In this case an `int(value)` expression cannot be processed and we the `Test Query` button will return the following error message.
-![Interface-Flap_Collector_Error](Images/Interface-Flap_Collector_Error.png)
+- Pay attention to the expression used in the `Value` which returns `0` if it does not finds a `value`. This differs from the usual `int(value)` expression because in this situation the expression that `Value` will translate to, the `interface-information/physical-interface/output-error-list/carrier-transitions` XML tag might not always exist for every interface. Some interfaces might not have the XML tag or may have it but without any value. In this case an `int(value)` expression cannot be processed and `Test Query` action will return the following error message.
+
+<img src="Images/Interface-Flap_Collector_Error.png" width="60%" height="60%">
+
   - To prevent that, one way to solve it is to implement a logic whereby if the value does not exist the collector will still return `0`.
 ```python
 int(value or 0)
 ```
-- Pay attention to the expression used in the `Filter Expression` and the logic to filter out from the collector's oputput all the rows for which the interface name does not start with any of the following prefixes: `et-`, `xe-` or `ge-`. That way the collector's output is cleaned from any non physical interface which is returned by the CLI command such as `pfe-`, `pfh-`, `gre`, `ipip`, `.local.`, etc.. The filter expression field allows acts on the vertical dimention of the collecotr's output table, by filtering entries (rows) in that table. Be aware that this filtering happens last in the process, in other words only after the accessors/keys/values mapping took place.
+- We can then "clean" the collector output by supressing any line that is not expected to be published by the cllector, those are typically the ones for which the `Value` mapping will return `0` if the `carrier-transitions` does not exist. to do that, we leverage the `Filter Expression` field which is used to define what rows we want to keep from the collector's output. What does not match the expression is filtered. We decided to go with an expression that looks at the `interface` field, so we can check that the interface name is prefixed with `et-`, `xe-` or `ge-`. This will remove a number of interfaces we are not interested in, including those for which there is no  `carrier-transitions` XML tag, such as `pfe-`, `pfh-`, `gre`, `ipip`, `.local.`, etc.. 
 ```python
 key['Interface'].startswith(("et-", "xe-", "ge-"))
 ```
+
+> [!TIP]
+> Filtering conditions experessed in `Filter Expression` are applied after the Accessor/Key/Value mapping.
+
 
 ### Probes
 ```
@@ -656,26 +676,41 @@ probes
 └── interface-flap.json
 ```
 - Source Processor configuration:
+  - Considering the key defined in the `Interface_Flap` service can be derived from the graph, because it is the interface name, we need to define the probe using a **Static Stages** approach. With that the IBA processors series, i.e rows in the output stage, are controlled by the graph query execution. This has the advantage to control in a granular manner the scope of interfaces we want to include/exclude from the probe. Therfore it becomes possible to instante the probe several times to set different expectations for different types of interfaces, Ex. one for Fabric interfaces and another one for Server-Facing interfaces. It also becomes possible to instantiate a probe based on interface tags. All of that is not possible if we define the probe as a **Dynamic Stages** one, as in that case only the `system` graph node is interpreted. To define the probe as  **Static Stages** one we will choose a data type of `Number`, because our service value data type is `integer`. By choosing this data type, we will be asked to map the key name `interface` to a graph expression. We will simmply use the graph node property `if_name`, use the graph explorer to run the query and check the results.  
+  - Using the **Static Stages** approach we also can leverage the graph to have a longer query so we can perform context augmentation by enriching every system's interface with the following additionnal information:
+    - Link type (fabric link, server-facing link).
+    - Link speed (1G,10G,100G, etc ..).
+    - Remote interface name, if the remote device is a managed one.
+    - Remote interface name.
 
 ![Interface-Flap_Probe_Source_Processor](Images/Interface-Flap_Probe_Source_Processor.png)
 
-- IBA Probe pipeline representaiton:
+<br>
 
-![Interface-Flap_Probe_Pipeline_Vertical](Images/Interface-Flap_Probe_Pipeline_Vertical.png)
+- IBA Probe pipeline representation:
+
+<img src="Images/Interface-Flap_Probe_Pipeline_Vertical.png" width="30%" height="30%">
+
+<br>
 
 - Below a view from the first output stage:
 
 ![Interface-Flap_Probe_Stage_1](Images/Interface-Flap_Probe_Stage_1.png)
 
+<br>
+
 - Below a view from the second output stage:
 
 ![Interface-Flap_Probe_Stage_2](Images/Interface-Flap_Probe_Stage_2.png)
+
+<br>
 
 - Below a view from the third output stage:
 
 ![Interface-Flap_Probe_Stage_3](Images/Interface-Flap_Probe_Stage_3.png)
 
 
+<br>
 
 ### Widgets
 ```
@@ -684,14 +719,19 @@ widgets
 └── xxx.json
 ```
 
+<br>
+
 - Configuration of the first widget: 
 
-![Interface-Flap_Probe_Stage_Widget1](Images/Interface-Flap_Probe_Stage_Widget1.png)
+<img src="Images/Interface-Flap_Probe_Stage_Widget1.png" width="50%" height="50%">
+
+<br>
 
 - Configuration of the second widget:
-  
-![Interface-Flap_Probe_Stage_Widget2](Images/Interface-Flap_Probe_Stage_Widget2.png)
 
+<img src="Images/Interface-Flap_Probe_Stage_Widget2.png" width="50%" height="50%">
+
+<br>
 
 ### Dashboards
 ```
