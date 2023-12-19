@@ -1,9 +1,5 @@
 {
     "label": "Interface Flap",
-    "description": "",
-    "disabled": false,
-    "id": "3d85cb91-2325-46c2-b81d-a2211b6921f9",
-    "tags": [],
     "processors": [
         {
             "name": "Interface_Flap",
@@ -214,25 +210,5 @@
             "timestamp": "2023-12-18T10:40:38.449689+0000",
             "detailed_error": null
         }
-    },
-    "last_error": null,
-    "config_started_at": "2023-12-18T10:40:38.386306+0000",
-    "config_completed_at": "2023-12-18T10:40:38.426865+0000",
-    "anomaly_count": 0,
-    "version": 7,
-    "iba_unit": "acc00ee9-ffe6-4180-94a9-b2e178a11363",
-    "host_node": "AosController",
-    "task_state": "running",
-    "task_error": "",
-    "predefined_probe": "",
-    "referencing_dashboards": [
-        {
-            "id": "3f481bdc-8287-4010-b4bd-21d0bed274bf",
-            "label": "Interface Flap",
-            "predefined_dashboard": ""
-        }
-    ],
-    "updated_at": "2023-12-18T10:40:38.354361+0000",
-    "updated_by": "admin",
-    "blueprint_id": "evpn-vex-virtual"
+    }
 }

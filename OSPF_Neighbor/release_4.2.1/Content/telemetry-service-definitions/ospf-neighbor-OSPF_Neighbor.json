@@ -34,9 +34,5 @@
             "value"
         ],
         "type": "object"
-    },
-    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data",
-    "builtin": false,
-    "description": "",
-    "version": "version_0"
+    }
 }

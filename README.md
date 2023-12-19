@@ -7,7 +7,7 @@
 <!-- To do (WIP Mehdi):
 
 - Interface flap
-    - Add the widgets payloads
+    - Add the widgets payloads. Report the bug
 
 - Interface Queue.
     - Find a device with running traffic to execute the command on, get the output and document it. 

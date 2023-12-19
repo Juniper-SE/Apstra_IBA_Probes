@@ -635,8 +635,12 @@ Physical interface: et-0/0/24, Enabled, Physical link is Up
 ### Configlets
 - No configlets used in this example.
 
+<br>
+
 ### Property Sets
 - No Property Sets used in this example.
+
+<br>
 
 ### Telemetry Service Schema 
 ```
@@ -645,6 +649,7 @@ telemetry-service-definitions
 ```
 <img src="Images/Interface-Flap_Service_Schema.png" width="70%" height="70%">
 
+<br>
 
 ### Telemetry Collectors
 ```
@@ -669,6 +674,7 @@ key['Interface'].startswith(("et-", "xe-", "ge-"))
 > [!TIP]
 > Filtering conditions experessed in `Filter Expression` are applied after the Accessor/Key/Value mapping.
 
+<br>
 
 ### Probes
 ```
@@ -708,7 +714,6 @@ probes
 - Below a view from the third output stage:
 
 ![Interface-Flap_Probe_Stage_3](Images/Interface-Flap_Probe_Stage_3.png)
-
 
 <br>
 

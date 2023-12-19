@@ -1,40 +1,4 @@
 {
-    "task_error": "", 
-    "updated_by": "admin", 
-    "tags": [], 
-    "last_error": null, 
-    "updated_at": "2023-07-05T11:32:48.986483+0000", 
-    "disabled": false, 
-    "host_node": "AosController", 
-    "probe_state": {
-        "telemetry_service": {
-            "timestamp": "2023-07-05T11:32:49.079437+0000", 
-            "state": "operational", 
-            "message": "TS: configuration completed", 
-            "detailed_error": null
-        }, 
-        "pipeline": {
-            "timestamp": "2023-07-05T11:32:49.088315+0000", 
-            "state": "operational", 
-            "message": "All the resources for probe status version 3 have been processed.", 
-            "detailed_error": null
-        }, 
-        "processors_configuration": {
-            "timestamp": "2023-07-05T11:32:49.065708+0000", 
-            "state": "operational", 
-            "message": "Processors configured", 
-            "detailed_error": null
-        }, 
-        "final": {
-            "timestamp": "1970-01-01T00:00:00.000000+0000", 
-            "state": "operational", 
-            "message": "", 
-            "detailed_error": null
-        }
-    }, 
-    "id": "36524273-b6d1-46ed-be84-c459a5128ecf", 
-    "description": "", 
-    "task_state": "running", 
     "processors": [
         {
             "inputs": {}, 
@@ -225,10 +189,7 @@
                 "enable_anomaly_logging": false
             }
         }
-    ], 
-    "anomaly_count": 2, 
-    "config_started_at": "2023-07-05T11:32:49.035560+0000", 
-    "blueprint_id": "evpn-vex-virtual", 
+    ],
     "stages": [
         {
             "enable_metric_logging": true, 
@@ -445,11 +406,6 @@
             "type": "table", 
             "description": ""
         }
-    ], 
-    "predefined_probe": "", 
-    "label": "Ping Mesh", 
-    "config_completed_at": "2023-07-05T11:32:49.065854+0000", 
-    "state": "operational", 
-    "version": 3, 
-    "iba_unit": "69728476-20be-4142-b0f4-39d31c01e7db"
+    ],
+    "label": "Ping Mesh"
 }

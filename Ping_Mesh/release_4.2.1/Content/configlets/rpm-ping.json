@@ -1,7 +1,5 @@
 {
     "display_name": "RPM_Ping", 
-    "created_at": "2023-07-03T09:42:20.787813Z", 
-    "last_modified_at": "2023-07-04T10:00:17.161268Z", 
     "generators": [
         {
             "config_style": "junos", 
@@ -27,6 +25,5 @@
     ], 
     "ref_archs": [
         "two_stage_l3clos"
-    ], 
-    "id": "6917f16c-bc48-4672-b58e-d017d3ee8653"
+    ]
 }

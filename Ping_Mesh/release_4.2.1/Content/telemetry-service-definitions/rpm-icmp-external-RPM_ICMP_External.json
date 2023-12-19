@@ -1,6 +1,4 @@
 {
-    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data", 
-    "description": "", 
     "service_name": "RPM_ICMP_External", 
     "application_schema": {
         "required": [
@@ -32,7 +30,5 @@
                 }
             }
         }
-    }, 
-    "builtin": false, 
-    "version": "version_0"
+    }
 }
