@@ -1,0 +1,532 @@
+{
+    "label": "OS Version Compliance Check",
+    "description": "",
+    "disabled": false,
+    "id": "268875b7-4852-4384-a108-f2648e891387",
+    "tags": [],
+    "processors": [
+        {
+            "name": "OS_Version",
+            "type": "extensible_data_collector",
+            "properties": {
+                "Hostname": "system.hostname",
+                "service_name": "OS_Version",
+                "service_interval": "120",
+                "graph_query": [
+                    "match(node('system', name='system', deploy_mode='deploy', role=is_in(['leaf', 'access', 'spine', 'superspine'])))"
+                ],
+                "service_input": "''",
+                "query_group_by": [],
+                "keys": [
+                    "Hostname"
+                ],
+                "ingestion_filter": {},
+                "data_type": "text",
+                "query_tag_filter": {
+                    "filter": {},
+                    "operation": "and"
+                },
+                "execution_count": "-1",
+                "system_id": "system.system_id",
+                "query_expansion": {},
+                "enable_streaming": false
+            },
+            "inputs": {},
+            "outputs": {
+                "out": "OS_Version"
+            }
+        },
+        {
+            "name": "Check_Against_Excluded_list",
+            "type": "match_string",
+            "properties": {
+                "raise_anomaly": false,
+                "graph_query": [
+                    "node(\"property_set\", label='Compliance_Check_for_IBA', name=\"ps\")"
+                ],
+                "anomaly_retention_duration": 86400,
+                "enable_streaming": false,
+                "regexp": "'|'.join([version.replace('.', '\\\\.') for version in query_result[0]['ps'].values['os_version']['exclude_list']]) ",
+                "anomaly_retention_size": 1073741824,
+                "enable_anomaly_logging": false
+            },
+            "inputs": {
+                "in": {
+                    "stage": "OS_Version",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Check_Against_Excluded_list"
+            }
+        },
+        {
+            "name": "Check_Against_Hardened_Versions",
+            "type": "match_string",
+            "properties": {
+                "raise_anomaly": false,
+                "graph_query": [
+                    "node(\"property_set\", label='Compliance_Check_for_IBA', name=\"ps\")"
+                ],
+                "anomaly_retention_duration": 86400,
+                "enable_streaming": false,
+                "regexp": "query_result[0]['ps'].values['os_version']['regexp_valid_range']",
+                "anomaly_retention_size": 1073741824,
+                "enable_anomaly_logging": false
+            },
+            "inputs": {
+                "in": {
+                    "stage": "OS_Version",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Check_Against_Hardened_Versions"
+            }
+        },
+        {
+            "name": "Switches_Not_Running_Hardened_Versions",
+            "type": "state_check",
+            "properties": {
+                "raise_anomaly": true,
+                "graph_query": [],
+                "anomaly_retention_duration": 86400,
+                "enable_streaming": false,
+                "state": "'false'",
+                "anomaly_retention_size": 1073741824,
+                "enable_anomaly_logging": false
+            },
+            "inputs": {
+                "in": {
+                    "stage": "Check_Against_Hardened_Versions",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Switches_Not_Running_Hardened_Versions"
+            }
+        },
+        {
+            "name": "Switches_Running_Excluded_Versions",
+            "type": "state_check",
+            "properties": {
+                "raise_anomaly": true,
+                "graph_query": [],
+                "anomaly_retention_duration": 86400,
+                "enable_streaming": false,
+                "state": "'true'",
+                "anomaly_retention_size": 1073741824,
+                "enable_anomaly_logging": false
+            },
+            "inputs": {
+                "in": {
+                    "stage": "Check_Against_Excluded_list",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Switches_Running_Excluded_Versions"
+            }
+        },
+        {
+            "name": "Count_Of_Switches_Not_Running_Hardened_Versions",
+            "type": "match_count",
+            "properties": {
+                "group_by": [],
+                "enable_streaming": false,
+                "reference_state": "true"
+            },
+            "inputs": {
+                "in": {
+                    "stage": "Switches_Not_Running_Hardened_Versions",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Count_Of_Switches_Not_Running_Hardened_Versions"
+            }
+        },
+        {
+            "name": "Count_Of_Switches_Running_Excluded_Versions",
+            "type": "match_count",
+            "properties": {
+                "group_by": [],
+                "enable_streaming": false,
+                "reference_state": "true"
+            },
+            "inputs": {
+                "in": {
+                    "stage": "Switches_Running_Excluded_Versions",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Count_Of_Switches_Running_Excluded_Versions"
+            }
+        },
+        {
+            "name": "Switches_Out_Of_Compliance",
+            "type": "logical",
+            "properties": {
+                "significant_keys": [],
+                "enable_streaming": false,
+                "operation": "or"
+            },
+            "inputs": {
+                "in2": {
+                    "stage": "Switches_Running_Excluded_Versions",
+                    "column": "value"
+                },
+                "in1": {
+                    "stage": "Switches_Not_Running_Hardened_Versions",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Switches_Out_Of_Compliance"
+            }
+        },
+        {
+            "name": "Total_Count_of_Switches_Out_Of_Compliance",
+            "type": "match_count",
+            "properties": {
+                "group_by": [],
+                "enable_streaming": false,
+                "reference_state": "true"
+            },
+            "inputs": {
+                "in": {
+                    "stage": "Switches_Out_Of_Compliance",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Total_Count_of_Switches_Out_Of_Compliance"
+            }
+        }
+    ],
+    "stages": [
+        {
+            "name": "Check_Against_Excluded_list",
+            "description": "",
+            "type": "table",
+            "dynamic": false,
+            "keys": {
+                "Hostname": "any",
+                "system_id": "string",
+                "regexp": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Discrete State Value",
+                    "type": "string",
+                    "possible_values": [
+                        "false",
+                        "true"
+                    ]
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": true,
+            "retention_duration": 2592000,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "Count_Of_Switches_Running_Excluded_Versions",
+            "description": "",
+            "type": "table",
+            "dynamic": false,
+            "keys": {
+                "total_count": "integer"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Numeric Value",
+                    "type": "s64",
+                    "possible_values": []
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": false,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "Switches_Running_Excluded_Versions",
+            "description": "",
+            "type": "table",
+            "dynamic": false,
+            "keys": {
+                "Hostname": "any",
+                "system_id": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Discrete State Value",
+                    "type": "string",
+                    "possible_values": [
+                        "false",
+                        "true"
+                    ]
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": true,
+            "retention_duration": 2592000,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "Check_Against_Hardened_Versions",
+            "description": "",
+            "type": "table",
+            "dynamic": false,
+            "keys": {
+                "Hostname": "any",
+                "system_id": "string",
+                "regexp": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Discrete State Value",
+                    "type": "string",
+                    "possible_values": [
+                        "false",
+                        "true"
+                    ]
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": true,
+            "retention_duration": 2592000,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "Switches_Out_Of_Compliance",
+            "description": "",
+            "type": "table",
+            "dynamic": false,
+            "keys": {
+                "Hostname": "any",
+                "system_id": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Discrete State Value",
+                    "type": "string",
+                    "possible_values": [
+                        "false",
+                        "true"
+                    ]
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": false,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "Count_Of_Switches_Not_Running_Hardened_Versions",
+            "description": "",
+            "type": "table",
+            "dynamic": false,
+            "keys": {
+                "total_count": "integer"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Numeric Value",
+                    "type": "s64",
+                    "possible_values": []
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": false,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "Switches_Not_Running_Hardened_Versions",
+            "description": "",
+            "type": "table",
+            "dynamic": false,
+            "keys": {
+                "Hostname": "any",
+                "system_id": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Discrete State Value",
+                    "type": "string",
+                    "possible_values": [
+                        "false",
+                        "true"
+                    ]
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": true,
+            "retention_duration": 2592000,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "OS_Version",
+            "description": "",
+            "type": "table",
+            "dynamic": false,
+            "keys": {
+                "Hostname": "any",
+                "system_id": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Text Value",
+                    "type": "string",
+                    "possible_values": []
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": false,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "Total_Count_of_Switches_Out_Of_Compliance",
+            "description": "",
+            "type": "table",
+            "dynamic": false,
+            "keys": {
+                "total_count": "integer"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Numeric Value",
+                    "type": "s64",
+                    "possible_values": []
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": false,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        }
+    ],
+    "state": "operational",
+    "probe_state": {
+        "final": {
+            "state": "operational",
+            "message": "",
+            "timestamp": "1970-01-01T00:00:00.000000+0000",
+            "detailed_error": null
+        },
+        "processors_configuration": {
+            "state": "operational",
+            "message": "Processors configured",
+            "timestamp": "2023-12-22T14:46:52.592659+0000",
+            "detailed_error": null
+        },
+        "pipeline": {
+            "state": "operational",
+            "message": "All the resources for probe status version 5 have been processed.",
+            "timestamp": "2023-12-22T14:46:52.632052+0000",
+            "detailed_error": null
+        },
+        "telemetry_service": {
+            "state": "operational",
+            "message": "TS: configuration completed",
+            "timestamp": "2023-12-22T14:46:52.610766+0000",
+            "detailed_error": null
+        }
+    },
+    "last_error": null,
+    "config_started_at": "2023-12-22T14:46:52.521432+0000",
+    "config_completed_at": "2023-12-22T14:46:52.593026+0000",
+    "anomaly_count": 0,
+    "version": 5,
+    "iba_unit": "b41a2066-e126-46e7-b904-ad07c667859d",
+    "host_node": "AosController",
+    "task_state": "running",
+    "task_error": "",
+    "predefined_probe": "",
+    "referencing_dashboards": [
+        {
+            "id": "85da4ec1-8890-4eeb-be39-4625ede7667d",
+            "label": "OS Version Compliance Check",
+            "predefined_dashboard": ""
+        }
+    ],
+    "updated_at": "2023-12-22T14:46:52.483828+0000",
+    "updated_by": "admin",
+    "blueprint_id": "evpn-vex-virtual"
+}

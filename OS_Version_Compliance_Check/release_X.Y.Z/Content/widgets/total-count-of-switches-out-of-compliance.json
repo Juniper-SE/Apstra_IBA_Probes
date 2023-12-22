@@ -1,0 +1,31 @@
+{
+    "label": "Total Count of Switches Out Of Compliance",
+    "description": "",
+    "type": "stage",
+    // "probe_id": "268875b7-4852-4384-a108-f2648e891387",
+    "stage_name": "Total_Count_of_Switches_Out_Of_Compliance",
+    "filter": "",
+    "visible_columns": [
+        "value"
+    ],
+    "orderby": "",
+    "max_items": 10,
+    "anomalous_only": false,
+    "show_context": true,
+    "spotlight_mode": false,
+    "data_source": "real_time",
+    "time_series_duration": 86400,
+    "aggregation_period": 300,
+    "aggregation_type": "unset",
+    "combine_graphs": "none",
+    "referencing_dashboards": [
+        {
+            "id": "85da4ec1-8890-4eeb-be39-4625ede7667d",
+            "label": "OS Version Compliance Check",
+            "predefined_dashboard": ""
+        }
+    ],
+    // "__blueprint_id": "evpn-vex-virtual",
+    // "__blueprint_label": "zz-mab-evpn.vex.2485377892356-1603631830 - evpn-vex-virtual",
+    "__probe_label": "OS Version Compliance Check"
+}

@@ -31,7 +31,6 @@ Table of Contents:
   - Investigate automation. Example check that .json files aare proper JSON, check that Images directory only contains .png, check that a folder is in a gi ven sturcture.
 
 - Examples to add:
-  - OS Version compliance check, using Match_String processor and configlets for parametrisation.
   - BFD telemetry (less important, since already documented)
   - RoCEv2  We should have a public roadmap 
 -->
@@ -40,41 +39,54 @@ Table of Contents:
 <br>
 
 ## Goals of this repository
-- Learn thourgh practical examples how to create a custom IBA probe, from the definition of a Custom Telemetry Collector to using it in a Custom IBA probe.
-- The examples in this repository are provided for educational purposes and are expected to be tested and customised to your specific needs before deploying them in your production blueprints.
+
+Everything you always wanted to know about Apstra's IBA but never asked !
+
+1) Learn thourgh practical examples how to create a custom IBA probe, from the definition of a Custom Telemetry Collector to using it in a Custom IBA probe.
+2) The examples in this repository are provided for educational purposes and are expected to be tested and customised to your specific needs before deploying them in your production blueprints.
 
 <br>
 
 ## Content of this repository
 The following examples of IBA probes are listed in this repository.
-- [Ping Mesh](Ping_Mesh/release_4.2.1/README.md) 
-- [Device Uptime](Device_Uptime/release_4.2.1/README.md) 
-- [OSPF Neighbor](OSPF_Neighbor/release_4.2.1/README.md)
-- [Interface Flap](Interface_Flap/release_4.2.1/README.md)
-- [Interface_Queue](Interface_Queue/release_4.2.1/README.md) <<< WIP
+
+1) [Ping Mesh](Ping_Mesh/release_4.2.1/README.md) 
+2) [Device Uptime](Device_Uptime/release_4.2.1/README.md) 
+3) [OSPF Neighbor](OSPF_Neighbor/release_4.2.1/README.md)
+4) [Interface Flap](Interface_Flap/release_4.2.1/README.md)
+5) [OS Version Compliance Check](OS_Version_Compliance_Check/release_4.2.1/README.md)
+6) [Interface Queue](Interface_Queue/release_4.2.1/README.md) <<< WIP
 
 <br>
 
+> [!IMPORTANT]
+> The minimum Apstra release to run these examples is `4.2.1`
+
 ## How to use this repository?
-- Git clone the repository: `git clone git@github.com:mab27/Apstra_IBA_Probes.git`.
-- Import the different JSON files inthe `content` folder of any given example into your running Apstra instance. You can do that via import buttons in the UI for most items, except the `telemetry-collectors`, or you can use the REST APIs to automating pushing those files. 
-> [!IMPORTANT]
->  A sequence is to be follosed to ensure the files are correctly accepted by the receiving Apstra instance: (1) **Configlets** --> (2) **Property-Sets** --> (3)**telemetry-service-definitions** --> (4) **telemetry-collectors** --> (5) **probes** --> (6) **widgets** --> and (7) **dashboards**.
-> To make this process easiser you can use the Apstra-Cli utility, a wrappwer around Aprstra's API that delivers safe workflows including taking care of the right sequence during import of JSON payloads.
-- Copy the content of `content` folder for the example your are an interested to a location that you mount as a volume of your Apstra-cli utililty. See Apstra-CLI [documentaiton](https://www.juniper.net/documentation/us/en/software/apstra4.2/apstra-user-guide/topics/topic-map/apstra-cli.html) for more details on how ot use docker volume mount.
-- From the Apstra-cli prompt execute `content import` command by pasing the folder path through the `--folder` argument.
+1) Git clone the repository: `git clone git@github.com:mab27/Apstra_IBA_Probes.git`.
+2) Import the different JSON files in the `content` folder of any given example into your running Apstra instance. You can do that via "import" buttons in the UI for most items, except the `telemetry-collectors` for which UI based import is a comming in the roadmap. Alternatively you can use REST APIs to automate pushing the files to your instance. If you use the REST APIs, a sequence must be followed to ensure the files are correctly accepted by the receiving Apstra instance: (1) **Configlets** --> (2) **Property-Sets** --> (3) **telemetry-service-definitions** --> (4) **telemetry-collectors** --> (5) **probes** --> (6) **widgets** --> and (7) **dashboards**. To make this process easiser you can use the Apstra-CLI utility, a wrappwer around Aprstra's API that delivers workflows including taking care of the right sequence during import of JSON payloads.
+   1) Copy the content of `content` folder for the example your are an interested to a location that you mount as a volume of your Apstra-CLI utililty. See Apstra-CLI [documentaiton](https://www.juniper.net/documentation/us/en/software/apstra4.2/apstra-user-guide/topics/topic-map/apstra-cli.html) for more details on how ot use docker volume mount.
+   2) From the Apstra-CLI prompt execute `content import` command by pasing the folder path through the `--folder` argument.
 ![Apstra-cli_Content_Import](_Images/Apstra-cli_Content_Import.png)
+
+<br>
+
 > [!IMPORTANT]
-> Until 4.2.1 included, IBA Widgets and Dashboards JSON definitions must respectively include the Probe_ID and the Blueprint_ID (This will change in `5.0.0` to have a more loosely coupled design). Therefore, when importing the content into any `4.2.1` instance you must prior to that edit the JSON files for `widgets` and `dashboards` to include your Probe ID and Dashboard ID, otherwise this part of the `content import` will fail. 
+> Irrespective of the method you use to import the files (manually via the UI, APIs or Apstra-CLI) you need to ensure `configlets` and `property-sets` if they exist, are pushed first, imported to the blueprint and successfully committed prior to moving to the next steps. Any collector, probes, or other element must not be imported ot a blueprint if the underlying configlet/s and property-sets have not been committed ot the blueprint. If you use Apstra-CLI run an inport of `--type configlet` and `--type property-sets` first, before running the rest.
+
+<br>
+
+> [!IMPORTANT]
+> Until `4.2.1` included, IBA Widgets and Dashboards JSON definitions must respectively include the Probe_ID and the Blueprint_ID (This will change in `5.0.0` to have a more loosely coupled design). Therefore, when importing the content into any `4.2.1` instance you must prior to that edit the JSON files for `widgets` and `dashboards` to include your Probe ID and Dashboard ID, otherwise this part of the `content import` will fail. 
 
 <br>
 
 ## How to contribute to this repository?
-- Git clone the repository: `git clone git@github.com:mab27/Apstra_IBA_Probes.git`
-- Move to the repository `cd Apstra_IBA_Probes` and create a new branch: `git checkout -b <Your-Branch-Name>`.
+1) Git clone the repository: `git clone git@github.com:mab27/Apstra_IBA_Probes.git`
+2) Move to the repository `cd Apstra_IBA_Probes` and create a new branch: `git checkout -b <Your-Branch-Name>`.
 > [!TIP]
 > Name the branch after the change you are planning to do to facilitate its identification locally, when you work on it, and remotely when you later pusch it for collaboration and review. For example if you are creating a new probe, your branch name could be something like "Monitor metric foo on external links". If you are adding another release variant to existing probe because you want to benefit from the new feature enhancements, your branch name could be "release_5.0.0 for Ping Mesh".
-- Create the folder structure for your new Probe: `mkdir -p IBA_Probe_Example/release_X.Y.Z/{Content/{configlets,property-sets,telemetry-service-definitions,telemetry-collectors,probes,widgets,dashboards},Images} && touch IBA_Probe_Example/README.md`. It is important to follow this structure to streamline collaboraiton and testing. 
+3) Create the folder structure for your new Probe: `mkdir -p New_IBA_Probe_Example/release_X.Y.Z/{Content/{configlets,property-sets,telemetry-service-definitions,telemetry-collectors,probes,widgets,dashboards},Images} && touch New_IBA_Probe_Example/release_X.Y.Z/README.md`. It is important to follow this structure to streamline collaboraiton and testing. 
   - This will generate the following hierarchy:
 ```
 ├── IBA_Probe_Example
@@ -90,13 +102,13 @@ The following examples of IBA probes are listed in this repository.
 │       ├── Images
 │       └── README.md
 ```
-- Start filling that newly created folder structure by populating every relevant section. This includes clear description of the use-case docoumented in the README files, copies of all the relvant JSON payloads extracted from your environement (You can use UI export buttons, API calls or apstra-cli `content export` command), any useful screen capture image, etc ... Check existing content for inspiration and follow the same strucutre.
+4) Start filling that newly created folder structure by populating every relevant section. This includes clear description of the use-case docoumented in the README files, copies of all the relvant JSON payloads extracted from your environement (You can use UI export buttons, API calls or apstra-cli `content export` command), any useful screen capture image, etc ... Check existing content for inspiration and follow the same strucutre.
 ![Apstra-cli_Content_Export](_Images/Apstra-cli_Content_Export.png) 
-- Stage your chnages as you progress: `git add <filename>` or `git add .` and commit them once you have a satisfacotry version: `git commit -m "<provide-commmit-message>"`.
-- Push your branch to origin `git push --set-upstream origin <Your-Branch-Name>`
+5) Stage your chnages as you progress: `git add <filename>` or `git add .` and commit them once you have a satisfacotry version: `git commit -m "<provide-commmit-message>"`.
+6) Push your branch to origin `git push --set-upstream origin <Your-Branch-Name>`
 > [!IMPORTANT]
 > Note that this repositorty `main` branch is set as a protected branch. Hence contributions cannot be ade directly against this branch but rather through merging of feature branches after peer reviews. This allows to scale the collaboraiton on this repository.
-- Request a Pull Request and Merge Request.
+7) Request a Pull Request and Merge Request.
 
 <br>
 

@@ -1,0 +1,28 @@
+{
+    "label": "OS Version Compliance Check",
+    "description": "",
+    "grid": [
+        [
+            "104cdb5d-2df5-49bc-90ed-e93943ad0bf5",
+            "50b994a9-8639-45d4-8e0d-77348864cf5a"
+        ],
+        [
+            "82b1c8c1-210c-4083-92d5-5b498a3afad3",
+            "3a9d5010-65b2-4b70-bc2c-4ba8cc0d9816"
+        ],
+        [
+            "7d83623c-b5b7-48d4-b67e-c1ec499063cf"
+        ]
+    ],
+    "predefined_dashboard": "",
+    "default": false,
+    // "__blueprint_id": "evpn-vex-virtual",
+    // "__blueprint_label": "zz-mab-evpn.vex.2485377892356-1603631830 - evpn-vex-virtual",
+    "__widget_id_label_dict": {
+        "104cdb5d-2df5-49bc-90ed-e93943ad0bf5": "Count Of Switches Not Running Hardened Versions",
+        "50b994a9-8639-45d4-8e0d-77348864cf5a": "Switches Not Running Hardened Versions",
+        "82b1c8c1-210c-4083-92d5-5b498a3afad3": "Count Of Switches Running Excluded Versions ",
+        "3a9d5010-65b2-4b70-bc2c-4ba8cc0d9816": "Switches Running Excluded Versions",
+        "7d83623c-b5b7-48d4-b67e-c1ec499063cf": "Total Count of Switches Out Of Compliance"
+    }
+}

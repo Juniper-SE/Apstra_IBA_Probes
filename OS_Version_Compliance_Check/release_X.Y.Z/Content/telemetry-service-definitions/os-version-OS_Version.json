@@ -1,0 +1,30 @@
+{
+    "service_name": "OS_Version",
+    "application_schema": {
+        "properties": {
+            "key": {
+                "properties": {
+                    "Hostname": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "Hostname"
+                ],
+                "type": "object"
+            },
+            "value": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "key",
+            "value"
+        ],
+        "type": "object"
+    },
+    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_string_data",
+    "builtin": false,
+    "description": "",
+    "version": "version_0"
+}

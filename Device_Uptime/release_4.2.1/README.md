@@ -90,12 +90,12 @@ Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
 ## Content
 
 ### Configlets
-- No configlet  used in this example.
+No configlet  used in this example.
 
 <br>
 
 ### Property Sets
-- No Property Sets  used in this example.
+No Property Sets  used in this example.
 
 <br>
 
@@ -117,15 +117,19 @@ Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
 
 ![Device-Uptime_Collector](Images/Device-Uptime_Collector.png)
 
-- Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `/system-uptime-information/uptime-information/up-time` XML path into an integer value representing the total count of minutes. This conversion is required for the probe pipeline to be able to reason about the value and perfrom calculaiton on it so it can raise anoamlies in the specificed SLAs.
-> Python based expressions are supported as long as they are expressed in a one-liner. For example to express an `if this than that` conditional, it will have to be wirtten in the format: `<value_if_true> if <condition> else <value_if_false>`.
+Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `/system-uptime-information/uptime-information/up-time` XML path into an integer value representing the total count of minutes. This conversion is required for the probe pipeline to be able to reason about the value and perfrom calculaiton on it so it can raise anoamlies in the specificed SLAs.
+
 ```python
 int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080 
 + int(re_search(r'(\d+)(?=\sd)', System_Uptime) or 0) * 1440 
 + int(re_search(r'(\d+)(?=:)', System_Uptime.split()[-1]) or 0) * 60 
 + int(re_search(r'(?<=:)(\d+)', System_Uptime.split()[-1]) or 0) if 'w' in System_Uptime or 'd' in System_Uptime or ':' in System_Uptime else int(re_search(r'(\d+)(?=\smins)', System_Uptime) or 0)
 ```
-- The lentgh and complexity of the expression is due to the variety of different formats returned by the `/system-uptime-information/uptime-information/up-time` XML path, such as "24 days, 23:45", "1w2d 00:26:08", "2d 00:26:08", "00:26:08", "36 mins".  Therefore, the expression must be written in a way such that it can correctly handle different formats and make sure each part of the time (weeks, days, hours, and minutes) is accurately extracted and calculated.
+
+> [!IMPORTANT]
+> Python based expressions are supported as long as they are expressed in a one-liner. For example to express an `if this than that` conditional, it will have to be wirtten in the format: `<value_if_true> if <condition> else <value_if_false>`.
+
+The lentgh and complexity of the expression is due to the variety of different formats returned by the `/system-uptime-information/uptime-information/up-time` XML path, such as "24 days, 23:45", "1w2d 00:26:08", "2d 00:26:08", "00:26:08", "36 mins".  Therefore, the expression must be written in a way such that it can correctly handle different formats and make sure each part of the time (weeks, days, hours, and minutes) is accurately extracted and calculated.
   - **Week Calculation**: The expression first looks for a number followed by the letter `w`, indicating weeks. It uses a regular expression `(re_search(r'(\d+)(?=w)', System_Uptime))` to find this number. If found, this number is multiplied by `10080`, which is the number of minutes in a week.
   - **Day Calculation**: Similarly, it searches for a number followed by `d` (for days) using `re_search(r'(\d+)(?=\sd)', System_Uptime)`. If a day component is found, it multiplies this number by `1440`, the number of minutes in a day.
   - **Hour and Minute Calculation**: The expression then handles the time portion, which is expected in an `"hh:mm"` format. This is done by splitting the string on spaces and focusing on the last part `(System_Uptime.split()[-1])`, which should contain the time. It extracts hours using `re_search(r'(\d+)(?=:)', System_Uptime.split()[-1])` and minutes using `re_search(r'(?<=:)(\d+)', System_Uptime.split()[-1])`, multiplying hours by `60` to convert them to minutes.
@@ -140,20 +144,44 @@ int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080
 ├── probes
     └── device-uptime.json
 ```
-- Source Processor configuration:
+Source Processor configuration:
 
 ![Device-Uptime_Probe_Source_Processor](Images/Device-Uptime_Probe_Source_Processor.png)
 
-- IBA Probe pipeline representaiton:
-  - To implement the anomaly raising logic for reboot in last **1h** / **1 day** / **1 week** without duplicating the anomalies (i.e having a device which rebooted 45mn ago to appear in both 1h and 1day) we will configure the Range check processors in secitons: one section for uptime <= `60` mn, a second section for uptime > `60` mn and <= `1440` mn (total minutes count for a **day**) and a third seciton  for uptime > `1440` mn and <= `10080` mn (total minutes count for a **week**).
+<br>
 
-<img src="Images/Device-Uptime_Probe_Vertical.png" width="30%" height="30%">
+Output stage:
+
+![Device-Uptime_Probe_Stage](Images/Device-Uptime_Probe_Stage.png)
 
 <br>
 
-- IBA Probe stage view:
+To implement the anomaly raising logic for reboot in last **1h** / **1 day** / **1 week** without duplicating the anomalies (i.e having a device which rebooted 45mn ago to appear in both 1h and 1day) we will configure the Range check processors in secitons: one section for uptime <= `60` mn, a second section for uptime > `60` mn and <= `1440` mn (total minutes count for a **day**) and a third section for uptime > `1440` mn and <= `10080` mn (total minutes count for a **week**).
 
-![Device-Uptime_Probe_Stage](Images/Device-Uptime_Probe_Stage.png)
+<br>
+
+`Range` processor configuraiton to raise anomaly for device which rebooted in the last hour:
+
+![Device-Uptime_Probe_Range_Processor_Hour](Images/Device-Uptime_Probe_Range_Processor_Hour.png)
+
+<br>
+
+`Range` processor configuraiton to raise anomaly for device which rebooted in the last day (and more than one hour ago):
+
+![Device-Uptime_Probe_Range_Processor_Day](Images/Device-Uptime_Probe_Range_Processor_Day.png)
+
+<br>
+
+`Range` processor configuraiton to raise anomaly for device `Range` processor configuraiton to raise anomaly for device which rebooted in the last day (and more than one hour ago):
+ rebooted in the last Week (and more than one day ago):
+
+![Device-Uptime_Probe_Range_Processor_Week](Images/Device-Uptime_Probe_Range_Processor_Week.png)
+
+<br>
+
+Putting it all together - Probe pipeline representation:
+
+<img src="Images/Device-Uptime_Probe_Vertical.png" width="30%" height="30%">
 
 <br>
 

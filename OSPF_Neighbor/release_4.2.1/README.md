@@ -123,14 +123,17 @@ configlets
 └── ospf-configlet.json
 ```
 
+<br>
+
 > [!IMPORTANT]
 > This configilet is provided only as an example. Customise to your own environement and always run Commit-Check from the Uncommitted tab prior to a blueprint commit.
-
+> 
+> The configlet must be successfully imported to the bluprint and committed before proceeding with the following steps.
 
 <br>
 
 ### Property Sets
-- No Property Sets used in this example.
+No Property Sets used in this example.
 
 <br>
 
@@ -150,7 +153,7 @@ telemetry-collectors
 ```
 ![OSPF-Neighbor_Collector](Images/OSPF-Neighbor_Collector.png)
 
-- Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `/ospf-neighbor-information/ospf-neighbor/ospf-neighbor-state` XML path into an integer value which will then be converted back to an enum using the "Value map" processor property of the `Extensible_Service_Data_Collector_Processor` IBA procesor (See probe's configuration).
+Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `/ospf-neighbor-information/ospf-neighbor/ospf-neighbor-state` XML path into an integer value which will then be converted back to an enum using the "Value map" processor property of the `Extensible_Service_Data_Collector_Processor` IBA procesor (See probe's configuration).
 > [!IMPORTANT]
 > Python based expressions are supported as long as they are expressed in a one-liner. For example to express an `if this than that` conditional, it will have to be wirtten in the format: `<value_if_true> if <condition> else <value_if_false>`.
 ```python
@@ -165,7 +168,6 @@ else 1 if Neighbor_State == "Full"
 else None
 ```
 
-
 <br>
 
 ### Probes
@@ -173,38 +175,36 @@ else None
 probes
 └── ospf-neighbour-check.json
 ```
-- Source Processor configuration:
-  - Considering the keys defined in the `OSPF_neighbor` service cannot be derived from the graph, we need to define the probe using a **Dynamic Stages** approach. With that, the IBA processors series, i.e rows in the output stage, are controlled by the collector instead of being controlled by the graph query like for **Static Stages** approach. The count of those series dynamically reacts to the collector's output. It is only required to map the system_ID to a to a graph node's property. Other collectors key do not requires any mapping to the Graph. To define the probe as  **Dynamic Stages** one we will choose a data type of `Dynamic Discrete State`, because our service value data type is `integer`.
+Source Processor configuration:
+- Considering the keys defined in the `OSPF_neighbor` service cannot be derived from the graph, we need to define the probe using a **Dynamic Stages** approach. With that, the IBA processors series, i.e rows in the output stage, are controlled by the collector instead of being controlled by the graph query like for **Static Stages** approach. The count of those series dynamically reacts to the collector's output. It is only required to map the system_ID to a to a graph node's property. Other collectors key do not requires any mapping to the Graph. To define the probe as  **Dynamic Stages** one we will choose a data type of `Dynamic Discrete State`, because our service value data type is `integer`.
 
 <img src="Images/OSPF-Neighbor_Probe_Source_Processor.png" width="80%" height="80%">
 
 <br>
 
-- IBA Probe pipeline representaiton:
-
-<img src="Images/OSPF-Neighbor_Probe_Pipeline_Vertical.png" width="30%" height="30%">
-
-
-<br>
-
-- Below a view from the first output stage:
+Output stage:
 
 ![OSPF-Neighbor_Probe_Stage_1](Images/OSPF-Neighbor_Probe_Stage_1.png)
 
 <br>
 
-- Below a view from the second output stage:
+Output stage:
 
 ![OSPF-Neighbor_Probe_Stage_2](Images/OSPF-Neighbor_Probe_Stage_2.png)
 
 <br>
 
-- Below a view from the third output stage:
+Output stage:
 
 ![OSPF-Neighbor_Probe_Stage_3](Images/OSPF-Neighbor_Probe_Stage_3.png)
 
 <br>
 
+Putting it all together - Probe pipeline representation:
+
+<img src="Images/OSPF-Neighbor_Probe_Pipeline_Vertical.png" width="30%" height="30%">
+
+<br>
 
 ### Widgets
 ```
@@ -215,13 +215,13 @@ widgets
 
 <br>
 
-- Configuration of the first widget: 
+Configuration of the first widget: 
 
 <img src="Images/OSPF-Neighbor_Probe_Stage_Widget1.png" width="50%" height="50%">
 
 <br>
 
-- Configuration of the second widget:
+Configuration of the second widget:
   
 <img src="Images/OSPF-Neighbor_Probe_Stage_Widget2.png" width="50%" height="50%">
 

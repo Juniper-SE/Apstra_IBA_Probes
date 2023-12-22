@@ -687,28 +687,33 @@ Table of Contents:
 ├── configlets
     └── rpm-ping.json
 ```
-- Definition of a configlet with three seperate sections, each section defining a seperate RPM probe, in order to facilitate their maintainbility: `Underlay_Reachbility`, `Overlay_Reachability` and `External_Reachability`.
+Definition of a configlet with three seperate sections, each section defining a seperate RPM probe, in order to facilitate their maintainbility: 
+- `Underlay_Reachbility`, 
+- `Overlay_Reachability` 
+- `External_Reachability`.
 
 <br>
 
 > [!IMPORTANT]
 > This configilet is provided only as an example. Customise to your own environement and always run Commit-Check from the Uncommitted tab prior to a blueprint commit.
+> 
+> The configlet must be successfully imported to the bluprint and committed before proceeding with the following steps.
 
 <br>
 
-- Configlet section for `Underlay Reachability` RPM probe: 
+Configlet section for `Underlay Reachability` RPM probe: 
 
 ![Ping-Mesh_Configlet_Underlay-Reachability](Images/Ping-Mesh_Configlet_Underlay-Reachability.png)
 
 <br>
 
-- Configlet section for `Overlay Reachability` RPM probe: 
+Configlet section for `Overlay Reachability` RPM probe: 
 
 ![Ping-Mesh_Configlet_Overlay-Reachability](Images/Ping-Mesh_Configlet_Overlay-Reachability.png)
 
 <br>
 
-- Configlet section for `External Reachability` RPM probe: 
+Configlet section for `External Reachability` RPM probe: 
 
 ![Ping-Mesh_Configlet_External-Reachability](Images/Ping-Mesh_Configlet_External-Reachability.png)
 
@@ -722,6 +727,12 @@ Table of Contents:
 ```
 <img src="Images/Ping-Mesh_Property-Sets.png" width="70%" height="70%">
 
+
+<br>
+
+> [!IMPORTANT]
+> The property-set must be successfully imported to the bluprint and committed before proceeding with the following steps.
+
 <br>
 
 ### Telemetry Service Schema 
@@ -734,19 +745,19 @@ Table of Contents:
 
 <br>
 
-- Definition of the schema for the service collecting `Underlay Reachability` RPM probe results:
+Definition of the schema for the service collecting `Underlay Reachability` RPM probe results:
 
 <img src="Images/Ping-Mesh_Schema_Underlay-Reachability.png" width="60%" height="60%">
 
 <br>
 
-- Definition of the schema for the service collecting `Overlay Reachability` RPM probe results:
+Definition of the schema for the service collecting `Overlay Reachability` RPM probe results:
 
 <img src="Images/Ping-Mesh_Schema_Overlay-Reachability.png" width="60%" height="60%">
 
 <br>
 
-- Definition of the schema for the service collecting `External Reachability` RPM probe results:
+Definition of the schema for the service collecting `External Reachability` RPM probe results:
 
 <img src="Images/Ping-Mesh_Schema_External-Reachability.png" width="60%" height="60%">
 
@@ -762,19 +773,19 @@ Table of Contents:
 
 <br>
 
-- Definition of the collector for getting the results from the `Underlay Reachability` RPM probe:
+Definition of the collector for getting the results from the `Underlay Reachability` RPM probe:
 
 ![Ping-Mesh_Collector_Underlay](Images/Ping-Mesh_Collector_Underlay.png)
 
 <br>
 
-- Definition of the collector for getting the results from the `Overlay Reachability` RPM probe:
+Definition of the collector for getting the results from the `Overlay Reachability` RPM probe:
 
 ![Ping-Mesh_Collector_Overlay](Images/Ping-Mesh_Collector_Overlay.png)
 
 <br>
 
-- Definition of the collector for getting the results from the `External Reachability` RPM probe:
+Definition of the collector for getting the results from the `External Reachability` RPM probe:
 
 ![Ping-Mesh_Collector_External](Images/Ping-Mesh_Collector_External.png)
 
@@ -788,20 +799,20 @@ Table of Contents:
 
 <br>
 
-- Source Processor configuration for `Underlay Reachability` RPM probe:
+Source Processor configuration for `Underlay Reachability` RPM probe:
 
 ![Ping-Mesh_Probe_Source_Processor_Underlay](Images/Ping-Mesh_Probe_Source_Processor_Underlay.png)
 
 
 <br>
 
-- Stage output for `Underlay Reachability` RPM probe:
+Stage output for `Underlay Reachability` RPM probe:
 
 ![Ping-Mesh_Probe_Stage_output_Underlay](Images/Ping-Mesh_Probe_Stage_output_Underlay.png)
 
 <br>
 
-- IBA Probe pipeline representaiton:
+Putting it all together - Probe pipeline representation:
 
 <img src="Images/Ping-Mesh_Probe_Pipeline_Vertical.png" width="25%" height="25%">
 
@@ -820,32 +831,32 @@ Table of Contents:
 
 <br>
 
-- Configuration of the first widget: 
+Configuration of the first widget: 
 <!-- ![Ping-Mesh_Widget_x](images/Ping-Mesh_Widget_x.png) -->
 
 <br>
 
-- Configuration of the second widget: 
+Configuration of the second widget: 
 <!-- ![Ping-Mesh_Widget_x](images/Ping-Mesh_Widget_x.png) -->
 
 <br>
 
-- Configuration of the third widget: 
+Configuration of the third widget: 
 <!-- ![Ping-Mesh_Widget_x](images/Ping-Mesh_Widget_x.png) -->
 
 <br>
 
-- Configuration of the fourth widget: 
+Configuration of the fourth widget: 
 <!-- ![Ping-Mesh_Widget_x](images/Ping-Mesh_Widget_x.png) -->
 
 <br>
 
-- Configuration of the fifth widget: 
+Configuration of the fifth widget: 
 <!-- ![Ping-Mesh_Widget_x](images/Ping-Mesh_Widget_x.png) -->
 
 <br>
 
-- Configuration of the sixth widget: 
+Configuration of the sixth widget: 
 
 <img src="Images/Ping-Mesh_Widget_leaf-to-Ext-Router.png" width="50%" height="50%">
 
@@ -861,12 +872,12 @@ Table of Contents:
 
 <br>
 
-- First dashboard: 
+First dashboard: 
 
 ![Ping-Mesh_Dashboard_Intra-Fabric](Images/Ping-Mesh_Dashboard_Intra-Fabric.png)
 
 <br>
 
-- Second dashboard: 
+Second dashboard: 
 
 ![Ping-Mesh_Dashboard_External-to-Fabric](Images/Ping-Mesh_Dashboard_External-to-Fabric.png)
