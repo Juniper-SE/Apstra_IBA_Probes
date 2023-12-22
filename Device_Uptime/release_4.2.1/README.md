@@ -118,6 +118,7 @@ Last configured: 2023-12-06 10:46:26 UTC (1w1d 00:45 ago) by aosadmin
 ![Device-Uptime_Collector](Images/Device-Uptime_Collector.png)
 
 - Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `/system-uptime-information/uptime-information/up-time` XML path into an integer value representing the total count of minutes. This conversion is required for the probe pipeline to be able to reason about the value and perfrom calculaiton on it so it can raise anoamlies in the specificed SLAs.
+> Python based expressions are supported as long as they are expressed in a one-liner. For example to express an `if this than that` conditional, it will have to be wirtten in the format: `<value_if_true> if <condition> else <value_if_false>`.
 ```python
 int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080 
 + int(re_search(r'(\d+)(?=\sd)', System_Uptime) or 0) * 1440 

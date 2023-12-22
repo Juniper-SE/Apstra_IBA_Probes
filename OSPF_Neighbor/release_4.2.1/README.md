@@ -150,8 +150,9 @@ telemetry-collectors
 ```
 ![OSPF-Neighbor_Collector](Images/OSPF-Neighbor_Collector.png)
 
-- Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `/ospf-neighbor-information/ospf-neighbor/ospf-neighbor-state` XML path into an integer value which will then be converted back to an enum using the "Value map" processor property of the `Extensible_Service_Data_Collector_Processor` (See probe's configuration).
-
+- Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `/ospf-neighbor-information/ospf-neighbor/ospf-neighbor-state` XML path into an integer value which will then be converted back to an enum using the "Value map" processor property of the `Extensible_Service_Data_Collector_Processor` IBA procesor (See probe's configuration).
+> [!IMPORTANT]
+> Python based expressions are supported as long as they are expressed in a one-liner. For example to express an `if this than that` conditional, it will have to be wirtten in the format: `<value_if_true> if <condition> else <value_if_false>`.
 ```python
 0 if Neighbor_State == "Attempt" 
 else 2 if Neighbor_State == "Down" 
@@ -163,6 +164,7 @@ else 7 if Neighbor_State == "2Way"
 else 1 if Neighbor_State == "Full" 
 else None
 ```
+
 
 <br>
 
