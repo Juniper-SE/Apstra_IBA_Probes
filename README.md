@@ -17,21 +17,25 @@ Table of Contents:
 <!-- To do (WIP Mehdi):
 
 - Interface flap
-    - Add the widgets payloads. Report the bug
+    - Report the bug on APIs for Widgets
 
 - Interface Queue.
     - Find a device with running traffic to execute the command on, get the output and document it. 
     - Design the probe. 
 
 - OPSF Neighbor Check
-  - Enhance the configlet, leverage Device-Context and add a Property-set
+  - Enhance the configlet, leverage Device-Context and add a Property-set.
+  - Enhance the probe to use State_Check processor to check for neighbour no int Full state.
 
-- Githib actions:
+- Github actions:
   - Investigate automation. Example check that .json files aare proper JSON, check that Images directory only contains .png, check that a folder is in a gi ven sturcture.
 
 - Examples to add:
+  - OS Version compliance check, using Match_String processor and configlets for parametrisation.
   - BFD telemetry (less important, since already documented)
-  - RoCEv2  We should have a public roadmap -->
+  - RoCEv2  We should have a public roadmap 
+-->
+
 
 <br>
 
