@@ -16,9 +16,9 @@ Table of Contents:
 <br>
 
 ## Description of the use-case
-- Collect OS versions from all switches in the blueprint and compare them to a defined policy rules including:
-  - Rule_1: Checking the NOS versions cconforms to the guidelines for EVPN hardened releaes: `XX.{2|4}R2+`. Example: `22.2R2` and `22.4R3`satisify the rule but `23.2R1` or `22.1R2` do not.
-  - Rule_2: Checking the NOS versions do not include any of the ones listed in the "Exclude" list. This is typically the case for a version which is in the hardened list but have been flagged as not usable, possiblely due to exceesive number of bugs.
+- Collect OS versions from all managed devices in the blueprint and compare them to a defined policy of rules including:
+  - Rule_1: Checking the NOS versions conforms to the guidelines for EVPN hardened releaes: `XX.{2|4}R2+`. Example: `22.2R2` and `22.4R3`satisify the rule but `23.2R1` or `22.1R2` do not.
+  - Rule_2: Checking none of the devices runs a version listed in the "Excluded" ones. This list is an operator maintained ones, with the help of Juniper (Support/Account Team/etc..) containing versions which are conforming to the general guidelines for hardened versions but but have been flagged as not usable, possiblely due to exceesive number of bugs or security issues.
 - Use Property-Set to let the user provides the policy inputs.
 
 <br>
@@ -558,7 +558,7 @@ JUNOS dsa dsa [22.2R3.15]
 
 
 > [!TIP]
-> We are using the `Hostname` only to use it as a key in the source IBA collector. Since we will be using some advanced graph queries we will need to leverage Static stages output. For that we need to have at least one service key wich can be derived from the graph. `Hostname` is a good candidate even though it won't be of much use in the probe's pipeline.
+> We are using the `Hostname` only to use it as a key in the source IBA processor. Since we will be using some advanced graph queries we will need to leverage static stages output. For that we need to have at least one service key wich can be derived from the graph. `Hostname` is a good candidate even though it won't be of much use in the probe's pipeline.
 
 <br>
 
@@ -583,7 +583,7 @@ The property-set contains the following items:
 <br>
 
 > [!IMPORTANT]
-> The property-Set must be imported to the bluprint and committed before proceeding with the following steps.
+> The property-set must be imported to the bluprint and committed before proceeding with the following steps.
 
 <br>
 
@@ -627,9 +627,21 @@ Source processor configuration:
 
 <br>
 
+Output stage:
+
+![OS_Version_Compliance_Check_Probe_Output_Stage_1](Images/OS_Version_Compliance_Check_Probe_Output_Stage_1.png)
+
+<br>
+
 `Match_String` processor configuration to identify switches that are running versions not compliant with the hardened EVPN versions:
 
 ![OS_Version_Compliance_Check_Probe_Match_String-1_Processor](Images/OS_Version_Compliance_Check_Probe_Match_String-1_Processor.png)
+
+<br>
+
+Output stage:
+
+![OS_Version_Compliance_Check_Probe_Output_Stage_2](Images/OS_Version_Compliance_Check_Probe_Output_Stage_2.png)
 
 <br>
 
@@ -639,9 +651,22 @@ Source processor configuration:
 
 <br>
 
+Output stage:
+
+![OS_Version_Compliance_Check_Probe_Output_Stage_3](Images/OS_Version_Compliance_Check_Probe_Output_Stage_3.png)
+
+<br>
+
 `State` processor configuration to raise an anomaly for switches running versions not compliant with the hardened EVPN versions:
 
 ![OS_Version_Compliance_Check_Probe_State-Check-1_Processor](Images/OS_Version_Compliance_Check_Probe_State-Check-1_Processor.png)
+
+<br>
+
+Output stage:
+
+![OS_Version_Compliance_Check_Probe_Output_Stage_4](Images/OS_Version_Compliance_Check_Probe_Output_Stage_4.png)
+
 
 <br>
 
@@ -651,9 +676,20 @@ Source processor configuration:
 
 <br>
 
+Output stage:
+
+![OS_Version_Compliance_Check_Probe_Output_Stage_5](Images/OS_Version_Compliance_Check_Probe_Output_Stage_5.png)
+<br>
+
 `Logical` processor configuration combining the presence of an anomaly from one cateogry or the other:
 
 ![OS_Version_Compliance_Check_Probe_Logical_Processor](Images/OS_Version_Compliance_Check_Probe_Logical_Processor.png)
+
+<br>
+
+Output stage:
+
+![OS_Version_Compliance_Check_Probe_Output_Stage_6](Images/OS_Version_Compliance_Check_Probe_Output_Stage_6.png)
 
 <br>
 
@@ -663,17 +699,6 @@ Putting it all together - Probe pipeline representation:
 
 <br>
 
-Output from first stage:
-
-<br>
-
-Output from second stage:
-
-<br>
-
-Output from third stage:
-
-<br>
 
 ### Widgets
 ```
@@ -689,13 +714,25 @@ Output from third stage:
 
 Configuration of the first widget: 
 
-<img src="Images/OS_Version_Compliance_Check_Widget-1.png" width="70%" height="70%">
+<img src="Images/OS_Version_Compliance_Check_Widget_1.png" width="70%" height="70%">
 
 <br>
 
 Configuration of the second widget:
 
-<img src="Images/OS_Version_Compliance_Check_Widget-2.png" width="70%" height="70%">
+<img src="Images/OS_Version_Compliance_Check_Widget_2.png" width="70%" height="70%">
+
+<br>
+
+Configuration of the third widget: 
+
+<img src="Images/OS_Version_Compliance_Check_Widget_3.png" width="70%" height="70%">
+
+<br>
+
+Configuration of the fourth widget: 
+
+<img src="Images/OS_Version_Compliance_Check_Widget_4.png" width="70%" height="70%">
 
 <br>
 
@@ -705,4 +742,4 @@ Configuration of the second widget:
     └── os-version-compliance-check.json
 ```
 
-![OS_Version_Compliance_Check](Images/OS_Version_Compliance_Check.png)
+![OS_Version_Compliance_Check_Dashboard](Images/OS_Version_Compliance_Check_Dashboard.png)

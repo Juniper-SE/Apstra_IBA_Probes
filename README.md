@@ -7,7 +7,7 @@
 
 Table of Contents:
 - [Custom IBA Probes in Apstra](#custom-iba-probes-in-apstra)
-  - [Goals of this repository](#goals-of-this-repository)
+  - [Goal of this repository](#goal-of-this-repository)
   - [Content of this repository](#content-of-this-repository)
   - [How to use this repository?](#how-to-use-this-repository)
   - [How to contribute to this repository?](#how-to-contribute-to-this-repository)
@@ -16,6 +16,12 @@ Table of Contents:
 
 <!-- To do (WIP Mehdi):
 
+- Enhance OS_Compliance check probe with real example
+
+- OPSF Neighbor Check
+  - Enhance the configlet, leverage Device-Context and add a Property-set.
+  - Enhance the probe to use State_Check processor to check for neighbour not in Full state.
+
 - Interface flap
     - Report the bug on APIs for Widgets
 
@@ -23,27 +29,32 @@ Table of Contents:
     - Find a device with running traffic to execute the command on, get the output and document it. 
     - Design the probe. 
 
-- OPSF Neighbor Check
-  - Enhance the configlet, leverage Device-Context and add a Property-set.
-  - Enhance the probe to use State_Check processor to check for neighbour no int Full state.
-
 - Github actions:
-  - Investigate automation. Example check that .json files aare proper JSON, check that Images directory only contains .png, check that a folder is in a gi ven sturcture.
+  - Investigate automation. Example check that .json files are proper JSON, check that Images directory only contains .png, check that a folder is in a gi ven sturcture.
 
-- Examples to add:
+- Examples to add (Roadmap field to make it public).
   - BFD telemetry (less important, since already documented)
   - RoCEv2  We should have a public roadmap 
+  - VRF Scale https://apstrktr.atlassian.net/browse/RFE-2016
+  - "show pfe vxlan nh-usage" if any possible with some hacks
+  - Probe to monitor Route Table sizes - RIB/FIB > RFE-2511.
+  - "show ddos-protection protocols" from UHS experience
+  - Monitor the Routing Engine status
+  - show system alarms or show chassis alarms (discussed with Boris)
+
 -->
 
 
 <br>
 
-## Goals of this repository
+## Goal of this repository
 
-Everything you always wanted to know about Apstra's IBA but never asked !
+**Learn thourgh practical examples how to create a custom IBA probe, from the definition of a Custom Telemetry Collector to using it in a Custom IBA probe.**
 
-1) Learn thourgh practical examples how to create a custom IBA probe, from the definition of a Custom Telemetry Collector to using it in a Custom IBA probe.
-2) The examples in this repository are provided for educational purposes and are expected to be tested and customised to your specific needs before deploying them in your production blueprints.
+Creating new IBA probe involves several parts of Apstra (Telemetry, GraphDB, IBA). Each part has a role to play, the examples are selected and described with the ambition to show these different parts and how they come together. Going through the examples you will notice some of them have more complexity at the collector level because we need to process the data in a certain way to make it effectively usable by the analytics capabilities of IBA. Other times you will find simple collectors but more sophisticated IBA probes because the use case requires the implementation of an advanced processing of this data in order to extract the desired insight.
+
+> [!IMPORTANT]
+> The examples in this repository are provided for educational purposes and are expected to be tested and customised to your specific needs before deploying them in your production blueprints.
 
 <br>
 

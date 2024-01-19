@@ -1,16 +1,16 @@
 {
-    "id": "16172f26-c54a-49a0-b3e1-7fe8fc9a7673",
+    "id": "796c655c-5e1d-4791-b5af-67543d0b6312",
     "label": "Compliance_Check_for_IBA",
     "values": {
         "os_version": {
             "exclude_list": [
                 "23.2R2-S2",
-                "23.2R2-S4"
+                "22.2R3.15"
             ],
             "regexp_valid_range": "\\d{2}\\.(2|4)R[2-9](-S\\d)?(\\.\\d{1,2})?"
         }
     },
-    "values_yaml": "os_version:\n  exclude_list:\n  - 23.2R2-S2\n  - 23.2R2-S4\n  regexp_valid_range: \\d{2}\\.(2|4)R[2-9](-S\\d)?(\\.\\d{1,2})?\n",
-    "created_at": "2023-12-22T11:13:04.223752+0000",
-    "updated_at": "2023-12-22T13:29:04.475632+0000"
+    "values_yaml": "os_version:\n  exclude_list:\n  - 23.2R2-S2\n  - 22.2R3.15\n  regexp_valid_range: \\d{2}\\.(2|4)R[2-9](-S\\d)?(\\.\\d{1,2})?\n",
+    "created_at": "2024-01-18T16:23:06.631326+0000",
+    "updated_at": "2024-01-18T17:28:47.338818+0000"
 }
