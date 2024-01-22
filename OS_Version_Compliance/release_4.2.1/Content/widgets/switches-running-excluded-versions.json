@@ -2,17 +2,20 @@
     "label": "Switches Running Excluded Versions",
     "description": "",
     "type": "stage",
-    "id": "fca37d97-64e4-456f-a6a0-40a0b3d4c6f1",
-    "created_at": "2024-01-18T17:46:25.553628+0000",
-    "updated_at": "2024-01-18T17:51:48.261600+0000",
+    "id": "9bff60e1-f05f-457c-8403-57a2934c0846",
+    "created_at": "2024-01-19T16:04:09.474273+0000",
+    "updated_at": "2024-01-19T16:08:29.981997+0000",
     "updated_by": "admin",
-    "probe_id": "39301ab9-601d-4a2a-9996-f3da842a5246",
+    "probe_id": "3128bb9c-dd9e-4269-85d3-b92bbc30bfa6",
     "stage_name": "Switches_Running_Excluded_Versions",
     "filter": "",
     "visible_columns": [
-        "properties.system_id"
+        "properties.Device_role",
+        "properties.system_id",
+        "properties.Device_Model",
+        "properties.excluded_version_regex"
     ],
-    "orderby": "",
+    "orderby": "properties.Device_role:DESC",
     "max_items": 10,
     "anomalous_only": true,
     "show_context": false,
@@ -24,12 +27,12 @@
     "combine_graphs": "none",
     "referencing_dashboards": [
         {
-            "id": "bf8d1ed4-deb6-47f5-8143-cb973a058236",
-            "label": "OS Version Compliance Check",
+            "id": "2930bf39-385d-44a0-8c46-c9629344ab67",
+            "label": "OS Version Compliance",
             "predefined_dashboard": ""
         }
     ],
     "__blueprint_id": "98cbe3da-7878-4e9b-bdd6-a628d883c757",
     "__blueprint_label": "Paris_Dc",
-    "__probe_label": "OS Version Compliance Check"
+    "__probe_label": "OS Version Compliance"
 }

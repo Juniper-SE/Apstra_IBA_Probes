@@ -1,7 +1,7 @@
-# OS_Version_Compliance_Check
+# OS_Version_Compliance
 
 Table of Contents:
-- [OS\_Version\_Compliance\_Check](#os_version_compliance_check)
+- [OS\_Version\_Compliance](#os_version_compliance)
   - [Description of the use-case](#description-of-the-use-case)
   - [Identification of the source data (raw data)](#identification-of-the-source-data-raw-data)
   - [Content](#content)
@@ -558,7 +558,7 @@ JUNOS dsa dsa [22.2R3.15]
 
 
 > [!TIP]
-> We are using the `Hostname` only to use it as a key in the source IBA processor. Since we will be using some advanced graph queries we will need to leverage static stages output. For that we need to have at least one service key wich can be derived from the graph. `Hostname` is a good candidate even though it won't be of much use in the probe's pipeline.
+> We are using the `Hostname` only to use it as a key in the source IBA processor. Since we will be using some advanced graph queries we will need to leverage stages with satatic series output. For that we need to have at least one service key wich can be derived from the graph. `Hostname` is a good candidate even though it won't be of much use in the probe's pipeline.
 
 <br>
 
@@ -621,7 +621,9 @@ The property-set contains the following items:
 
 
 Source processor configuration:
-- To define the probe as  **Static Stages** one we will choose a data type of `Text`, because our service value data type is `string`. By choosing this data type, we will be asked to map the key name `hostname` to a graph expression. We will simmply use the graph node property `hostname`, use the graph explorer to run the query and check the results.  
+- To define the probe as  **Static Stages** one we will choose a data type of `Text`, because our service value data type is `string`. By choosing this data type, we will be asked to map the key name `hostname` to a graph expression. We will simmply use the graph node property `hostname`, use the graph explorer to run the query and check the results.
+  - We also matching a `property_set` node in the same graph expression. The reason for this is to use it in the context keys so be able to derive from the graph the values stored in the `Compliance_Check_For_IBA` property-set. This will create additionnal columns named `hardened_version_regex` and `excluded_version_regex` which will be leveraged by some analytics processors in the pipeline to automatically infer the regexp values to check against.
+  - Other context keys are created to provide context augmentation: `Device_model` and `Device_role`.
 
 ![OS_Version_Compliance_Check_Probe_Source_Processor](Images/OS_Version_Compliance_Check_Probe_Source_Processor.png)
 
@@ -634,6 +636,7 @@ Output stage:
 <br>
 
 `Match_String` processor configuration to identify switches that are running versions not compliant with the hardened EVPN versions:
+- Note the `Regular Expression` attribute is set to `context.hardened_version_regex`. `Context` is a function allowing you to access keys of an item from an input stage. With `context` you can access any input stage key.
 
 ![OS_Version_Compliance_Check_Probe_Match_String-1_Processor](Images/OS_Version_Compliance_Check_Probe_Match_String-1_Processor.png)
 
@@ -646,6 +649,7 @@ Output stage:
 <br>
 
 `Match_String` processor configuration to identify switches that are running versions from the excluded list:
+- Note the `Regular Expression` attribute is set to `context.excluded_version_regex`. `Context` is a function allowing you to access keys of an item from an input stage. With `context` you can access any input stage key.
 
 ![OS_Version_Compliance_Check_Probe_Match_String-2_Processor](Images/OS_Version_Compliance_Check_Probe_Match_String-2_Processor.png)
 
@@ -703,28 +707,32 @@ Putting it all together - Probe pipeline representation:
 ### Widgets
 ```
 └── widgets
-    ├── count-of-switches-not-running-hardened-versions.json
-    ├── count-of-switches-running-excluded-versions.json
-    ├── switches-not-running-hardened-versions.json
+    ├── count-switches-out-of-compliance.json
+    ├── os-version.json
     ├── switches-running-excluded-versions.json
-    └── total-count-of-switches-out-of-compliance.json
+    └── switches-running-non-hardened-versions.json
 ```
 
 <br>
 
 Configuration of the first widget: 
+- Starting with the `Device Role` column with an Descending sorting order allows to have the table display Spines first, and then leafs after. This is only cosmetic to facilitate reading the table.
 
 <img src="Images/OS_Version_Compliance_Check_Widget_1.png" width="70%" height="70%">
 
 <br>
 
 Configuration of the second widget:
+- Note we are keeping only one regexp column, the one related to the data in this output stage, the `hardened_version_regex`.
+- Starting with the `Device Role` column with an Descending sorting order allows to have the table display Spines first, and then leafs after. This is only cosmetic to facilitate reading the table.
 
 <img src="Images/OS_Version_Compliance_Check_Widget_2.png" width="70%" height="70%">
 
 <br>
 
 Configuration of the third widget: 
+- Starting with the `Device Role` column with an Descending sorting order allows to have the table display Spines first, and then leafs after. This is only cosmetic to facilitate reading the table.
+- Note we are keeping only one regexp column, the one related to the data in this output stage, the `excluded_version_regex`.
 
 <img src="Images/OS_Version_Compliance_Check_Widget_3.png" width="70%" height="70%">
 

@@ -1,8 +1,8 @@
-# OPSF Neighbor Check
+# OPSF Neighbor
 
 
 Table of Contents:
-- [OPSF Neighbor Check](#opsf-neighbor-check)
+- [OPSF Neighbor](#opsf-neighbor)
   - [Description of the use-case](#description-of-the-use-case)
   - [Identification of the source data (raw data)](#identification-of-the-source-data-raw-data)
   - [Content](#content)
@@ -122,6 +122,76 @@ Address          Interface              State           ID               Pri  De
 configlets
 └── ospf-configlet.json
 ```
+<img src="Images/OSPF-Neighbor_Configlet.png" width="70%" height="70%">
+
+- For ease of reasability, the configlet content is listed below:
+
+```python
+{% set ns = namespace(ospf_interfaces=[]) %}
+
+{% set tagged_interfaces = interface | json_query("*.{intfName: intfName, intf_tags: intf_tags, switch_port_mode: switch_port_mode, vrf_name: vrf_name, has_subinterfaces: has_subinterfaces, subinterfaces: subinterfaces}[?intf_tags.contains(@, 'ospf')]") %}
+
+{% for intf in tagged_interfaces %}
+    {% for sub_intf in intf.subinterfaces %}
+        {% set subintf_name = interface[sub_intf].intfName %}
+        {% set ns.ospf_interfaces = ns.ospf_interfaces + [subintf_name] %}
+    {% endfor %}
+{% endfor %}
+
+
+{% set interface_query = [] %}
+{% for intf in ns.ospf_interfaces %}
+  {% set interface_query = interface_query.append("contains(intfName, '" + intf + "')") %}
+{% endfor %}
+{% set tags_jmespath = interface_query | join(' || ') %}
+{% set ospf_interfaces_details = interface | json_query("*.{intfName: intfName, vrf_name: vrf_name}[?" + tags_jmespath + "]") %}
+
+
+{% set filtered_interfaces = [] %}
+{% for intf in ospf_interfaces_details %}
+    {% if intf.vrf_name in routing_zones and 'area' in routing_zones[intf.vrf_name] %}
+        {% do filtered_interfaces.append({
+            "intfName": intf.intfName,
+            "vrf_name": intf.vrf_name,
+            "area": routing_zones[intf.vrf_name].area
+        }) %}
+    {% endif %}
+{% endfor %}
+
+{% for routing_zone, routing_zone_details in routing_zones.items() %}
+routing-instances {
+    {{ routing_zone }} {
+        protocols {
+            ospf {
+                area {{ routing_zone_details.area }} {
+                    {% for intf in filtered_interfaces %}
+                        {% if intf.vrf_name == routing_zone %}
+                    interface {{ intf.intfName }}
+                        {% endif %}
+                    {% endfor %}
+                }
+            }
+        }
+    }
+}
+{% endfor %}
+```
+
+This configlet leverages tags applied at the system level (`Border Leaf` tag to identify the leafs acting as Border leafs) as well as at the interface level (`OSPF` tag to identify the interfaces to enble OSPF routing on).
+
+<img src="Images/OSPF-Neighbor_Tags.png" width="60%" height="60%">
+
+<br> 
+
+Apply the configlet on systems with tag `Border Leaf`
+
+<img src="Images/OSPF-Neighbor_Configlet_application_scope.png" width="50%" height="50%">
+
+<br>
+
+Before committing the changes, use the **Commit Check** feature to verify the validy of the config and introspect the incremental configuraiton changes
+
+<img src="Images/OSPF-Neighbor_Configlet_rendered_configs.png" width="50%" height="50%">
 
 <br>
 
@@ -133,7 +203,12 @@ configlets
 <br>
 
 ### Property Sets
-No Property Sets used in this example.
+```
+configlets
+└── ospf-ps.json
+```
+<img src="Images/OSPF-Neighbor_Property-Set.png" width="70%" height="70%">
+
 
 <br>
 
@@ -176,7 +251,7 @@ probes
 └── ospf-neighbour-check.json
 ```
 Source Processor configuration:
-- Considering the keys defined in the `OSPF_neighbor` service cannot be derived from the graph, we need to define the probe using a **Dynamic Stages** approach. With that, the IBA processors series, i.e rows in the output stage, are controlled by the collector instead of being controlled by the graph query like for **Static Stages** approach. The count of those series dynamically reacts to the collector's output. It is only required to map the system_ID to a to a graph node's property. Other collectors key do not requires any mapping to the Graph. To define the probe as  **Dynamic Stages** one we will choose a data type of `Dynamic Discrete State`, because our service value data type is `integer`.
+- Considering the keys defined in the `OSPF_Neighbor` service cannot be derived from the graph, we need to define the probe using a **Dynamic Stages** approach. With that, the IBA processors series, i.e rows in the output stage, are controlled by the collector instead of being controlled by the graph query like for **Static Stages** approach. The count of those series dynamically reacts to the collector's output. It is only required to map the system_ID to a to a graph node's property. Other collectors key do not requires any mapping to the Graph. To define the probe as  **Dynamic Stages** one we will choose a data type of `Dynamic Discrete State`, because our service value data type is `integer`.
 
 <img src="Images/OSPF-Neighbor_Probe_Source_Processor.png" width="80%" height="80%">
 

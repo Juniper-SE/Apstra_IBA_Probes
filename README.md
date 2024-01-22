@@ -65,7 +65,7 @@ The following examples of IBA probes are listed in this repository.
 2) [Device Uptime](Device_Uptime/release_4.2.1/README.md) 
 3) [OSPF Neighbor](OSPF_Neighbor/release_4.2.1/README.md)
 4) [Interface Flap](Interface_Flap/release_4.2.1/README.md)
-5) [OS Version Compliance Check](OS_Version_Compliance_Check/release_4.2.1/README.md)
+5) [OS Version Compliance](OS_Version_Compliance/release_4.2.1/README.md)
 6) [Interface Queue](Interface_Queue/release_4.2.1/README.md) <<< WIP
 
 <br>
