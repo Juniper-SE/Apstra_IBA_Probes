@@ -16,8 +16,6 @@ Table of Contents:
 
 <!-- To do (WIP Mehdi):
 
-- Enhance OS_Compliance check probe with real example
-
 - OPSF Neighbor Check
   - Enhance the configlet, leverage Device-Context and add a Property-set.
   - Enhance the probe to use State_Check processor to check for neighbour not in Full state.
