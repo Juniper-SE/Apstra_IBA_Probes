@@ -117,7 +117,31 @@ The following examples of IBA probes are listed in this repository.
 5) Stage your chnages as you progress: `git add <filename>` or `git add .` and commit them once you have a satisfacotry version: `git commit -m "<provide-commmit-message>"`.
 6) Push your branch to origin `git push --set-upstream origin <Your-Branch-Name>`
 > [!IMPORTANT]
-> Note that this repositorty `main` branch is set as a protected branch. Hence contributions cannot be ade directly against this branch but rather through merging of feature branches after peer reviews. This allows to scale the collaboraiton on this repository.
+> Note that this repositorty `main` branch is set as a protected branch. Hence contributions cannot be added directly against this branch but rather through merging of feature branches after peer reviews. This allows to scale the collaboraiton on this repository.
+```
+mabdelouahab@mabdelouahab-mbp:~/mab_lab/Mehdi/Apstra_IBA_Probes (main *) $ gs
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+mabdelouahab@mabdelouahab-mbp:~/mab_lab/Mehdi/Apstra_IBA_Probes (main) $ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 294 bytes | 294.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+remote: Bypassed rule violations for refs/heads/main:
+remote: 
+remote: - Changes must be made through a pull request.
+remote: 
+remote: - Cannot change this locked branch
+remote: 
+To github.com:mab27/Apstra_IBA_Probes.git
+   45100ac..55e363d  main -> main
+```
 7) Request a Pull Request and Merge Request.
 
 <br>
