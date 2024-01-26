@@ -10,6 +10,8 @@ Table of Contents:
     - [Telemetry Service Schema](#telemetry-service-schema)
     - [Telemetry Collectors](#telemetry-collectors)
     - [Probes](#probes)
+      - [Probe pipeline structure](#probe-pipeline-structure)
+      - [Probe processors details](#probe-processors-details)
     - [Widgets](#widgets)
     - [Dashboards](#dashboards)
 
@@ -747,19 +749,19 @@ Configlet section for `External Reachability` RPM probe:
 
 Definition of the schema for the service collecting `Underlay Reachability` RPM probe results:
 
-<img src="Images/Ping-Mesh_Schema_Underlay-Reachability.png" width="60%" height="60%">
+<img src="Images/Ping-Mesh_Schema_Underlay-Reachability.png" width="50%" height="50%">
 
 <br>
 
 Definition of the schema for the service collecting `Overlay Reachability` RPM probe results:
 
-<img src="Images/Ping-Mesh_Schema_Overlay-Reachability.png" width="60%" height="60%">
+<img src="Images/Ping-Mesh_Schema_Overlay-Reachability.png" width="50%" height="50%">
 
 <br>
 
 Definition of the schema for the service collecting `External Reachability` RPM probe results:
 
-<img src="Images/Ping-Mesh_Schema_External-Reachability.png" width="60%" height="60%">
+<img src="Images/Ping-Mesh_Schema_External-Reachability.png" width="50%" height="50%">
 
 <br>
 
@@ -792,6 +794,16 @@ Definition of the collector for getting the results from the `External Reachabil
 <br>
 
 ### Probes
+
+#### Probe pipeline structure
+
+<br>
+
+<img src="Images/Ping-Mesh_Probe_Pipeline_Vertical.png" width="20%" height="20%">
+
+<br>
+
+#### Probe processors details
 ```
 ├── probes
 │   └── ping-mesh.json
@@ -809,12 +821,6 @@ Source Processor configuration for `Underlay Reachability` RPM probe:
 Stage output for `Underlay Reachability` RPM probe:
 
 ![Ping-Mesh_Probe_Stage_output_Underlay](Images/Ping-Mesh_Probe_Stage_output_Underlay.png)
-
-<br>
-
-Putting it all together - Probe pipeline representation:
-
-<img src="Images/Ping-Mesh_Probe_Pipeline_Vertical.png" width="25%" height="25%">
 
 <br>
 

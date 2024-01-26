@@ -15,34 +15,17 @@ Table of Contents:
     - [Custom Telemetry Collectors](#custom-telemetry-collectors)
 
 <!-- To do (WIP Mehdi):
-
-- OPSF Neighbor Check
-  - Enhance the configlet, leverage Device-Context and add a Property-set.
-  - Enhance the probe to use State_Check processor to check for neighbour not in Full state.
-
 - Interface flap
-    - Report the bug on APIs for Widgets
-
-- Interface Queue.
-    - Find a device with running traffic to execute the command on, get the output and document it. 
-    - Design the probe. 
-
-- Github actions:
-  - Investigate automation. Example check that .json files are proper JSON, check that Images directory only contains .png, check that a folder is in a gi ven sturcture.
+    - Report the observed bug on APIs for Widgets.
 
 - Examples to add (Roadmap field to make it public).
-  - BFD telemetry (less important, since already documented)
-  - RoCEv2  We should have a public roadmap 
+  - BFD telemetry (not a priority since already covered at Tech Summit)
   - VRF Scale https://apstrktr.atlassian.net/browse/RFE-2016
-  - "show pfe vxlan nh-usage" if any possible with some hacks
+  - "show pfe vxlan nh-usage" if any possible with some hacks, likely not !
   - Probe to monitor Route Table sizes - RIB/FIB > RFE-2511.
   - "show ddos-protection protocols" from UHS experience
   - Monitor the Routing Engine status
-  - show system alarms or show chassis alarms (discussed with Boris)
-
-
 -->
-
 
 <br>
 
@@ -116,16 +99,15 @@ The following examples of IBA probes are listed in this repository.
 ![Apstra-cli_Content_Export](_Images/Apstra-cli_Content_Export.png) 
 5) Stage your chnages as you progress: `git add <filename>` or `git add .` and commit them once you have a satisfacotry version: `git commit -m "<provide-commmit-message>"`.
 6) Push your branch to origin `git push --set-upstream origin <Your-Branch-Name>`
-> [!IMPORTANT]
-> Note that this repositorty `main` branch is set as a protected branch. Hence contributions cannot be added directly against this branch but rather through merging of feature branches after peer reviews. This allows to scale the collaboraiton on this repository.
+- Branch protection rules: This repositorty has  `main` branch set as a protected branch. It will not accept any direct push (see below). All commits must be made to a non-protected branch and submitted via a pull request against `Main` before they can be merged. This allows to scale the collaboraiton on this repository
 ```
-mabdelouahab@mabdelouahab-mbp:~/mab_lab/Mehdi/Apstra_IBA_Probes (main *) $ gs
+user@mbp:~/Apstra_IBA_Probes (main *) $ gs
 On branch main
 Your branch is ahead of 'origin/main' by 1 commit.
   (use "git push" to publish your local commits)
 
 nothing to commit, working tree clean
-mabdelouahab@mabdelouahab-mbp:~/mab_lab/Mehdi/Apstra_IBA_Probes (main) $ git push
+user@mbp:~/Apstra_IBA_Probes (main) $ git push
 Enumerating objects: 5, done.
 Counting objects: 100% (5/5), done.
 Delta compression using up to 16 threads
@@ -142,7 +124,7 @@ remote:
 To github.com:mab27/Apstra_IBA_Probes.git
    45100ac..55e363d  main -> main
 ```
-7) Request a Pull Request and Merge Request.
+1) Request a Pull Request.
 
 <br>
 
