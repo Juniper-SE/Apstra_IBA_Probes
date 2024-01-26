@@ -1,0 +1,42 @@
+{
+    "service_name": "OSPF_Neighbor_RZ_Blue",
+    "application_schema": {
+        "properties": {
+            "key": {
+                "properties": {
+                    "Adjacency_Time": {
+                        "type": "string"
+                    },
+                    "Interface_Name": {
+                        "type": "string"
+                    },
+                    "Neighbor_IP": {
+                        "type": "string"
+                    },
+                    "OSPF_Area": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "Adjacency_Time",
+                    "Interface_Name",
+                    "Neighbor_IP",
+                    "OSPF_Area"
+                ],
+                "type": "object"
+            },
+            "value": {
+                "type": "integer"
+            }
+        },
+        "required": [
+            "key",
+            "value"
+        ],
+        "type": "object"
+    },
+    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data",
+    "builtin": false,
+    "description": "",
+    "version": "version_0"
+}

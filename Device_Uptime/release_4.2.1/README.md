@@ -10,6 +10,8 @@ Table of Contents:
     - [Telemetry Service Schema](#telemetry-service-schema)
     - [Telemetry Collectors](#telemetry-collectors)
     - [Probes](#probes)
+      - [Probe pipeline structure](#probe-pipeline-structure)
+      - [Probe processors details](#probe-processors-details)
     - [Widgets](#widgets)
     - [Dashboards](#dashboards)
 
@@ -127,7 +129,7 @@ int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080
 ```
 
 > [!IMPORTANT]
-> Python based expressions are supported as long as they are expressed in a one-liner. For example to express an `if this than that` conditional, it will have to be wirtten in the format: `<value_if_true> if <condition> else <value_if_false>`.
+> Python based expressions are supported as long as they are expressed in a one-liner. For example to express an `If This Than That` condition, it will need to be slightly tweaked to be `That if This`, or `That If This Else SomeThingElse`. In other words, the conditionnal logic should be expressed as `<value_if_true> if <condition> else <value_if_false>`.
 
 The lentgh and complexity of the expression is due to the variety of different formats returned by the `/system-uptime-information/uptime-information/up-time` XML path, such as "24 days, 23:45", "1w2d 00:26:08", "2d 00:26:08", "00:26:08", "36 mins".  Therefore, the expression must be written in a way such that it can correctly handle different formats and make sure each part of the time (weeks, days, hours, and minutes) is accurately extracted and calculated.
   - **Week Calculation**: The expression first looks for a number followed by the letter `w`, indicating weeks. It uses a regular expression `(re_search(r'(\d+)(?=w)', System_Uptime))` to find this number. If found, this number is multiplied by `10080`, which is the number of minutes in a week.
@@ -140,13 +142,23 @@ The lentgh and complexity of the expression is due to the variety of different f
 <br>
 
 ### Probes
+
+#### Probe pipeline structure
+
+<br>
+
+<img src="Images/Device-Uptime_Probe_Vertical.png" width="30%" height="30%">
+
+<br>
+
+#### Probe processors details
 ```
 ├── probes
     └── device-uptime.json
 ```
 Source Processor configuration:
 
-![Device-Uptime_Probe_Source_Processor](Images/Device-Uptime_Probe_Source_Processor.png)
+<img src="Images/Device-Uptime_Probe_Source_Processor.png" width="80%" height="80%">
 
 <br>
 
@@ -160,28 +172,21 @@ To implement the anomaly raising logic for reboot in last **1h** / **1 day** / *
 
 <br>
 
-`Range` processor configuraiton to raise anomaly for device which rebooted in the last hour:
+`Range` processor configuration to raise anomaly for device which rebooted in the last hour:
 
-![Device-Uptime_Probe_Range_Processor_Hour](Images/Device-Uptime_Probe_Range_Processor_Hour.png)
-
-<br>
-
-`Range` processor configuraiton to raise anomaly for device which rebooted in the last day (and more than one hour ago):
-
-![Device-Uptime_Probe_Range_Processor_Day](Images/Device-Uptime_Probe_Range_Processor_Day.png)
+<img src="Images/Device-Uptime_Probe_Range_Processor_Hour.png" width="80%" height="80%">
 
 <br>
 
-`Range` processor configuraiton to raise anomaly for device `Range` processor configuraiton to raise anomaly for device which rebooted in the last day (and more than one hour ago):
- rebooted in the last Week (and more than one day ago):
+`Range` processor configuration to raise anomaly for device which rebooted in the last day (and more than one hour ago):
 
-![Device-Uptime_Probe_Range_Processor_Week](Images/Device-Uptime_Probe_Range_Processor_Week.png)
+<img src="Images/Device-Uptime_Probe_Range_Processor_Day.png" width="80%" height="80%">
 
 <br>
 
-Putting it all together - Probe pipeline representation:
+`Range` processor configuration to raise anomaly for device `Range` processor configuration to raise anomaly for device which rebooted in the last Week (and more than one day ago):
 
-<img src="Images/Device-Uptime_Probe_Vertical.png" width="30%" height="30%">
+<img src="Images/Device-Uptime_Probe_Range_Processor_Week.png" width="80%" height="80%">
 
 <br>
 

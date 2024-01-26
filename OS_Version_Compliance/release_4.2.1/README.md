@@ -1,7 +1,7 @@
-# OS_Version_Compliance
+# OS Version Compliance
 
 Table of Contents:
-- [OS\_Version\_Compliance](#os_version_compliance)
+- [OS Version Compliance](#os-version-compliance)
   - [Description of the use-case](#description-of-the-use-case)
   - [Identification of the source data (raw data)](#identification-of-the-source-data-raw-data)
   - [Content](#content)

@@ -10,6 +10,8 @@ Table of Contents:
     - [Telemetry Service Schema](#telemetry-service-schema)
     - [Telemetry Collectors](#telemetry-collectors)
     - [Probes](#probes)
+      - [Probe pipeline structure](#probe-pipeline-structure)
+      - [Probe processors details](#probe-processors-details)
     - [Widgets](#widgets)
     - [Dashboards](#dashboards)
 
@@ -675,11 +677,21 @@ key['Interface'].startswith(("et-", "xe-", "ge-"))
 ```
 
 > [!TIP]
-> Filtering conditions experessed in `Filter Expression` are applied after the Accessor/Key/Value mapping.
+> Filtering conditions experessed in `Filter Expression` are applied **after** the Accessor/Key/Value mapping.
 
 <br>
 
 ### Probes
+
+#### Probe pipeline structure
+
+<br>
+
+<img src="Images/Interface-Flap_Probe_Pipeline_Vertical.png" width="30%" height="30%">
+
+<br>
+
+#### Probe processors details
 ```
 probes
 └── interface-flap.json
@@ -724,11 +736,6 @@ Output stage:
 
 ![Interface-Flap_Probe_Stage_3](Images/Interface-Flap_Probe_Stage_3.png)
 
-<br>
-
-Putting it all together - Probe pipeline representation:
-
-<img src="Images/Interface-Flap_Probe_Pipeline_Vertical.png" width="30%" height="30%">
 
 <br>
 

@@ -1,5 +1,5 @@
 {
-    "service_name": "OSPF_Neighbor",
+    "service_name": "OSPF_Neighbor_RZ_Red",
     "application_schema": {
         "properties": {
             "key": {
@@ -19,9 +19,9 @@
                 },
                 "required": [
                     "Adjacency_Time",
-                    "OSPF_Area",
                     "Interface_Name",
-                    "Neighbor_IP"
+                    "Neighbor_IP",
+                    "OSPF_Area"
                 ],
                 "type": "object"
             },
@@ -34,5 +34,9 @@
             "value"
         ],
         "type": "object"
-    }
+    },
+    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data",
+    "builtin": false,
+    "description": "",
+    "version": "version_0"
 }
