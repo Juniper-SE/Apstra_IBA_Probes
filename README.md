@@ -77,23 +77,28 @@ The following examples of IBA probes are listed in this repository.
 ## How to contribute to this repository?
 1) Git clone the repository: `git clone git@github.com:mab27/Apstra_IBA_Probes.git`
 2) Move to the repository `cd Apstra_IBA_Probes` and create a new branch: `git checkout -b <Your-Branch-Name>`.
-> [!TIP]
-> Name the branch after the change you are planning to do to facilitate its identification locally, when you work on it, and remotely when you later pusch it for collaboration and review. For example if you are creating a new probe, your branch name could be something like "Monitor metric foo on external links". If you are adding another release variant to existing probe because you want to benefit from the new feature enhancements, your branch name could be "release_5.0.0 for Ping Mesh".
-3) Create the folder structure for your new Probe: `mkdir -p New_IBA_Probe_Example/release_X.Y.Z/{Content/{configlets,property-sets,telemetry-service-definitions,telemetry-collectors,probes,widgets,dashboards},Images} && touch New_IBA_Probe_Example/release_X.Y.Z/README.md`. It is important to follow this structure to streamline collaboraiton and testing. 
-  - This will generate the following hierarchy:
+- Name the branch after the change you are planning to do to facilitate its identification locally, when you work on it, and remotely when you later push it for collaboration and review. For example if you are creating a new probe, your branch name could be something like "Monitor metric foo on external links". If you are adding another release variant to existing probe because you want to benefit from the new feature enhancements, your branch name could be "release_5.0.0 for Ping Mesh". 
+3) Create the folder structure for your new Probe. It is important to follow this structure to streamline collaboraiton and testing.
 ```
-├── IBA_Probe_Example
-│   └── release_X.Y.Z
-│       ├── Content
-│       │   ├── configlets
-│       │   ├── dashboards
-│       │   ├── probes
-│       │   ├── property-sets
-│       │   ├── telemetry-collectors
-│       │   ├── telemetry-service-definitions
-│       │   └── widgets
-│       ├── Images
-│       └── README.md
+PROBE_NAME="<Probe_Name>"
+mkdir -p $PROBE_NAME/{release_4.2.1/{Content/{configlets,property-sets,telemetry-service-definitions,telemetry-collectors,probes,widgets,dashboards},Images},release_5.0.0} && touch $PROBE_NAME/release_4.2.1/README.md  && touch $PROBE_NAME/release_5.0.0/README.md
+```
+- This will generate the following hierarchy:
+```
+└── PROBE_NAME="<Probe_Name>"
+    ├── release_4.2.1
+    │   ├── Content
+    │   │   ├── configlets
+    │   │   ├── dashboards
+    │   │   ├── probes
+    │   │   ├── property-sets
+    │   │   ├── telemetry-collectors
+    │   │   ├── telemetry-service-definitions
+    │   │   └── widgets
+    │   ├── Images
+    │   └── README.md
+    └── release_5.0.0
+        └── README.md
 ```
 4) Start filling that newly created folder structure by populating every relevant section. This includes clear description of the use-case docoumented in the README files, copies of all the relvant JSON payloads extracted from your environement (You can use UI export buttons, API calls or apstra-cli `content export` command), any useful screen capture image, etc ... Check existing content for inspiration and follow the same strucutre.
 ![Apstra-cli_Content_Export](_Images/Apstra-cli_Content_Export.png) 
@@ -124,7 +129,7 @@ remote:
 To github.com:mab27/Apstra_IBA_Probes.git
    45100ac..55e363d  main -> main
 ```
-1) Request a Pull Request.
+7) Request a Pull Request.
 
 <br>
 
@@ -133,8 +138,7 @@ Explain the notion of Probe, Collector, Grpah Query ..
 
 ### Custom Telemetry Collectors
 
-- Selection of the OS Variant (in the `Platform` tab of Custom Collector):
-  - Junos:
+- Selection of the OS Variant for Junos devices (in the `Platform` tab of Custom Collector):
 
 | OS Variant | Models |
 | --- | --- |
@@ -142,9 +146,7 @@ Explain the notion of Probe, Collector, Grpah Query ..
 | `junos-ex` | EX4400 |
 | `junos` | vJunos-switch |
 
-<br>
-
-  - Junos-Evovled:
+- Selection of the OS Variant for Junos-Evolved devices (in the `Platform` tab of Custom Collector):
 
 | OS Variant | Models |
 | --- | --- |

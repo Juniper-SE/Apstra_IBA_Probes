@@ -1,0 +1,30 @@
+{
+    "service_name": "System_Alarms",
+    "application_schema": {
+        "properties": {
+            "key": {
+                "properties": {
+                    "Description": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "Description"
+                ],
+                "type": "object"
+            },
+            "value": {
+                "type": "integer"
+            }
+        },
+        "required": [
+            "key",
+            "value"
+        ],
+        "type": "object"
+    },
+    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data",
+    "builtin": false,
+    "description": "",
+    "version": "version_0"
+}
