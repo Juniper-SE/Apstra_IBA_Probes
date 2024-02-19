@@ -1,0 +1,217 @@
+{
+    "label": "DDoS Protection Protocols",
+    "description": "",
+    "disabled": false,
+    "id": "c3c1ee10-efc0-45b6-a83b-7ba054072af4",
+    "tags": [],
+    "processors": [
+        {
+            "name": "DDoS_Protection_Protocols",
+            "type": "extensible_data_collector",
+            "properties": {
+                "service_name": "DDoS_Protection_Protocols",
+                "service_interval": "60",
+                "graph_query": [
+                    "match(node('system', name='system', deploy_mode='deploy', role=is_in(['leaf', 'access', 'spine', 'superspine'])).out('interface_map').node('interface_map').out('device_profile').node('device_profile', name='DP'))"
+                ],
+                "service_input": "''",
+                "query_group_by": [],
+                "Device_Profile": "str(DP.label)",
+                "keys": [],
+                "ingestion_filter": {},
+                "data_type": "dynamic number",
+                "query_tag_filter": {
+                    "filter": {},
+                    "operation": "and"
+                },
+                "execution_count": "-1",
+                "system_id": "system.system_id",
+                "query_expansion": {},
+                "enable_streaming": false
+            },
+            "inputs": {},
+            "outputs": {
+                "out": "DDoS_Protection_Protocols"
+            }
+        },
+        {
+            "name": "Violation_Count_Periodic_Change",
+            "type": "periodic_change",
+            "properties": {
+                "graph_query": [],
+                "period": 60,
+                "enable_streaming": false
+            },
+            "inputs": {
+                "in": {
+                    "stage": "DDoS_Protection_Protocols",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Violation_Count_Periodic_Change"
+            }
+        },
+        {
+            "name": "Systems_With_New_Violations",
+            "type": "range_check",
+            "properties": {
+                "property": "value",
+                "raise_anomaly": true,
+                "graph_query": [],
+                "anomaly_retention_duration": 86400,
+                "range": {
+                    "min": 1
+                },
+                "enable_streaming": false,
+                "anomaly_retention_size": 1073741824,
+                "enable_anomaly_logging": false
+            },
+            "inputs": {
+                "in": {
+                    "stage": "Violation_Count_Periodic_Change",
+                    "column": "value"
+                }
+            },
+            "outputs": {
+                "out": "Systems_With_New_Violations"
+            }
+        }
+    ],
+    "stages": [
+        {
+            "name": "Violation_Count_Periodic_Change",
+            "description": "",
+            "type": "table",
+            "dynamic": true,
+            "keys": {
+                "Device_Profile": "string",
+                "system_id": "string",
+                "Protocol": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Numeric Value",
+                    "type": "s64",
+                    "possible_values": []
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": false,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "Systems_With_New_Violations",
+            "description": "",
+            "type": "table",
+            "dynamic": true,
+            "keys": {
+                "Device_Profile": "string",
+                "system_id": "string",
+                "Protocol": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Discrete State Value",
+                    "type": "string",
+                    "possible_values": [
+                        "false",
+                        "true"
+                    ]
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": false,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        },
+        {
+            "name": "DDoS_Protection_Protocols",
+            "description": "",
+            "type": "table",
+            "dynamic": true,
+            "keys": {
+                "Device_Profile": "string",
+                "system_id": "string",
+                "Protocol": "string"
+            },
+            "values": {
+                "value": {
+                    "name": "value",
+                    "title": "Value",
+                    "description": "Numeric Value",
+                    "type": "s64",
+                    "possible_values": []
+                }
+            },
+            "units": {
+                "value": ""
+            },
+            "tags": [],
+            "anomaly_count": 0,
+            "enable_metric_logging": false,
+            "retention_duration": 86400,
+            "retention_size": 0,
+            "graph_annotation_properties": {},
+            "warnings": 0
+        }
+    ],
+    "state": "operational",
+    "probe_state": {
+        "final": {
+            "state": "operational",
+            "message": "",
+            "timestamp": "1970-01-01T00:00:00.000000+0000",
+            "detailed_error": null
+        },
+        "processors_configuration": {
+            "state": "operational",
+            "message": "The probe is already up to date.",
+            "timestamp": "2024-02-05T20:24:56.113739+0000",
+            "detailed_error": null
+        },
+        "pipeline": {
+            "state": "operational",
+            "message": "All the resources for probe status version 7 have been processed.",
+            "timestamp": "2024-02-05T20:22:31.777747+0000",
+            "detailed_error": null
+        },
+        "telemetry_service": {
+            "state": "operational",
+            "message": "TS: configuration completed",
+            "timestamp": "2024-02-05T20:22:31.738854+0000",
+            "detailed_error": null
+        }
+    },
+    "last_error": null,
+    "config_started_at": "2024-02-05T20:22:31.715012+0000",
+    "config_completed_at": "2024-02-05T20:22:31.732575+0000",
+    "anomaly_count": 0,
+    "version": 7,
+    "iba_unit": "88aaa19b-66c2-4c6b-8c1d-5d4facb1abdd",
+    "host_node": "AosController",
+    "task_state": "running",
+    "task_error": "",
+    "predefined_probe": "",
+    "referencing_dashboards": [],
+    "updated_at": "2024-02-05T20:24:56.086631+0000",
+    "updated_by": "admin",
+    "blueprint_id": "baseline-junos-evo-offbox-3stage-physical_1"
+}
