@@ -1,0 +1,36 @@
+{
+    "label": "Systems with Major Alarms",
+    "description": "",
+    "type": "stage",
+    "id": "a38d8074-2abf-4cb7-84e4-5933ffc74bb8",
+    "created_at": "2024-02-05T19:55:34.874007+0000",
+    "updated_at": "2024-02-05T19:56:54.767169+0000",
+    "updated_by": "admin",
+    "probe_id": "f2dedf8f-0e02-4482-9669-efe04dc2a3af",
+    "stage_name": "Systems_with_Major_Alarms",
+    "filter": "",
+    "visible_columns": [
+        "properties.system_id",
+        "anomaly"
+    ],
+    "orderby": "",
+    "max_items": 10,
+    "anomalous_only": true,
+    "show_context": false,
+    "spotlight_mode": false,
+    "data_source": "real_time",
+    "time_series_duration": 86400,
+    "aggregation_period": 300,
+    "aggregation_type": "unset",
+    "combine_graphs": "none",
+    "referencing_dashboards": [
+        {
+            "id": "cf5d5df4-2111-4333-b5b7-9ca3b5d9e4fd",
+            "label": "System Alarms",
+            "predefined_dashboard": ""
+        }
+    ],
+    "__blueprint_id": "baseline-junos-evo-offbox-3stage-physical_1",
+    "__blueprint_label": "zz-gmat-baseline.junos_evo_offbox_3stage.2485377892355-2052628548 - baseline-junos-evo-offbox-3stage-physical_1",
+    "__probe_label": "Systems Alarms"
+}
