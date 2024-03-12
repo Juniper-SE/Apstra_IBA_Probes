@@ -84,131 +84,38 @@
         {
             "name": "Interface_With_Excessive_Flap_Count",
             "description": "",
-            "type": "table",
-            "dynamic": false,
-            "keys": {
-                "Link_Speed": "string",
-                "Remote_iface": "string",
-                "Remote_System": "string",
-                "Interface": "any",
-                "system_id": "string",
-                "Link_Role": "string"
-            },
-            "values": {
-                "value": {
-                    "name": "value",
-                    "title": "Value",
-                    "description": "Discrete State Value",
-                    "type": "string",
-                    "possible_values": [
-                        "false",
-                        "true"
-                    ]
-                }
-            },
             "units": {
                 "value": ""
             },
             "tags": [],
-            "anomaly_count": 0,
             "enable_metric_logging": true,
             "retention_duration": 2592000,
             "retention_size": 0,
-            "graph_annotation_properties": {},
-            "warnings": 0
+            "graph_annotation_properties": {}
         },
         {
             "name": "New_Flaps_Per_Collection_Interval",
             "description": "",
-            "type": "table",
-            "dynamic": false,
-            "keys": {
-                "Link_Speed": "string",
-                "Remote_iface": "string",
-                "Remote_System": "string",
-                "Interface": "any",
-                "system_id": "string",
-                "Link_Role": "string"
-            },
-            "values": {
-                "value": {
-                    "name": "value",
-                    "title": "Value",
-                    "description": "Numeric Value",
-                    "type": "s64",
-                    "possible_values": []
-                }
-            },
             "units": {
                 "value": ""
             },
             "tags": [],
-            "anomaly_count": 0,
             "enable_metric_logging": false,
             "retention_duration": 2592000,
             "retention_size": 0,
-            "graph_annotation_properties": {},
-            "warnings": 0
+            "graph_annotation_properties": {}
         },
         {
             "name": "Interface_Flap",
             "description": "",
-            "type": "table",
-            "dynamic": false,
-            "keys": {
-                "Link_Speed": "string",
-                "Remote_iface": "string",
-                "Remote_System": "string",
-                "Interface": "any",
-                "system_id": "string",
-                "Link_Role": "string"
-            },
-            "values": {
-                "value": {
-                    "name": "value",
-                    "title": "Value",
-                    "description": "Numeric Value",
-                    "type": "s64",
-                    "possible_values": []
-                }
-            },
             "units": {
                 "value": ""
             },
             "tags": [],
-            "anomaly_count": 0,
             "enable_metric_logging": false,
             "retention_duration": 86400,
             "retention_size": 0,
-            "graph_annotation_properties": {},
-            "warnings": 0
+            "graph_annotation_properties": {}
         }
-    ],
-    "state": "operational",
-    "probe_state": {
-        "final": {
-            "state": "operational",
-            "message": "",
-            "timestamp": "1970-01-01T00:00:00.000000+0000",
-            "detailed_error": null
-        },
-        "processors_configuration": {
-            "state": "operational",
-            "message": "The probe is already up to date.",
-            "timestamp": "2023-12-18T11:03:42.497031+0000",
-            "detailed_error": null
-        },
-        "pipeline": {
-            "state": "operational",
-            "message": "All the resources for probe status version 7 have been processed.",
-            "timestamp": "2023-12-18T10:40:38.459518+0000",
-            "detailed_error": null
-        },
-        "telemetry_service": {
-            "state": "operational",
-            "message": "TS: configuration completed",
-            "timestamp": "2023-12-18T10:40:38.449689+0000",
-            "detailed_error": null
-        }
-    }
+    ]
 }
