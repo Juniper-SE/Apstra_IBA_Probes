@@ -91,7 +91,7 @@
             "enable_metric_logging": true,
             "retention_duration": 2592000,
             "retention_size": 0,
-            "graph_annotation_properties": {},
+            "graph_annotation_properties": {}
         },
         {
             "name": "New_Flaps_Per_Collection_Interval",
@@ -103,7 +103,7 @@
             "enable_metric_logging": false,
             "retention_duration": 2592000,
             "retention_size": 0,
-            "graph_annotation_properties": {},
+            "graph_annotation_properties": {}
         },
         {
             "name": "Interface_Flap",
@@ -115,7 +115,7 @@
             "enable_metric_logging": false,
             "retention_duration": 86400,
             "retention_size": 0,
-            "graph_annotation_properties": {},
+            "graph_annotation_properties": {}
         }
     ]
 }
