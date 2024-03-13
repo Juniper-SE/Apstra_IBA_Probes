@@ -1,9 +1,5 @@
 {
     "label": "Systems Alarms",
-    "description": "",
-    "disabled": false,
-    "id": "f2dedf8f-0e02-4482-9669-efe04dc2a3af",
-    "tags": [],
     "processors": [
         {
             "name": "System_Alarms",
@@ -108,185 +104,52 @@
         {
             "name": "Minor_Alarms_Count",
             "description": "",
-            "type": "table",
-            "dynamic": true,
-            "keys": {
-                "system_id": "string"
-            },
-            "values": {
-                "total_count": {
-                    "name": "total_count",
-                    "title": "Total count",
-                    "description": "Total count of input series",
-                    "type": "s64",
-                    "possible_values": []
-                },
-                "value": {
-                    "name": "value",
-                    "title": "Value",
-                    "description": "Numeric Value",
-                    "type": "s64",
-                    "possible_values": []
-                }
-            },
             "units": {
                 "total_count": "",
                 "value": ""
             },
             "tags": [],
-            "anomaly_count": 0,
             "enable_metric_logging": false,
             "retention_duration": 86400,
             "retention_size": 0,
-            "graph_annotation_properties": {},
-            "warnings": 0
+            "graph_annotation_properties": {}
         },
         {
             "name": "System_Alarms",
             "description": "",
-            "type": "table",
-            "dynamic": true,
-            "keys": {
-                "Device_Profile": "string",
-                "Description": "string",
-                "system_id": "string"
-            },
-            "values": {
-                "value": {
-                    "name": "value",
-                    "title": "Value",
-                    "description": "Discrete State Value",
-                    "type": "string",
-                    "possible_values": [
-                        "Minor",
-                        "Major"
-                    ]
-                }
-            },
             "units": {
                 "value": ""
             },
             "tags": [],
-            "anomaly_count": 0,
             "enable_metric_logging": false,
             "retention_duration": 86400,
             "retention_size": 0,
-            "graph_annotation_properties": {},
-            "warnings": 0
+            "graph_annotation_properties": {}
         },
         {
             "name": "Systems_with_Major_Alarms",
             "description": "",
-            "type": "table",
-            "dynamic": true,
-            "keys": {
-                "system_id": "string"
-            },
-            "values": {
-                "value": {
-                    "name": "value",
-                    "title": "Value",
-                    "description": "Discrete State Value",
-                    "type": "string",
-                    "possible_values": [
-                        "false",
-                        "true"
-                    ]
-                }
-            },
             "units": {
                 "value": ""
             },
             "tags": [],
-            "anomaly_count": 3,
             "enable_metric_logging": true,
             "retention_duration": 2592000,
             "retention_size": 0,
-            "graph_annotation_properties": {},
-            "warnings": 0
+            "graph_annotation_properties": {}
         },
         {
             "name": "Major_Alarms_Count",
             "description": "",
-            "type": "table",
-            "dynamic": true,
-            "keys": {
-                "system_id": "string"
-            },
-            "values": {
-                "total_count": {
-                    "name": "total_count",
-                    "title": "Total count",
-                    "description": "Total count of input series",
-                    "type": "s64",
-                    "possible_values": []
-                },
-                "value": {
-                    "name": "value",
-                    "title": "Value",
-                    "description": "Numeric Value",
-                    "type": "s64",
-                    "possible_values": []
-                }
-            },
             "units": {
                 "total_count": "",
                 "value": ""
             },
             "tags": [],
-            "anomaly_count": 0,
             "enable_metric_logging": false,
             "retention_duration": 86400,
             "retention_size": 0,
-            "graph_annotation_properties": {},
-            "warnings": 0
+            "graph_annotation_properties": {}
         }
-    ],
-    "state": "operational",
-    "probe_state": {
-        "final": {
-            "state": "operational",
-            "message": "",
-            "timestamp": "1970-01-01T00:00:00.000000+0000",
-            "detailed_error": null
-        },
-        "processors_configuration": {
-            "state": "operational",
-            "message": "Processors configured",
-            "timestamp": "2024-02-05T19:51:49.948464+0000",
-            "detailed_error": null
-        },
-        "pipeline": {
-            "state": "operational",
-            "message": "All the resources for probe status version 5 have been processed.",
-            "timestamp": "2024-02-05T19:51:49.994573+0000",
-            "detailed_error": null
-        },
-        "telemetry_service": {
-            "state": "operational",
-            "message": "TS: configuration completed",
-            "timestamp": "2024-02-05T19:51:49.951618+0000",
-            "detailed_error": null
-        }
-    },
-    "last_error": null,
-    "config_started_at": "2024-02-05T19:51:49.939639+0000",
-    "config_completed_at": "2024-02-05T19:51:49.948603+0000",
-    "anomaly_count": 3,
-    "version": 5,
-    "iba_unit": "88aaa19b-66c2-4c6b-8c1d-5d4facb1abdd",
-    "host_node": "AosController",
-    "task_state": "running",
-    "task_error": "",
-    "predefined_probe": "",
-    "referencing_dashboards": [
-        {
-            "id": "cf5d5df4-2111-4333-b5b7-9ca3b5d9e4fd",
-            "label": "System Alarms",
-            "predefined_dashboard": ""
-        }
-    ],
-    "updated_at": "2024-02-05T19:51:49.917591+0000",
-    "updated_by": "admin",
-    "blueprint_id": "baseline-junos-evo-offbox-3stage-physical_1"
+    ]
 }

@@ -30,5 +30,6 @@
                 }
             }
         }
-    }
+    },
+    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data"
 }
