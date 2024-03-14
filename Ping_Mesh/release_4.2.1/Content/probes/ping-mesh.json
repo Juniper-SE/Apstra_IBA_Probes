@@ -1,4 +1,5 @@
 {
+    "label": "Ping Mesh",
     "processors": [
         {
             "inputs": {}, 
@@ -194,218 +195,74 @@
         {
             "enable_metric_logging": true, 
             "name": "Underlay_RTT_Above_Threshold", 
-            "anomaly_count": 0, 
             "tags": [], 
-            "keys": {
-                "Target": "any", 
-                "Dest_Leaf": "string", 
-                "Source": "any", 
-                "Dest_Rack": "string", 
-                "system_id": "string", 
-                "Source_Leaf": "string", 
-                "Source_Rack": "string"
-            }, 
             "graph_annotation_properties": {}, 
-            "dynamic": false, 
-            "retention_duration": 2592000, 
-            "values": {
-                "value": {
-                    "possible_values": [
-                        "false", 
-                        "true"
-                    ], 
-                    "description": "Discrete State Value", 
-                    "type": "string", 
-                    "name": "value", 
-                    "title": "Value"
-                }
-            }, 
-            "warnings": 0, 
+            "retention_duration": 2592000,  
             "units": {
                 "value": ""
             }, 
             "retention_size": 0, 
-            "type": "table", 
             "description": ""
         }, 
         {
             "enable_metric_logging": true, 
             "name": "External_RTT_Above_Threshold", 
-            "anomaly_count": 0, 
-            "tags": [], 
-            "keys": {
-                "Target": "any", 
-                "Source": "any", 
-                "system_id": "string", 
-                "Source_Leaf": "string", 
-                "Routing_Zone": "any", 
-                "External_Router": "string", 
-                "Source_Rack": "string"
-            }, 
+            "tags": [],  
             "graph_annotation_properties": {}, 
-            "dynamic": false, 
             "retention_duration": 2592000, 
-            "values": {
-                "value": {
-                    "possible_values": [
-                        "false", 
-                        "true"
-                    ], 
-                    "description": "Discrete State Value", 
-                    "type": "string", 
-                    "name": "value", 
-                    "title": "Value"
-                }
-            }, 
-            "warnings": 0, 
             "units": {
                 "value": ""
             }, 
             "retention_size": 0, 
-            "type": "table", 
             "description": ""
         }, 
         {
             "enable_metric_logging": true, 
             "name": "ICMP_Underlay", 
-            "anomaly_count": 0, 
-            "tags": [], 
-            "keys": {
-                "Target": "any", 
-                "Dest_Leaf": "string", 
-                "Source": "any", 
-                "Dest_Rack": "string", 
-                "system_id": "string", 
-                "Source_Leaf": "string", 
-                "Source_Rack": "string"
-            }, 
+            "tags": [],  
             "graph_annotation_properties": {}, 
-            "dynamic": false, 
-            "retention_duration": 2592000, 
-            "values": {
-                "value": {
-                    "possible_values": [], 
-                    "description": "Numeric Value", 
-                    "type": "s64", 
-                    "name": "value", 
-                    "title": "Value"
-                }
-            }, 
-            "warnings": 0, 
+            "retention_duration": 2592000,  
             "units": {
                 "value": "sec"
             }, 
             "retention_size": 0, 
-            "type": "table", 
             "description": ""
         }, 
         {
             "enable_metric_logging": true, 
             "name": "Overlay_RTT_Above_Threshold", 
-            "anomaly_count": 2, 
             "tags": [], 
-            "keys": {
-                "Target": "any", 
-                "Dest_Leaf": "string", 
-                "Source": "any", 
-                "Dest_Rack": "string", 
-                "system_id": "string", 
-                "Source_Leaf": "string", 
-                "Routing_Zone": "any", 
-                "Source_Rack": "string"
-            }, 
             "graph_annotation_properties": {}, 
-            "dynamic": false, 
-            "retention_duration": 2592000, 
-            "values": {
-                "value": {
-                    "possible_values": [
-                        "false", 
-                        "true"
-                    ], 
-                    "description": "Discrete State Value", 
-                    "type": "string", 
-                    "name": "value", 
-                    "title": "Value"
-                }
-            }, 
-            "warnings": 0, 
+            "retention_duration": 2592000,  
             "units": {
                 "value": ""
             }, 
             "retention_size": 0, 
-            "type": "table", 
             "description": ""
         }, 
         {
             "enable_metric_logging": true, 
             "name": "ICMP_External", 
-            "anomaly_count": 0, 
-            "tags": [], 
-            "keys": {
-                "Target": "any", 
-                "Source": "any", 
-                "system_id": "string", 
-                "Source_Leaf": "string", 
-                "Routing_Zone": "any", 
-                "External_Router": "string", 
-                "Source_Rack": "string"
-            }, 
+            "tags": [],  
             "graph_annotation_properties": {}, 
-            "dynamic": false, 
             "retention_duration": 2592000, 
-            "values": {
-                "value": {
-                    "possible_values": [], 
-                    "description": "Numeric Value", 
-                    "type": "s64", 
-                    "name": "value", 
-                    "title": "Value"
-                }
-            }, 
-            "warnings": 0, 
             "units": {
                 "value": "sec"
             }, 
             "retention_size": 0, 
-            "type": "table", 
             "description": ""
         }, 
         {
             "enable_metric_logging": true, 
             "name": "ICMP_Overlay", 
-            "anomaly_count": 0, 
-            "tags": [], 
-            "keys": {
-                "Target": "any", 
-                "Dest_Leaf": "string", 
-                "Source": "any", 
-                "Dest_Rack": "string", 
-                "system_id": "string", 
-                "Source_Leaf": "string", 
-                "Routing_Zone": "any", 
-                "Source_Rack": "string"
-            }, 
+            "tags": [],  
             "graph_annotation_properties": {}, 
-            "dynamic": false, 
-            "retention_duration": 2592000, 
-            "values": {
-                "value": {
-                    "possible_values": [], 
-                    "description": "Numeric Value", 
-                    "type": "s64", 
-                    "name": "value", 
-                    "title": "Value"
-                }
-            }, 
-            "warnings": 0, 
+            "retention_duration": 2592000,  
             "units": {
                 "value": "sec"
             }, 
             "retention_size": 0, 
-            "type": "table", 
             "description": ""
         }
-    ],
-    "label": "Ping Mesh"
+    ]
 }

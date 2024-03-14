@@ -233,7 +233,7 @@ Service collector for the Blue Routing Zone:
 
 ![OSPF-Neighbor_Collector_Blue](Images/OSPF-Neighbor_Collector_Blue.png)
 
-Service collector for the Blue Routing Zone:
+Service collector for the Red Routing Zone:
  
 ![OSPF-Neighbor_Collector_Red](Images/OSPF-Neighbor_Collector_Red.png)
 
