@@ -1,0 +1,102 @@
+{
+  "label": "ecn_marked_packets",
+  "processors": [
+    {
+      "name": "Extensible Service Data Collector",
+      "type": "extensible_data_collector",
+      "properties": {
+        "service_name": "ecn_marked_packets",
+        "service_interval": "45",
+        "graph_query": [
+          "match(node('system', name='system', deploy_mode='deploy', role=is_in(['leaf', 'spine'])).out('hosted_interfaces').node('interface', name='iface', if_name=not_none()).out('link').node('link', link_type='ethernet', name='link').in_('link').node('interface', name='remote_iface').in_('hosted_interfaces').node('system', role=is_in(['spine', 'access', 'superspine']), deploy_mode='deploy', name='remote_system'))"
+        ],
+        "service_input": "''",
+        "query_group_by": [],
+        "keys": [
+          "Interface"
+        ],
+        "ingestion_filter": {},
+        "data_type": "number",
+        "query_tag_filter": {
+          "filter": {},
+          "operation": "and"
+        },
+        "Interface": "iface.if_name",
+        "execution_count": "-1",
+        "system_id": "system.system_id",
+        "query_expansion": {},
+        "enable_streaming": false
+      },
+      "inputs": {},
+      "outputs": {
+        "out": "Extensible Service Data Collector"
+      }
+    },
+    {
+      "name": "Periodic Change",
+      "type": "periodic_change",
+      "properties": {
+        "graph_query": [],
+        "period": "45",
+        "enable_streaming": false
+      },
+      "inputs": {
+        "in": {
+          "stage": "Extensible Service Data Collector",
+          "column": "value"
+        }
+      },
+      "outputs": {
+        "out": "Periodic Change"
+      }
+    },
+    {
+      "name": "Range",
+      "type": "range_check",
+      "properties": {
+        "property": "value",
+        "raise_anomaly": false,
+        "graph_query": [],
+        "anomaly_retention_duration": 86400,
+        "range": {
+          "min": 1
+        },
+        "enable_streaming": false,
+        "anomaly_retention_size": 1073741824,
+        "enable_anomaly_logging": false
+      },
+      "inputs": {
+        "in": {
+          "stage": "Periodic Change",
+          "column": "value"
+        }
+      },
+      "outputs": {
+        "out": "Range"
+      }
+    }
+  ],
+  "stages": [
+    {
+      "name": "Extensible Service Data Collector",
+      "retention_duration": 86400,
+      "units": {
+        "value": ""
+      }
+    },
+    {
+      "name": "Periodic Change",
+      "retention_duration": 86400,
+      "units": {
+        "value": ""
+      }
+    },
+    {
+      "name": "Range",
+      "retention_duration": 86400,
+      "units": {
+        "value": ""
+      }
+    }
+  ]
+}

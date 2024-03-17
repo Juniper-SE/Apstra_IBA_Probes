@@ -1,0 +1,27 @@
+{
+  "service_name": "ecn_marked_packets",
+  "collectors": [
+    {
+      "platform": {
+        "os_type": "junos_evo",
+        "os_version": "22.2r2",
+        "family": "acx,acx-f,acx-qfx-7k,ptx,ptx1k,qfx-ms-fixed",
+        "model": ""
+      },
+      "source_type": "cli",
+      "cli": "show interfaces extensive",
+      "query": {
+        "accessors": {
+          "Interface": "/interface-information/physical-interface/name",
+          "ecn_marked_packets": "/interface-information/physical-interface/output-error-list/ecn-marked-packets"
+        },
+        "keys": {
+          "Interface": "Interface"
+        },
+        "value": "int(ecn_marked_packets)",
+        "filter": ""
+      },
+      "relaxed_schema_validation": true
+    }
+    ]
+}

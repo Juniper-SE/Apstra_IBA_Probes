@@ -1,0 +1,30 @@
+{
+  "service_name": "ecn_marked_packets",
+  "application_schema": {
+    "properties": {
+      "key": {
+        "properties": {
+          "Interface": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Interface"
+        ],
+        "type": "object"
+      },
+      "value": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "key",
+      "value"
+    ],
+    "type": "object"
+  },
+  "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data",
+  "builtin": false,
+  "description": "",
+  "version": "version_0"
+}
