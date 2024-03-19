@@ -46,6 +46,7 @@ Revert Interval		   :120s
 
 <details>
   <summary>Sample XML output:</summary>
+
 ```xml
   <rpc-reply xmlns:junos="http://xml.juniper.net/junos/23.2R1.14/junos">
     <loop-detect-enhanced-interface-information>
@@ -54,20 +55,20 @@ Revert Interval		   :120s
             <ld-interface-vlan-id>1320 </ld-interface-vlan-id>
             <ld-interface-esi>00:00:00:00:00:00:00:00:00:00 </ld-interface-esi>
             <ld-interface-state>Normal[Link Up]</ld-interface-state>
-            <ld-interface-last-ld-time>Fri Mar 15 13:17:38 2024
-                 </ld-interface-last-ld-time>
+            <ld-interface-last-ld-time>Fri Mar 15 13:17:38 2024</ld-interface-last-ld-time>
                 <ld-interface-rx-stats>1171 </ld-interface-rx-stats>
                 <ld-interface-action>Interface-down</ld-interface-action>
                 <ld-interface-action-count>2 </ld-interface-action-count>
                 <ld-tx-interval>10s</ld-tx-interval>
                 <ld-revert-interval>120</ld-revert-interval>
-            </loop-detect-enhanced-interface-entry>
-        </loop-detect-enhanced-interface-information>
+        </loop-detect-enhanced-interface-entry>
+    </loop-detect-enhanced-interface-information>
         <cli>
             <banner></banner>
         </cli>
-    </rpc-reply>
+  </rpc-reply>
 ```
+
 </details>
 <br>
 
