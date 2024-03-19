@@ -1,0 +1,31 @@
+{
+    "description": "",
+    "spotlight_mode": false,
+    "visible_columns": [
+      "properties.system_id",
+      "properties.LocalIF",
+      "properties.RemoteHost",
+      "properties.RemoteIF",
+      "anomaly",
+      "timestamp"
+    ],
+    "stage_name": "Loop-detected Out",
+    "type": "stage",
+    "show_context": false,
+    "orderby": "",
+    "aggregation_period": 300,
+    "combine_graphs": "none",
+    "updated_at": "2024-03-19T13:58:51.058839+0000",
+    "anomalous_only": true,
+    "filter": "",
+    "label": "Loop Detection",
+    "id": "1a090182-9a08-499e-9087-b732a6bd127e",
+    "aggregation_type": "unset",
+    "updated_by": "admin",
+    "data_source": "real_time",
+    "max_items": 10,
+    "probe_id": "f9a2a78e-628b-4d6c-874a-cf72fd511839",
+    "time_series_duration": 86400,
+    "created_at": "2024-03-15T14:00:43.448074+0000",
+    "referencing_dashboards": []
+  }
