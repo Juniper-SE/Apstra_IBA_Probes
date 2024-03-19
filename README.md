@@ -49,6 +49,7 @@ The following examples of IBA probes are listed in this repository.
 6) [OS Version Compliance](OS_Version_Compliance/release_4.2.1/README.md)
 7) [DDoS Protection Protocols](DDoS_Protection_Protocols/release_4.2.1/README.md)
 8) [Interface Queue](Interface_Queue/release_4.2.1/README.md) <<< WIP
+9) [Lightweight Loop Detection](Loop_Detection/release_4.2.1/README.md)
 
 <br>
 

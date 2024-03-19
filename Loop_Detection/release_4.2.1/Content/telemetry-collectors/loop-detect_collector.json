@@ -1,0 +1,32 @@
+{
+    "service_name": "Loop_Detect_Schema",
+    "collectors": [
+        {
+            "platform": {
+                "os_type": "junos",
+                "os_version": "22.2r2",
+                "family": "junos,junos-ex,junos-qfx",
+                "model": ""
+            },
+            "source_type": "cli",
+            "cli": "show loop-detect enhanced interface",
+            "query": {
+                "accessors": {
+                    "LocalIF": "/loop-detect-enhanced-interface-information/loop-detect-enhanced-interface-entry/ld-interface-name",
+                    "RemoteHost": "/loop-detect-enhanced-interface-information/loop-detect-enhanced-interface-entry/ld-remote-host",
+                    "RemoteIF": "/loop-detect-enhanced-interface-information/loop-detect-enhanced-interface-entry/ld-remote-interface",
+                    "value": "/loop-detect-enhanced-interface-information/loop-detect-enhanced-interface-entry/ld-interface-state"
+                },
+                "keys": {
+                    "LocalIF": "LocalIF",
+                    "RemoteHost": "RemoteHost",
+                    "RemoteIF": "RemoteIF"
+                },
+                "value": "value",
+                "filter": ""
+            },
+            "relaxed_schema_validation": true
+        }
+    ],
+    "relaxed_schema_validation": true
+}
