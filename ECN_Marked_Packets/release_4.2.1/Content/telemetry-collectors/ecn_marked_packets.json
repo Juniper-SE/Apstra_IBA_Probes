@@ -1,5 +1,6 @@
 {
-  "service_name": "ecn_marked_packets",
+  "service_name": "Interface_Flap",
+  "relaxed_schema_validation": true,
   "collectors": [
     {
       "platform": {
@@ -20,8 +21,7 @@
         },
         "value": "int(ecn_marked_packets)",
         "filter": ""
-      },
-      "relaxed_schema_validation": true
+      }
     }
-    ]
+  ]
 }
