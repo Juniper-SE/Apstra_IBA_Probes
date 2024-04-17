@@ -1,0 +1,23 @@
+{
+  "type": "stage",
+  "label": "ecn_marked_packets",
+  "description": "ECN Marked Packets",
+  "probe_id": "79316599-8577-4435-9a3d-f238bd3157f9",
+  "stage_name": "Extensible Service Data Collector",
+  "data_source": "time_series",
+  "time_series_duration": 3600,
+  "aggregation_period": 300,
+  "aggregation_type": "average",
+  "visible_columns": [
+    "properties.system_id",
+    "properties.Interface",
+    "value"
+  ],
+  "orderby": "",
+  "show_context": false,
+  "filter": "",
+  "max_items": 10,
+  "anomalous_only": false,
+  "spotlight_mode": false,
+  "combine_graphs": "none"
+}
