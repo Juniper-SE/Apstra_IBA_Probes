@@ -1,13 +1,13 @@
 {
-  "service_name": "Interface_Flap",
+  "service_name": "ecn_marked_packets",
   "relaxed_schema_validation": true,
   "collectors": [
     {
       "platform": {
         "os_type": "junos_evo",
-        "os_version": "22.2r2",
+        "os_version": "22.2r2"q,
         "family": "acx,acx-f,acx-qfx-7k,ptx,ptx1k,qfx-ms-fixed",
-        "model": ""
+        "model": null
       },
       "source_type": "cli",
       "cli": "show interfaces extensive",

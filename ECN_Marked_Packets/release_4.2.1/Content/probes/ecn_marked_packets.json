@@ -1,5 +1,5 @@
 {
-  "label": "ECN Anomalies",
+  "label": "ecn_marked_packets",
   "processors": [
     {
       "name": "Extensible Service Data Collector",
