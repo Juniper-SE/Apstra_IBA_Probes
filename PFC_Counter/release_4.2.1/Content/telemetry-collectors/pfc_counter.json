@@ -1,0 +1,23 @@
+{
+  "label": "pfc_counter",
+  "description": "",
+  "type": "stage",
+  "stage_name": "Extensible Service Data Collector",
+  "filter": "value > 0",
+  "visible_columns": [
+    "properties.system_id",
+    "properties.intf_name",
+    "properties.priority_number",
+    "value"
+  ],
+  "orderby": "",
+  "max_items": 100,
+  "anomalous_only": false,
+  "show_context": false,
+  "spotlight_mode": false,
+  "data_source": "time_series",
+  "time_series_duration": 3600,
+  "aggregation_period": 0,
+  "aggregation_type": "none",
+  "combine_graphs": "none",
+}

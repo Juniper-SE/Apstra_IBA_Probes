@@ -1,0 +1,34 @@
+{
+  "service_name": "interface_queue_drop",
+  "application_schema": {
+    "properties": {
+      "key": {
+        "properties": {
+          "interface_name": {
+            "type": "string"
+          },
+          "queue_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "interface_name",
+          "queue_name"
+        ],
+        "type": "object"
+      },
+      "value": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "key",
+      "value"
+    ],
+    "type": "object"
+  },
+  "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data",
+  "builtin": false,
+  "description": "",
+  "version": "version_0"
+}

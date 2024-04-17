@@ -1,0 +1,29 @@
+{
+  "service_name": "pfc_counter",
+  "relaxed_schema_validation": true,
+  "collectors": [
+    {
+      "platform": {
+        "os_type": "junos_evo",
+        "os_version": "23.2r1",
+        "family": "acx,acx-f,acx-qfx-7k,ptx,ptx1k,qfx-ms-fixed",
+        "model": "QFX5230-64CD"
+      },
+      "source_type": "cli",
+      "cli": "show interfaces extensive",
+      "query": {
+        "accessors": {
+          "intf_name": "/interface-information/physical-interface/name",
+          "priority_number": "/interface-information/physical-interface/ethernet-mac-pfc-statistics/mac-pfc-dot1p",
+          "value": "/interface-information/physical-interface/ethernet-mac-pfc-statistics/output-mac-pfc-frames"
+        },
+        "keys": {
+          "intf_name": "intf_name",
+          "priority_number": "priority_number"
+        },
+        "value": "int(value) if value else int(0)",
+        "filter": ""
+      }
+    }
+  ]
+}

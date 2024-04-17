@@ -1,0 +1,84 @@
+{
+  "label": "interface_queue_drops",
+  "tags": [
+    "ecn"
+  ],
+  "processors": [
+    {
+      "name": "Interface Queue collector",
+      "type": "extensible_data_collector",
+      "properties": {
+        "service_name": "interface_queue_drops",
+        "service_interval": "15",
+        "value_map": {},
+        "graph_query": [
+          "match(node('system', name='system', deploy_mode='deploy', role=is_in(['leaf', 'spine'])).out('hosted_interfaces').node('interface', name='iface', if_name=not_none()).out('link').node('link', link_type='ethernet', name='link').in_('link').node('interface', name='remote_iface').in_('hosted_interfaces').node('system', role=is_in(['spine', 'access', 'superspine']), deploy_mode='deploy', name='remote_system'))"
+        ],
+        "service_input": "''",
+        "query_group_by": [],
+        "keys": [
+          "interface_name",
+          "queue_name"
+        ],
+        "interface_name": "iface.if_name",
+        "ingestion_filter": {},
+        "data_type": "number",
+        "query_tag_filter": {
+          "filter": {},
+          "operation": "and"
+        },
+        "execution_count": "-1",
+        "system_id": "system.system_id",
+        "query_expansion": {},
+        "enable_streaming": false,
+        "queue_name": "\"NO-LOSS\""
+      },
+      "inputs": {},
+      "outputs": {
+        "out": "Interface Queue collector"
+      }
+    },
+    {
+      "name": "Non Zero Drop Interfaces",
+      "type": "range_check",
+      "properties": {
+        "property": "value",
+        "raise_anomaly": true,
+        "graph_query": [],
+        "anomaly_retention_duration": 86400,
+        "range": {
+          "min": 1
+        },
+        "enable_streaming": false,
+        "anomaly_retention_size": 1073741824,
+        "enable_anomaly_logging": false
+      },
+      "inputs": {
+        "in": {
+          "stage": "Interface Queue collector",
+          "column": "value"
+        }
+      },
+      "outputs": {
+        "out": "Non Zero Drop Interfaces"
+      }
+    }
+  ],
+  "stages": [
+    {
+      "name": "Non Zero Drop Interfaces",
+      "retention_duration": 86400,
+      "units": {
+        "value": ""
+      }
+    },
+    {
+      "name": "Interface Queue collector",
+      "enable_metric_logging": true,
+      "retention_duration": 604800,
+      "units": {
+        "value": ""
+      }
+    }
+  ]
+}
