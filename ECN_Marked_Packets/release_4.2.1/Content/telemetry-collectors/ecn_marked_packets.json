@@ -5,7 +5,7 @@
     {
       "platform": {
         "os_type": "junos_evo",
-        "os_version": "22.2r2"q,
+        "os_version": "22.2r2",
         "family": "acx,acx-f,acx-qfx-7k,ptx,ptx1k,qfx-ms-fixed",
         "model": null
       },
