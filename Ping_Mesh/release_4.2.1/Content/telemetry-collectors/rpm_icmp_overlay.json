@@ -1,6 +1,8 @@
 
 {
-  "items": [
+  "service_name": "RPM_ICMP_Overlay",
+  "relaxed_schema_validation": true,
+  "collectors": [
     {
       "platform": {
         "os_type": "junos",

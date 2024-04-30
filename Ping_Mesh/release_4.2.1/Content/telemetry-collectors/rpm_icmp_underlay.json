@@ -1,5 +1,7 @@
 {
-    "items": [
+  "service_name": "RPM_ICMP_Underlay",
+  "relaxed_schema_validation": true,
+    "collectors": [
       {
         "platform": {
           "os_type": "junos",
