@@ -1,0 +1,23 @@
+{#
+    Configlet to provision lightweight loop detection on Junos devices.
+    Requires the loop_detect.prop.json to be included in any blueprint that
+    uses this configlet.
+#}
+
+protocols {
+    replace: loop-detect {
+        enhanced {
+{% for k, v in interface.items() %}
+    {% if v['role'] == 'l2edge' and v['part_of'] == '' and 
+          loop_detect['vlan_id'] in v['allowed_vlans'] %}
+            interface {{ v['intfName'] }}.0 {
+                vlan-id {{ loop_detect['vlan_id'] }};
+                loop-detect-action interface-down;
+                transmit-interval {{ loop_detect['tx_int'] }};
+                revert-interval {{ loop_detect['revert_int'] }};
+            }
+    {% endif %}
+{% endfor %}
+        }
+    }
+}
