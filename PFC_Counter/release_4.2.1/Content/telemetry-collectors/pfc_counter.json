@@ -1,6 +1,6 @@
 {
 service_name:"pfc_counter",
-collectors[
+collectors:[
 {
   "platform": {
     "os_type": "junos_evo",
