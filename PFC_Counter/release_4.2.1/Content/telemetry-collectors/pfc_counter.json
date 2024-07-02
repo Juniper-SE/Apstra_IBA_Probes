@@ -1,5 +1,5 @@
 {
-  "service_name": "pfc_counter_for_ecn_monitor",
+  "service_name": "pfc_counter",
   "collectors": [
     {
       "platform": {
