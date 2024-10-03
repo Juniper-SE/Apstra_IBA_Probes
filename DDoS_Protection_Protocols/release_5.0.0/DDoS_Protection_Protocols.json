@@ -1,0 +1,67 @@
+{
+  "description": "",
+  "application_schema": {
+    "properties": {
+      "key": {
+        "properties": {
+          "Protocol": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Protocol"
+        ],
+        "type": "object"
+      },
+      "value": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "key",
+      "value"
+    ],
+    "type": "object"
+  },
+  "telemetry-values": [
+    {
+      "value-name": "value",
+      "value-type": "aos.sdk.telemetry.schemas.iba_integer_data"
+    }
+  ],
+  "service_name": "DDoS_Protection_Protocols",
+  "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data",
+  "telemetry-keys": [
+    {
+      "key-name": "Protocol",
+      "key-type": "string"
+    }
+  ],
+  "collectors": [
+    {
+      "platform": {
+        "os_type": "junos",
+        "os_version": "21.2r2",
+        "family": "junos,junos-ex,junos-qfx",
+        "model": ""
+      },
+      "source_type": "cli",
+      "cli": "show ddos-protection protocols statistics brief",
+      "query": {
+        "accessors": {
+          "Protocol": "/ddos-protocols-information/ddos-protocol-group/ddos-protocol/ddos-system-statistics/group-name",
+          "value": "/ddos-protocols-information/ddos-protocol-group/ddos-protocol/ddos-system-statistics/policer-violation-count"
+        },
+        "keys": {
+          "Protocol": "Protocol"
+        },
+        "values": {
+          "value": "int(re_match('\\d+', value))"
+        },
+        "filter": ""
+      },
+      "relaxed_schema_validation": true
+    }
+  ],
+  "version": "version_0"
+}
