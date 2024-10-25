@@ -1,0 +1,29 @@
+{
+    "service_name": "System_Uptime",
+    "collectors": [
+        {
+            "platform": {
+                "os_type": "junos",
+                "os_version": "22.2r2",
+                "family": "junos,junos-ex,junos-qfx",
+                "model": ""
+            },
+            "source_type": "cli",
+            "cli": "show system uptime",
+            "query": {
+                "accessors": {
+                    "Clock_Source": "/system-uptime-information/time-source",
+                    "System_Uptime": "/system-uptime-information/uptime-information/up-time"
+                },
+                "keys": {
+                    "Clock_Source": "Clock_Source",
+                    "Uptime": "System_Uptime"
+                },
+                "value": "int(re_search(r'(\d+)(?=w)', System_Uptime) or 0) * 10080 + int(re_search(r'(\d+)(?=\sd)', System_Uptime) or 0) * 1440 + int(re_search(r'(\d+)(?=:)', System_Uptime.split()[-1]) or 0) * 60 + int(re_search(r'(?<=:)(\d+)', System_Uptime.split()[-1]) or 0) if 'w' in System_Uptime or 'd' in System_Uptime or ':' in System_Uptime else int(re_search(r'(\d+)(?=\smins)', System_Uptime) or 0)",
+                "filter": ""
+            },
+            "relaxed_schema_validation": true
+        }
+    ],
+    "relaxed_schema_validation": true
+}

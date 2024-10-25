@@ -1,0 +1,30 @@
+{
+    "values": {
+        "Underlay_Reachability": {
+            "default": {
+                "Loopback": {
+                    "leaf1": "10.0.0.2", 
+                    "leaf3": "10.0.0.4", 
+                    "leaf2": "10.0.0.3"
+                }
+            }
+        }, 
+        "Overlay_Reachability": {
+            "blue": {
+                "Loopback": {
+                    "leaf1": "10.0.0.8", 
+                    "leaf3": "10.0.0.10", 
+                    "leaf2": "10.0.0.9"
+                }
+            }, 
+            "red": {
+                "Loopback": {
+                    "leaf1": "10.0.0.5", 
+                    "leaf3": "10.0.0.7", 
+                    "leaf2": "10.0.0.6"
+                }
+            }
+        }
+    }, 
+    "label": "RPM_Ping_PS"
+}

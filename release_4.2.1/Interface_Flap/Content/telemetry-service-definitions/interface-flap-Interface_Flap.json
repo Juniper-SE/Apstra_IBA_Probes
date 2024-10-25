@@ -1,0 +1,27 @@
+{
+    "service_name": "Interface_Flap",
+    "application_schema": {
+        "properties": {
+            "key": {
+                "properties": {
+                    "Interface": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "Interface"
+                ],
+                "type": "object"
+            },
+            "value": {
+                "type": "integer"
+            }
+        },
+        "required": [
+            "key",
+            "value"
+        ],
+        "type": "object"
+    },
+    "storage_schema_path": "aos.sdk.telemetry.schemas.iba_integer_data"
+}

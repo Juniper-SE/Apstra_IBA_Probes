@@ -1,0 +1,18 @@
+{
+    "label": "Interface Flap",
+    "grid": [
+        [
+            "d19e8dea-74f4-43db-8517-476e27c98b20"
+        ],
+        [
+            "3ab209d8-150c-4932-9b71-93a41ee63823"
+        ]
+    ],
+    "default": false,
+    // "__blueprint_id": "evpn-vex-virtual",
+    // "__blueprint_label": "zz-mabdelouah-evpn.vex.2485377892355-2398702732 - evpn-vex-virtual",
+    // "__widget_id_label_dict": {
+    //     "d19e8dea-74f4-43db-8517-476e27c98b20": "Excessive Interface - Fabric Interfaces",
+    //     "3ab209d8-150c-4932-9b71-93a41ee63823": "Excessive Interface - Server facing Interfaces"
+    // }
+}

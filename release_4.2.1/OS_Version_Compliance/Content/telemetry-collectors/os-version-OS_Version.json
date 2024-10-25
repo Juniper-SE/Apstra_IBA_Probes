@@ -1,0 +1,28 @@
+{
+    "service_name": "OS_Version",
+    "collectors": [
+        {
+            "platform": {
+                "os_type": "junos",
+                "os_version": "22.2r2",
+                "family": "junos,junos-ex,junos-qfx",
+                "model": ""
+            },
+            "source_type": "cli",
+            "cli": "show version",
+            "query": {
+                "accessors": {
+                    "Hostname": "/software-information/host-name",
+                    "value": "/software-information/junos-version"
+                },
+                "keys": {
+                    "Hostname": "Hostname"
+                },
+                "value": "value",
+                "filter": ""
+            },
+            "relaxed_schema_validation": true
+        }
+    ],
+    "relaxed_schema_validation": true
+}
