@@ -1,4 +1,0 @@
-loop_detect:
-  revert_int: '120'
-  tx_int: 10s
-  vlan_id: '1320'
