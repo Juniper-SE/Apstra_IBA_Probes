@@ -774,6 +774,82 @@ No Property Sets  used in this example.
 Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `policer-violation-count` field into an integer value. The  `policer-violation-count` field returns a value in a decimal format, such as `0.0`, which seems odd, considering this represent a count which in theory should inly be decimal.
 The collector is configered to convert that into an integer value using a regular expression passed to the `re_match` function. 
 
+
+![DDoS-Protection-Protocols_Collector](Images/DDoS-Protection-Protocols_Collector_Key_Value.png)
+
+1. `Protocol_Group`:
+```python
+Protocol_Group
+    .strip()   # Removes whitespace from beginning and end
+    .upper()   # Converts the string to uppercase
+```
+
+2. `Protocol_Packet_Type`:
+```python
+Protocol_Packet_Type
+    .strip()   # Removes whitespace from beginning and end
+    .upper()   # Converts the string to uppercase
+```
+
+**Values Section:**
+1. `Accepted_Packets_Count`:
+```python
+int(int(re_match('\d+', Total_Received_Packet_Count)) - int(re_match('\d+', Dropped_Packets_Count)))
+# Takes the total received packets and subtracts dropped packets
+# re_match('\d+', ...) extracts one or more digits from the string
+# Result is converted to integer
+```
+
+2. `Dropped_Packets_Count`:
+```python
+int(re_match('\d+', Dropped_Packets_Count))
+# Extracts one or more digits from Dropped_Packets_Count string
+# Converts the result to integer
+```
+
+3. `Total_Received_Packet_Count`:
+```python
+int(re_match('\d+', Total_Received_Packet_Count))
+# Extracts one or more digits from Total_Received_Packet_Count string
+# Converts the result to integer
+```
+
+4. `Packets_Per_Second`:
+```python
+int(re_match('\d+', Packets_Per_Second))
+# Extracts one or more digits from Packets_Per_Second string
+# Converts the result to integer
+```
+
+5. `State`:
+```python
+State
+    .strip()   # Removes whitespace from beginning and end
+    .upper()   # Converts the string to uppercase
+```
+
+6. `Violation_Count`:
+```python
+int(re_match('\d+', Violation_Count))
+# Extracts one or more digits from Violation_Count string
+# Converts the result to integer
+```
+
+**Filter Expression:**
+```python
+values['Total_Received_Packet_Count'] != 0
+# Ensures that Total_Received_Packet_Count is not zero
+# This is used to filter out any entires that have seen 0 packets
+```
+
+The common patterns here are:
+- String values (Protocol_Group, Protocol_Packet_Type, State) are stripped of whitespace and converted to uppercase
+- Numeric values use `re_match('\d+', ...)` to extract digits from strings and convert them to integers
+- `Accepted_Packets_Count` is calculated by subtracting dropped packets from total received packets
+- The filter ensures we only process records with non-zero received packets
+
+
+
 ```python
 int(re_match('\d+', value)) 
 ```
@@ -839,11 +915,11 @@ Output stage:
 
 **Match Count**  processor configuration to group by system and protocol group, reducing the about of data:
 
-![DDoS-Protection-Protocols_Probe_Range](Images/DDoS-Protection-Protocols_Probe_Match.png)
+![DDoS-Protection-Protocols_Probe_Match](Images/DDoS-Protection-Protocols_Probe_Matc.png)
 
 Output stage:
 
-![DDoS-Protection-Protocols_Probe_Range_Output](Images/DDoS-Protection-Protocols_Probe_Range_Output.png)
+![DDoS-Protection-Protocols_Probe_Match_Output](Images/DDoS-Protection-Protocols_Probe_Match_Output.png)
 
 > **Note**  
 > This stage is not used in our example widgets
