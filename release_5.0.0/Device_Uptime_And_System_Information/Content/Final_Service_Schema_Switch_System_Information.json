@@ -1,0 +1,103 @@
+{
+  "description": "",
+  "application_schema": {
+    "properties": {
+      "key": {
+        "properties": {
+          "Clock_Source": {
+            "type": "string"
+          },
+          "Last_Configured_Text_Format": {
+            "type": "string"
+          },
+          "Up_Time_Text_Format": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Clock_Source",
+          "Last_Configured_Text_Format",
+          "Up_Time_Text_Format"
+        ],
+        "type": "object"
+      },
+      "value": {
+        "properties": {
+          "Active_User_Count": {
+            "type": "integer"
+          },
+          "Last_Configured_Mins": {
+            "type": "integer"
+          },
+          "Load_Average_15_Min": {
+            "type": "integer"
+          },
+          "Load_Average_1_Min": {
+            "type": "integer"
+          },
+          "Load_Average_5_Min": {
+            "type": "integer"
+          },
+          "Up_Time_Mins": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "Active_User_Count",
+          "Last_Configured_Mins",
+          "Load_Average_15_Min",
+          "Load_Average_1_Min",
+          "Load_Average_5_Min",
+          "Up_Time_Mins"
+        ],
+        "type": "object"
+      }
+    },
+    "required": [
+      "key",
+      "value"
+    ],
+    "type": "object"
+  },
+  "service_name": "switch_system_information_n1",
+  "storage_schema_path": "aos.sdk.telemetry.schemas.iba_data",
+  "collectors": [
+    {
+      "platform": {
+        "os_type": "junos",
+        "os_version": "21.2r2",
+        "family": "junos,junos-ex,junos-qfx",
+        "model": ""
+      },
+      "source_type": "cli",
+      "cli": "show system uptime ",
+      "query": {
+        "accessors": {
+          "Clock_Source": "/system-uptime-information/time-source",
+          "Last_Configured_Text_Format": "/system-uptime-information/last-configured-time/time-length",
+          "Up_Time_Text_Format": "/system-uptime-information/uptime-information/up-time",
+          "Active_User_Count": "/system-uptime-information/uptime-information/active-user-count",
+          "Load_Average_15_Min": "/system-uptime-information/uptime-information/load-average-15",
+          "Load_Average_1_Min": "/system-uptime-information/uptime-information/load-average-1",
+          "Load_Average_5_Min": "/system-uptime-information/uptime-information/load-average-5"
+        },
+        "keys": {
+          "Clock_Source": "str(\n  Clock_Source\n    .upper()\n)",
+          "Last_Configured_Text_Format": "str(\n  Last_Configured_Text_Format\n    .upper()\n)",
+          "Up_Time_Text_Format": "str(\n  Up_Time_Text_Format\n    .upper()\n)"
+        },
+        "values": {
+          "Active_User_Count": "int(Active_User_Count)",
+          "Last_Configured_Mins": "int(re_search('(\\d+)w', Last_Configured_Text_Format) or 0) * 10080 \n+ int(re_search('(\\d+)\\sd', Last_Configured_Text_Format) or 0) * 1440 \n+ int(re_search('(\\d+):', Last_Configured_Text_Format.split()[-1]) or 0) * 60 \n+ int(re_search(':(\\d+)', Last_Configured_Text_Format.split()[-1]) or 0) if 'w' in Last_Configured_Text_Format or 'd' in Last_Configured_Text_Format or ':' in Last_Configured_Text_Format else int(re_search('(\\d+)\\smins', Last_Configured_Text_Format) or 0)",
+          "Load_Average_15_Min": "int(re_search('\\.(\\d+)', Load_Average_15_Min)) or 0 ",
+          "Load_Average_1_Min": "int(re_search('\\.(\\d+)', Load_Average_1_Min)) or 0 ",
+          "Load_Average_5_Min": "int(re_search('\\.(\\d+)', Load_Average_5_Min)) or 0 ",
+          "Up_Time_Mins": "int(re_search('(\\d+)w', Up_Time_Text_Format) or 0) * 10080 \n+ int(re_search('(\\d+)\\sd', Up_Time_Text_Format) or 0) * 1440 \n+ int(re_search('(\\d+):', Up_Time_Text_Format.split()[-1]) or 0) * 60 \n+ int(re_search(':(\\d+)', Up_Time_Text_Format.split()[-1]) or 0) if 'w' in Up_Time_Text_Format or 'd' in Up_Time_Text_Format or ':' in Up_Time_Text_Format else int(re_search('(\\d+)\\smins', Up_Time_Text_Format) or 0)"
+        },
+        "filter": ""
+      },
+      "relaxed_schema_validation": true
+    }
+  ],
+  "version": "version_0"
+}

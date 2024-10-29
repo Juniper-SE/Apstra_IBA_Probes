@@ -1,0 +1,568 @@
+{
+  "label": "Device Health Summary",
+  "description": "The dashboard presents the data of utilization of system cpu, system memory and maximum disk utilization of a partition on every system present.",
+  "grid": [
+    [
+      {
+        "label": "Systems with high cpu utilization",
+        "description": "",
+        "type": "stage",
+        "probe_id": "67d1286f-58af-427b-832c-4aba53ea0ca1",
+        "stage_name": "Systems with high CPU utilization",
+        "filter": "",
+        "visible_columns": [
+          "value"
+        ],
+        "orderby": "",
+        "max_items": 10,
+        "anomalous_only": false,
+        "show_context": true,
+        "spotlight_mode": false,
+        "data_source": "real_time",
+        "time_series_duration": 86400,
+        "aggregation_period": 300,
+        "aggregation_type": "unset",
+        "combine_graphs": "none"
+      }
+    ],
+    [
+      {
+        "label": "Systems with high memory utilization",
+        "description": "",
+        "type": "stage",
+        "probe_id": "67d1286f-58af-427b-832c-4aba53ea0ca1",
+        "stage_name": "Systems with high memory utilization",
+        "filter": "",
+        "visible_columns": [
+          "value"
+        ],
+        "orderby": "",
+        "max_items": 10,
+        "anomalous_only": false,
+        "show_context": true,
+        "spotlight_mode": false,
+        "data_source": "real_time",
+        "time_series_duration": 86400,
+        "aggregation_period": 300,
+        "aggregation_type": "unset",
+        "combine_graphs": "none"
+      }
+    ],
+    [
+      {
+        "label": "Systems with high disk utilization",
+        "description": "",
+        "type": "stage",
+        "probe_id": "67d1286f-58af-427b-832c-4aba53ea0ca1",
+        "stage_name": "Systems with high disk utilization",
+        "filter": "",
+        "visible_columns": [
+          "value"
+        ],
+        "orderby": "",
+        "max_items": 10,
+        "anomalous_only": false,
+        "show_context": true,
+        "spotlight_mode": false,
+        "data_source": "real_time",
+        "time_series_duration": 86400,
+        "aggregation_period": 300,
+        "aggregation_type": "unset",
+        "combine_graphs": "none"
+      }
+    ]
+  ],
+  "predefined_dashboard": "device_health_summary",
+  "default": true,
+  "probes": {
+    "67d1286f-58af-427b-832c-4aba53ea0ca1": {
+      "label": "Device System Health",
+      "description": "This probe alerts if the system health parameters (CPU, memory and disk usage) exceed their specified thresholds for the specified duration.",
+      "processors": [
+        {
+          "name": "Disk utilization data per partition",
+          "type": "extensible_data_collector",
+          "properties": {
+            "service_name": "disk_util",
+            "service_interval": "120",
+            "value_map": {},
+            "graph_query": "node('system', name='system', role=is_in(['leaf', 'access', 'spine', 'superspine']), deploy_mode=is_in(['deploy', 'drain']))",
+            "service_input": "''",
+            "query_group_by": [],
+            "keys": [],
+            "ingestion_filter": {},
+            "data_type": "dynamic",
+            "query_tag_filter": {
+              "filter": {},
+              "operation": "and"
+            },
+            "execution_count": "-1",
+            "system_id": "system.system_id",
+            "query_expansion": {},
+            "enable_streaming": false
+          },
+          "inputs": {},
+          "outputs": {
+            "out": "Disk utilization data per partition"
+          }
+        },
+        {
+          "name": "System cpu utilization data",
+          "type": "extensible_data_collector",
+          "properties": {
+            "service_name": "resource_util",
+            "service_interval": "10",
+            "value_map": {},
+            "graph_query": "node('system', name='system', role=is_in(['leaf', 'access', 'spine', 'superspine']), deploy_mode=is_in(['deploy', 'drain']))",
+            "service_input": "''",
+            "query_group_by": [],
+            "keys": [
+              "metric"
+            ],
+            "ingestion_filter": {},
+            "data_type": "static",
+            "query_tag_filter": {
+              "filter": {},
+              "operation": "and"
+            },
+            "metric": "'system_cpu_utilization'",
+            "execution_count": "-1",
+            "system_id": "system.system_id",
+            "query_expansion": {},
+            "enable_streaming": false
+          },
+          "inputs": {},
+          "outputs": {
+            "out": "System cpu utilization data"
+          }
+        },
+        {
+          "name": "System memory utilization data",
+          "type": "extensible_data_collector",
+          "properties": {
+            "service_name": "resource_util",
+            "service_interval": "10",
+            "value_map": {},
+            "graph_query": "node('system', name='system', role=is_in(['leaf', 'access', 'spine', 'superspine']), deploy_mode=is_in(['deploy', 'drain']))",
+            "service_input": "''",
+            "query_group_by": [],
+            "keys": [
+              "metric"
+            ],
+            "ingestion_filter": {},
+            "data_type": "static",
+            "query_tag_filter": {
+              "filter": {},
+              "operation": "and"
+            },
+            "metric": "'system_memory_utilization'",
+            "execution_count": "-1",
+            "system_id": "system.system_id",
+            "query_expansion": {},
+            "enable_streaming": false
+          },
+          "inputs": {},
+          "outputs": {
+            "out": "System memory utilization data"
+          }
+        },
+        {
+          "name": "Check cpu utilization threshold",
+          "type": "range_check",
+          "properties": {
+            "property": "value",
+            "raise_on_nan": false,
+            "raise_anomaly": false,
+            "graph_query": [],
+            "anomaly_retention_duration": 86400,
+            "range": {
+              "min": 81
+            },
+            "enable_streaming": false,
+            "anomaly_retention_size": 1073741824,
+            "enable_anomaly_logging": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "System cpu utilization data",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Check cpu utilization threshold"
+          }
+        },
+        {
+          "name": "Check memory utilization threshold",
+          "type": "range_check",
+          "properties": {
+            "property": "value",
+            "raise_on_nan": false,
+            "raise_anomaly": false,
+            "graph_query": [],
+            "anomaly_retention_duration": 86400,
+            "range": {
+              "min": 81
+            },
+            "enable_streaming": false,
+            "anomaly_retention_size": 1073741824,
+            "enable_anomaly_logging": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "System memory utilization data",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Check memory utilization threshold"
+          }
+        },
+        {
+          "name": "Disk utilization data",
+          "type": "max",
+          "properties": {
+            "group_by": [
+              "system_id"
+            ],
+            "enable_streaming": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "Disk utilization data per partition",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Disk utilization data"
+          }
+        },
+        {
+          "name": "Check disk utilization threshold",
+          "type": "range_check",
+          "properties": {
+            "property": "value",
+            "raise_on_nan": false,
+            "raise_anomaly": false,
+            "graph_query": [],
+            "anomaly_retention_duration": 86400,
+            "range": {
+              "min": 81
+            },
+            "enable_streaming": false,
+            "anomaly_retention_size": 1073741824,
+            "enable_anomaly_logging": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "Disk utilization data",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Check disk utilization threshold"
+          }
+        },
+        {
+          "name": "sustained cpu utilization beyond threshold",
+          "type": "time_in_state_check",
+          "properties": {
+            "raise_anomaly": true,
+            "graph_query": [],
+            "anomaly_retention_duration": 86400,
+            "state_range": {
+              "\"true\"": [
+                {
+                  "min": 361
+                }
+              ]
+            },
+            "time_window": 660,
+            "enable_streaming": false,
+            "anomaly_retention_size": 1073741824,
+            "enable_anomaly_logging": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "Check cpu utilization threshold",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "sustained_high_cpu_utilization"
+          }
+        },
+        {
+          "name": "sustained memory utilization beyond threshold",
+          "type": "time_in_state_check",
+          "properties": {
+            "raise_anomaly": true,
+            "graph_query": [],
+            "anomaly_retention_duration": 86400,
+            "state_range": {
+              "\"true\"": [
+                {
+                  "min": 361
+                }
+              ]
+            },
+            "time_window": 660,
+            "enable_streaming": false,
+            "anomaly_retention_size": 1073741824,
+            "enable_anomaly_logging": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "Check memory utilization threshold",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "sustained_high_memory_utilization"
+          }
+        },
+        {
+          "name": "Systems with high CPU utilization",
+          "type": "match_count",
+          "properties": {
+            "group_by": [],
+            "enable_streaming": false,
+            "reference_state": "true"
+          },
+          "inputs": {
+            "in": {
+              "stage": "sustained_high_cpu_utilization",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Systems with high CPU utilization"
+          }
+        },
+        {
+          "name": "Systems with high memory utilization",
+          "type": "match_count",
+          "properties": {
+            "group_by": [],
+            "enable_streaming": false,
+            "reference_state": "true"
+          },
+          "inputs": {
+            "in": {
+              "stage": "sustained_high_memory_utilization",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Systems with high memory utilization"
+          }
+        },
+        {
+          "name": "sustained disk utilization beyond threshold",
+          "type": "time_in_state_check",
+          "properties": {
+            "raise_anomaly": true,
+            "graph_query": [],
+            "anomaly_retention_duration": 86400,
+            "state_range": {
+              "\"true\"": [
+                {
+                  "min": 361
+                }
+              ]
+            },
+            "time_window": 660,
+            "enable_streaming": false,
+            "anomaly_retention_size": 1073741824,
+            "enable_anomaly_logging": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "Check disk utilization threshold",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "sustained_high_disk_utilization"
+          }
+        },
+        {
+          "name": "Systems with high disk utilization",
+          "type": "match_count",
+          "properties": {
+            "group_by": [],
+            "enable_streaming": false,
+            "reference_state": "true"
+          },
+          "inputs": {
+            "in": {
+              "stage": "sustained_high_disk_utilization",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Systems with high disk utilization"
+          }
+        }
+      ],
+      "predefined_probe": {
+        "max_cpu_utilization": 80,
+        "max_memory_utilization": 80,
+        "max_disk_utilization": 80,
+        "duration": 660,
+        "threshold_duration": 360,
+        "history_duration": 2592000,
+        "name": "device_health"
+      },
+      "stages": [
+        {
+          "name": "System memory utilization data",
+          "description": "System memory utilization percentage",
+          "units": {
+            "value": "%"
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 2592000,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Disk utilization data",
+          "description": "Disk utilization percentage for the highest utilized partition",
+          "units": {
+            "total_count": "",
+            "value": "%"
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 2592000,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "System cpu utilization data",
+          "description": "System cpu utilization percentage",
+          "units": {
+            "value": "%"
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 2592000,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "sustained_high_cpu_utilization",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "sustained_high_memory_utilization",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Systems with high CPU utilization",
+          "description": "",
+          "units": {
+            "total_count": "",
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Check disk utilization threshold",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Check memory utilization threshold",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "sustained_high_disk_utilization",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Check cpu utilization threshold",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Systems with high memory utilization",
+          "description": "",
+          "units": {
+            "total_count": "",
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Disk utilization data per partition",
+          "description": "Disk utilization percentage per partition",
+          "units": {
+            "value": "%"
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 2592000,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Systems with high disk utilization",
+          "description": "",
+          "units": {
+            "total_count": "",
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        }
+      ]
+    }
+  }
+}
