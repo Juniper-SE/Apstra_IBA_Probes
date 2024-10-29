@@ -1,0 +1,98 @@
+{
+  "description": "",
+  "application_schema": {
+    "properties": {
+      "key": {
+        "properties": {
+          "Protocol_Group": {
+            "type": "string"
+          },
+          "Protocol_Packet_Type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Protocol_Group",
+          "Protocol_Packet_Type"
+        ],
+        "type": "object"
+      },
+      "value": {
+        "properties": {
+          "Accepted_Packets_Count": {
+            "type": "integer"
+          },
+          "Dropped_Packets_Count": {
+            "type": "integer"
+          },
+          "Packets_Per_Second": {
+            "type": "integer"
+          },
+          "State": {
+            "type": "string"
+          },
+          "Total_Received_Packet_Count": {
+            "type": "integer"
+          },
+          "Violation_Count": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "Accepted_Packets_Count",
+          "Dropped_Packets_Count",
+          "Packets_Per_Second",
+          "State",
+          "Total_Received_Packet_Count",
+          "Violation_Count"
+        ],
+        "type": "object"
+      }
+    },
+    "required": [
+      "key",
+      "value"
+    ],
+    "type": "object"
+  },
+  "service_name": "DDoS_Protection_Protocols",
+  "storage_schema_path": "aos.sdk.telemetry.schemas.iba_data",
+  "collectors": [
+    {
+      "platform": {
+        "os_type": "junos",
+        "os_version": "21.2r2",
+        "family": "junos,junos-ex,junos-qfx",
+        "model": ""
+      },
+      "source_type": "cli",
+      "cli": "show ddos-protection protocols statistics brief",
+      "query": {
+        "accessors": {
+          "Protocol_Group": "/ddos-protocols-information/ddos-protocol-group/ddos-protocol/ddos-system-statistics/group-name",
+          "Protocol_Packet_Type": "/ddos-protocols-information/ddos-protocol-group/ddos-protocol/ddos-system-statistics/packet-type",
+          "Dropped_Packets_Count": "/ddos-protocols-information/ddos-protocol-group/ddos-protocol/ddos-system-statistics/packet-dropped",
+          "Total_Received_Packet_Count": "/ddos-protocols-information/ddos-protocol-group/ddos-protocol/ddos-system-statistics/packet-received",
+          "Packets_Per_Second": "/ddos-protocols-information/ddos-protocol-group/ddos-protocol/ddos-system-statistics/packet-arrival-rate",
+          "State": "/ddos-protocols-information/ddos-protocol-group/ddos-protocol/ddos-system-statistics/protocol-states",
+          "Violation_Count": "/ddos-protocols-information/ddos-protocol-group/ddos-protocol/ddos-system-statistics/policer-violation-count"
+        },
+        "keys": {
+          "Protocol_Group": "Protocol_Group.strip().upper()",
+          "Protocol_Packet_Type": "Protocol_Packet_Type.strip().upper()"
+        },
+        "values": {
+          "Accepted_Packets_Count": "int(int(re_match('\\d+', Total_Received_Packet_Count))-int(re_match('\\d+', Dropped_Packets_Count)))",
+          "Dropped_Packets_Count": "int(re_match('\\d+', Dropped_Packets_Count))",
+          "Total_Received_Packet_Count": "int(re_match('\\d+', Total_Received_Packet_Count))",
+          "Packets_Per_Second": "int(re_match('\\d+', Packets_Per_Second))",
+          "State": "State.strip().upper()",
+          "Violation_Count": "int(re_match('\\d+', Violation_Count))"
+        },
+        "filter": "values['Total_Received_Packet_Count'] != 0"
+      },
+      "relaxed_schema_validation": true
+    }
+  ],
+  "version": "version_0"
+}

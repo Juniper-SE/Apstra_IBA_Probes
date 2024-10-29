@@ -1,0 +1,248 @@
+{
+  "label": "Control Plane DDoS Protection",
+  "description": "",
+  "grid": [
+    [
+      {
+        "label": "All Active Control Planes Types",
+        "description": "",
+        "type": "stage",
+        "probe_id": "2a3c8c94-ff05-4e03-b9cb-2e7609ef556c",
+        "stage_name": "Extensible Service Collector",
+        "filter": "Packets_Per_Second > 0",
+        "visible_columns": [
+          "properties.system_id",
+          "properties.Device_Profile",
+          "properties.Protocol_Group",
+          "properties.Protocol_Packet_Type",
+          "Packets_Per_Second",
+          "Accepted_Packets_Count",
+          "Dropped_Packets_Count",
+          "Violation_Count",
+          "State"
+        ],
+        "orderby": "",
+        "max_items": 10,
+        "anomalous_only": false,
+        "show_context": false,
+        "spotlight_mode": false,
+        "data_source": "real_time",
+        "time_series_duration": 86400,
+        "aggregation_period": 300,
+        "aggregation_type": "unset",
+        "combine_graphs": "none"
+      }
+    ],
+    [
+      {
+        "label": "DDoS Protection Violation Changes - 1Min",
+        "description": "",
+        "type": "stage",
+        "probe_id": "2a3c8c94-ff05-4e03-b9cb-2e7609ef556c",
+        "stage_name": "Range",
+        "filter": "",
+        "visible_columns": [
+          "properties.system_id",
+          "properties.Device_Profile",
+          "properties.Protocol_Group",
+          "properties.Protocol_Packet_Type",
+          "anomaly",
+          "value"
+        ],
+        "orderby": "",
+        "max_items": 10,
+        "anomalous_only": true,
+        "show_context": false,
+        "spotlight_mode": false,
+        "data_source": "real_time",
+        "time_series_duration": 86400,
+        "aggregation_period": 300,
+        "aggregation_type": "unset",
+        "combine_graphs": "none"
+      },
+      {
+        "label": "DDoS Protection Violation Changes History - 24Hrs",
+        "description": "",
+        "type": "stage",
+        "probe_id": "2a3c8c94-ff05-4e03-b9cb-2e7609ef556c",
+        "stage_name": "Range",
+        "filter": "",
+        "visible_columns": [
+          "properties.system_id",
+          "properties.Protocol_Group",
+          "properties.Protocol_Packet_Type",
+          "anomaly",
+          "value"
+        ],
+        "orderby": "",
+        "max_items": 10,
+        "anomalous_only": true,
+        "show_context": true,
+        "spotlight_mode": false,
+        "data_source": "real_time",
+        "time_series_duration": 86400,
+        "aggregation_period": 300,
+        "aggregation_type": "last",
+        "combine_graphs": "none"
+      }
+    ]
+  ],
+  "predefined_dashboard": "",
+  "default": false,
+  "probes": {
+    "2a3c8c94-ff05-4e03-b9cb-2e7609ef556c": {
+      "label": "ddos-protection-protocols",
+      "description": "",
+      "processors": [
+        {
+          "name": "Extensible Service Collector",
+          "type": "extensible_data_collector",
+          "properties": {
+            "service_name": "DDoS_Protection_Protocols",
+            "service_interval": "60",
+            "value_map": {},
+            "graph_query": [
+              "match(node('system', name='system', deploy_mode='deploy', role=is_in(['leaf', 'access', 'spine', 'superspine'])).out().node('interface_map').out().node('device_profile', name='DP'))"
+            ],
+            "service_input": "''",
+            "query_group_by": [],
+            "Device_Profile": "str(DP.label)",
+            "keys": [],
+            "ingestion_filter": {},
+            "data_type": "dynamic",
+            "query_tag_filter": {
+              "filter": {},
+              "operation": "and"
+            },
+            "execution_count": "-1",
+            "system_id": "system.system_id",
+            "query_expansion": {},
+            "enable_streaming": false
+          },
+          "inputs": {},
+          "outputs": {
+            "out": "Extensible Service Collector"
+          }
+        },
+        {
+          "name": "Periodic Change - 1 Min",
+          "type": "periodic_change",
+          "properties": {
+            "graph_query": [],
+            "period": 60,
+            "enable_streaming": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "Extensible Service Collector",
+              "column": "Dropped_Packets_Count"
+            }
+          },
+          "outputs": {
+            "out": "Periodic Change"
+          }
+        },
+        {
+          "name": "Range - 1 Min",
+          "type": "range_check",
+          "properties": {
+            "property": "value",
+            "raise_on_nan": false,
+            "raise_anomaly": true,
+            "graph_query": [],
+            "anomaly_retention_duration": 86400,
+            "range": {
+              "min": 1
+            },
+            "enable_streaming": false,
+            "anomaly_retention_size": 1073741824,
+            "enable_anomaly_logging": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "Periodic Change",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Range"
+          }
+        },
+        {
+          "name": "Match Count",
+          "type": "match_count",
+          "properties": {
+            "group_by": [
+              "system_id",
+              "Protocol_Group"
+            ],
+            "enable_streaming": false,
+            "reference_state": "true"
+          },
+          "inputs": {
+            "in": {
+              "stage": "Range",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Match Count"
+          }
+        }
+      ],
+      "predefined_probe": null,
+      "stages": [
+        {
+          "name": "Extensible Service Collector",
+          "description": "",
+          "units": {
+            "Packets_Per_Second": "",
+            "Violation_Count": "",
+            "Accepted_Packets_Count": "",
+            "Dropped_Packets_Count": "",
+            "Total_Received_Packet_Count": "",
+            "State": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Periodic Change",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 2592000,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Range",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 1800,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Match Count",
+          "description": "",
+          "units": {
+            "total_count": "",
+            "value": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        }
+      ]
+    }
+  }
+}
