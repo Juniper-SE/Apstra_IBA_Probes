@@ -51,6 +51,8 @@ Here are some examples of IBA probes we have looked at since `4.2.1`.
 
 ### For Apstra 5.0.0 onwards
 
+https://github.com/user-attachments/assets/37a92316-0999-4fe5-8b03-9445c88adc1d
+
 1) Always use the `main` branch when accessing this repository. Other branches contain work in progress.
 
 2) Navigate to the release folder (5.0.0) of your chosen probe example.
