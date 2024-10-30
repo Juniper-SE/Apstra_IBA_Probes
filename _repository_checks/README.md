@@ -6,14 +6,14 @@ A collection of Python scripts to validate repository structure and content.
 
 ### Running All Checks
 ```bash
-python3 scripts/check_all.py
+python3 _repository_checks/check_all.py
 ```
 
 ### Running Individual Checks
 ```bash
-python3 scripts/check_structure.py
-python3 scripts/check_json_yaml.py
-python3 scripts/check_images.py
+python3 _repository_checks/check_structure.py
+python3 _repository_checks/check_json_yaml.py
+python3 _repository_checks/check_images.py
 ```
 
 ## Features
