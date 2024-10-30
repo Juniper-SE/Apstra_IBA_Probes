@@ -33,20 +33,6 @@ Creating new IBA probe involves several parts of Apstra (Telemetry, GraphDB, IBA
 > [!IMPORTANT]
 > The examples in this repository are provided for educational purposes and are expected to be tested and customised to your specific needs before deploying them in your production blueprints.
 
-## Content of this repository
-Here are some examples of IBA probes we have looked at since `4.2.1`.
-
-1) Ping Mesh
-2) Device Uptime
-3) System Alarm
-4) OSPF Neighbor
-5) Interface Flap
-6) OS Version Compliance
-7) DDoS Protection Protocols
-8) Interface Queue
-9) Lightweight Loop Detection
-
-
 ## How to use this repository?
 
 ### For Apstra 5.0.0 onwards
@@ -183,8 +169,8 @@ To github.com:mab27/Apstra_IBA_Probes.git
 ```
 6) Create a Pull Request against `main` branch.
 
-## High-Level Architecture of IBA
-Explain the notion of Probe, Collector, Graph Query ..
+<!-- ## High-Level Architecture of IBA
+Link to new IBA Doc once complete -->
 
 ### Custom Telemetry Collectors
 
