@@ -863,19 +863,27 @@ int(re_match('\d+', value))
 > Probes are imported as part of the dashboard `.json` file.
 
 
-#### Probe pipeline structure
+#### Probe Pipeline Structure
 
 <br>
 
-<img src="Images/DDoS-Protection-Protocols_Probe.png" width="25%" height="25%">
+<img src="Images/DDoS-Protection-Protocols_Probe.png" width="80%" height="80%">
+
+The probe pipeline consists of a Source processor and four processing stages that perform distinct tasks for DDoS protection monitoring.
 
 <br>
 
-#### Probe processors details
+#### Probe Processors Details
 
-Source Processor configuration:
+**Source Processor Configuration:**
 
 <img src="Images/DDoS-Protection-Protocols_Probe_Source_Processor.png" width="80%" height="80%">
+
+The Source processor performs a graph query selecting all systems in the current blueprint that are deployed with roles: leaf, access, spine, or super spine. Additional device profile information is incorporated using:
+- Device profile data (labeled as 'DP' in the query)
+- Static context keys with:
+  - Column: device_profile
+  - Value: Extracted from DP.label (wrapped in string format)
 
 <br>
 
@@ -885,83 +893,117 @@ Output stage:
 
 <br>
 
-To implement the anomaly raising logic for reboot in last **1h** / **1 day** / **1 week** without duplicating the anomalies (i.e having a device which rebooted 45mn ago to appear in both 1h and 1day) we will configure the Range check processors in secitons: one section for uptime <= `60` mn, a second section for uptime > `60` mn and <= `1440` mn (total minutes count for a **day**) and a third section for uptime > `1440` mn and <= `10080` mn (total minutes count for a **week**).
+**Match Count Processor Configuration:**
 
-<br>
+<img src="Images/DDoS-Protection-Protocols_Match_Count_Change.png" width="80%" height="80%">
 
-`Periodic_Change` processor configuration to measure the increments of the violations count between two colleciton cycles, i.e two telemetry collections intervals. 
-
-<img src="Images/DDoS-Protection-Protocols_Probe_Periodic_Change.png" width="80%" height="80%">
-
-<br>
-
-Output stage:
-
-<img src="Images/DDoS-Protection-Protocols_Probe_Periodic_Change_Output.png" width="80%" height="80%">
-
-<br>
-
-`Range` processor configuration to raise anomaly for device for which the violation count did increment in the last colleciton cycle.
-
-<img src="Images/DDoS-Protection-Protocols_Probe_Range.png" width="80%" height="80%">
+This processor monitors DDoS protection filter states on Juniper switches:
+- Tracks states: OK or Violation (VIOL)
+- Counts violations across different control plane packet types per switch
+- Measures increments between collection cycles
 
 <br>
 
 Output stage:
 
-<img src="Images/DDoS-Protection-Protocols_Probe_Range_Output.png" width="80%" height="80%">
+<img src="Images/DDoS-Protection-Protocols_Probe_Match_Count_Output.png" width="80%" height="80%">
 
 <br>
 
-**Match Count**  processor configuration to group by system and protocol group, reducing the about of data:
+**Match String Processor Configuration:**
 
-![DDoS-Protection-Protocols_Probe_Match](Images/DDoS-Protection-Protocols_Probe_Matc.png)
+<img src="Images/DDoS-Protection-Protocols_Probe_Match_String.png" width="80%" height="80%">
+
+This processor:
+- Monitors the state from the source processor
+- Flags as 'true' if any control plane protection filters enter violation state
+- Does not generate anomalies at this stage
+
+<br>
 
 Output stage:
 
-![DDoS-Protection-Protocols_Probe_Match_Output](Images/DDoS-Protection-Protocols_Probe_Match_Output.png)
+<img src="Images/DDoS-Protection-Protocols_Probe_Match_String_Output.png" width="80%" height="80%">
 
-> **Note**  
-> This stage is not used in our example widgets
+<br>
+
+**Periodic Change Processor Configuration:**
+
+![DDoS-Protection-Protocols_Probe_Periodic_Change](Images/DDoS-Protection-Protocols_Probe_Periodic_Change.png)
+
+This processor:
+- Groups data by system and protocol group
+- Feeds into the Range processor
+- Monitors changes in violation count
+
+Output stage:
+
+![DDoS-Protection-Protocols_Probe_Periodic_Change_Output](Images/DDoS-Protection-Protocols_Probe_Periodic_Change_Output.png)
+
+**Range Processor Configuration:**
+
+![DDoS-Protection-Protocols_Probe_Range](Images/DDoS-Protection-Protocols_Probe_Range.png)
+
+This processor:
+- Monitors violation count changes
+- Raises anomalies when count ≥ 1
+- Example: Raises anomaly if SSH control plane protection filter violations increment from 0 to 1
+
+Output stage:
+
+![DDoS-Protection-Protocols_Probe_Range_Output](Images/DDoS-Protection-Protocols_Probe_Range_Output.png)
+
+**Note:** Several stages in this probe have anomaly metric log retention enabled, allowing data to be stored in the metric DB for time series analysis.
+
 
 ### Dashboards
 
-The "Control Plane DDoS Protection" dashboard provides comprehensive DDoS protection monitoring through three main widgets:
+The "DDoS Protection Protocols" dashboard provides a comprehensive view of DDoS protection monitoring through these primary widgets:
 
-1. "All Active Control Planes Types"
-   - Real-time view of protocols with active traffic
-   - Filter: `Packets_Per_Second > 0`
-   - Displays:
+1. "Count of Protocols in Violation State grouped per System (Real-Time)"
+   - Shows real-time status of devices with violations
+   - Only displays non-zero violation counts to reduce noise
+   - Displays as fuel gauges for quick visual reference
+   - Filter: Shows only systems with active violations
+   - Key metrics:
      - System ID
-     - Device Profile
-     - Protocol Group/Type
-     - Packet Statistics
-     - Violation Count
-     - State
+     - Total Count of active control planes
+     - The number that are in the violation state per system
 
 ![DDoS-Protection-Protocols_Widget_1](Images/DDoS-Protection-Protocols_Widget_1.png)
 
-2. "DDoS Protection Violation Changes - 1Min"
-   - Shows recent violation changes
-   - Anomaly-focused view
-   - Real-time violation tracking
-   - Protocol and device correlation
+2. "Breakdown of protocols in violation state (Real-Time)"
+   - Detailed view of systems in violation state
+   - Shows correlation between discards and violations
+   - Displays violation thresholds and current counts
+   - Example: Can show 600K discards resulting in 12 violations
+   - Metrics include:
+     - Violation Count
+     - Packet Statistics
+     - Protocol Details
 
 ![DDoS-Protection-Protocols_Widget_2](Images/DDoS-Protection-Protocols_Widget_2.png)
 
-3. "DDoS Protection Violation Changes History - 24Hrs"
-   - Historical view spanning 24 hours
-   - Aggregation period: 300 seconds
-   - Context-enabled for trend analysis
-   - System and protocol grouping
+3. "Systems Exceeding Violation Threshold - Last 7 days"
+   - Historical view of violation states
+   - Aggregation: 1-hour intervals
+   - Shows discrete state changes (OK/VIOL)
+   - Retention period: 7 days
+   - Enables trend analysis and pattern identification
 
 ![DDoS-Protection-Protocols_Widget_3](Images/DDoS-Protection-Protocols_Widget_3.png)
 
+Usage Notes:
+- In normal conditions, widgets may show "No data" indicating no violations
+- Users can drill down from summary views to detailed information
+- Historical views maintain visibility of past events after real-time alerts clear
+- Dashboard designed to minimize alert fatigue while ensuring visibility of actual violations
+- Filters persist when drilling down from widgets to probes
 
-Dashboard Layout:
-- 2x2 grid configuration
-- Top: Active protocols monitor
-- Bottom left: Real-time violations
-- Bottom right: Historical analysis
+
+Key Dashboard Features:
+- Left side widgets focus on real-time monitoring
+- Right side provides historical perspective
+- Default view shows only active violations to reduce noise
 
 ![DDoS-Protection-Protocols_Dashboard](Images/DDoS-Protection-Protocols_Dashboard.png)
