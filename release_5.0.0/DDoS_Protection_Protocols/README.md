@@ -19,8 +19,8 @@ Table of Contents:
 
 ## Description of the use-case
 
-- Collect device's DDoS policer violation statistics for all protocols and raise an anomaly whenevr a protocol has an increment of the violation count. 
-- Keep track of these anomalies in MetricDB so user can back in time and look for any protocol DDoS violation.
+- Collect device's DDoS policer violation statistics for all protocols and raise an anomaly whenever a protocol has an increment of the violation count. 
+- Keep track of these anomalies in MetricDB so the user can go back in time and look for any protocol DDoS violation.
 
 <br>
 
@@ -725,12 +725,12 @@ overlay     ndpv6       0               0              0        0         ok
 ## Content
 
 ### Configlets
-No configlet  used in this example.
+No configlet  is used in this example.
 
 <br>
 
 ### Property Sets
-No Property Sets  used in this example.
+No Property Sets  are used in this example.
 
 <br>
 
@@ -771,8 +771,8 @@ No Property Sets  used in this example.
 
 ![DDoS-Protection-Protocols_Collector](Images/DDoS-Protection-Protocols_Collector.png)
 
-Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `policer-violation-count` field into an integer value. The  `policer-violation-count` field returns a value in a decimal format, such as `0.0`, which seems odd, considering this represent a count which in theory should inly be decimal.
-The collector is configered to convert that into an integer value using a regular expression passed to the `re_match` function. 
+Pay attention to the expression used in the `Value` and the logic to convert the text string provided by the `policer-violation-count` field into an integer value. The  `policer-violation-count` field returns a value in a decimal format, such as `0.0`, which seems odd, considering this represent a count which in theory should only be decimal.
+The collector is configured to convert that into an integer value using a regular expression passed to the `re_match` function. 
 
 
 ![DDoS-Protection-Protocols_Collector](Images/DDoS-Protection-Protocols_Collector_Key_Value.png)
@@ -880,7 +880,7 @@ The probe pipeline consists of a Source processor and four processing stages tha
 <img src="Images/DDoS-Protection-Protocols_Probe_Source_Processor.png" width="80%" height="80%">
 
 The Source processor performs a graph query selecting all systems in the current blueprint that are deployed with roles: leaf, access, spine, or super spine. Additional device profile information is incorporated using:
-- Device profile data (labeled as 'DP' in the query)
+- Device profile data (labelled as 'DP' in the query)
 - Static context keys with:
   - Column: device_profile
   - Value: Extracted from DP.label (wrapped in string format)
@@ -1003,7 +1003,7 @@ Usage Notes:
 
 Key Dashboard Features:
 - Left side widgets focus on real-time monitoring
-- Right side provides historical perspective
+- Right side provides a historical perspective
 - Default view shows only active violations to reduce noise
 
 ![DDoS-Protection-Protocols_Dashboard](Images/DDoS-Protection-Protocols_Dashboard.png)
