@@ -1,0 +1,279 @@
+{
+  "label": "DDoS Protection Protocols",
+  "description": "",
+  "grid": [
+    [
+      {
+        "label": "Count of Protocols in Violation State grouped per System (Real-Time)",
+        "description": "",
+        "type": "stage",
+        "probe_id": "0a984cf7-3328-4b28-8921-96d6298702dd",
+        "stage_name": "Count of Protocols in Violation State per System",
+        "filter": "value > 1",
+        "visible_columns": [
+          "properties.system_id",
+          "total_count",
+          "value"
+        ],
+        "orderby": "",
+        "max_items": 10,
+        "anomalous_only": false,
+        "show_context": true,
+        "spotlight_mode": false,
+        "data_source": "real_time",
+        "time_series_duration": 86400,
+        "aggregation_period": 300,
+        "aggregation_type": "unset",
+        "combine_graphs": "none"
+      },
+      {
+        "label": "Breakdown of protocols in violation state (Real-Time)",
+        "description": "",
+        "type": "stage",
+        "probe_id": "0a984cf7-3328-4b28-8921-96d6298702dd",
+        "stage_name": "DDoS Protection Protocols",
+        "filter": "State=\"viol\"",
+        "visible_columns": [
+          "properties.system_id",
+          "properties.Device_Profile",
+          "properties.Protocol_Group",
+          "properties.Protocol_Packet_Type",
+          "State",
+          "Violation_Count",
+          "Dropped_Packets_Count",
+          "Packets_Per_Second",
+          "Total_Received_Packet_Count",
+          "Accepted_Packets_Count"
+        ],
+        "orderby": "",
+        "max_items": 10,
+        "anomalous_only": false,
+        "show_context": false,
+        "spotlight_mode": false,
+        "data_source": "real_time",
+        "time_series_duration": 86400,
+        "aggregation_period": 300,
+        "aggregation_type": "unset",
+        "combine_graphs": "none"
+      }
+    ],
+    [
+      {
+        "label": "Systems Exceeding Violation Threshold - Last 7 days",
+        "description": "",
+        "type": "stage",
+        "probe_id": "0a984cf7-3328-4b28-8921-96d6298702dd",
+        "stage_name": "Systems Exceeding Violation Threshold",
+        "filter": "value=\"true\"",
+        "visible_columns": [
+          "properties.system_id",
+          "properties.Device_Profile",
+          "properties.Protocol_Group",
+          "properties.Protocol_Packet_Type",
+          "anomaly",
+          "value"
+        ],
+        "orderby": "",
+        "max_items": 10,
+        "anomalous_only": false,
+        "show_context": false,
+        "spotlight_mode": false,
+        "data_source": "time_series",
+        "time_series_duration": 604800,
+        "aggregation_period": 3600,
+        "aggregation_type": "last",
+        "combine_graphs": "none"
+      }
+    ]
+  ],
+  "predefined_dashboard": "",
+  "default": false,
+  "probes": {
+    "0a984cf7-3328-4b28-8921-96d6298702dd": {
+      "label": "DDoS Protection Protocols",
+      "description": "",
+      "processors": [
+        {
+          "name": "DDoS Protection Protocols",
+          "type": "extensible_data_collector",
+          "properties": {
+            "service_name": "DDoS_Protection_Protocols",
+            "service_interval": "60",
+            "value_map": {},
+            "graph_query": [
+              "match(node('system', name='system', deploy_mode='deploy', role=is_in(['leaf', 'access', 'spine', 'superspine'])).out().node('interface_map').out().node('device_profile', name='DP'))"
+            ],
+            "service_input": "''",
+            "query_group_by": [],
+            "Device_Profile": "str(DP.label)",
+            "keys": [],
+            "ingestion_filter": {},
+            "data_type": "dynamic",
+            "query_tag_filter": {
+              "filter": {},
+              "operation": "and"
+            },
+            "execution_count": "-1",
+            "system_id": "system.system_id",
+            "query_expansion": {},
+            "enable_streaming": false
+          },
+          "inputs": {},
+          "outputs": {
+            "out": "DDoS Protection Protocols"
+          }
+        },
+        {
+          "name": "Count of Protocols in Violation State per System",
+          "type": "match_count",
+          "properties": {
+            "group_by": [
+              "system_id"
+            ],
+            "enable_streaming": false,
+            "reference_state": "viol"
+          },
+          "inputs": {
+            "in": {
+              "stage": "DDoS Protection Protocols",
+              "column": "State"
+            }
+          },
+          "outputs": {
+            "out": "Count of Protocols in Violation State per System"
+          }
+        },
+        {
+          "name": "Protocols in Violation State per System",
+          "type": "match_string",
+          "properties": {
+            "raise_anomaly": false,
+            "graph_query": [],
+            "anomaly_retention_duration": 86400,
+            "enable_streaming": false,
+            "regexp": "'viol'",
+            "anomaly_retention_size": 1073741824,
+            "enable_anomaly_logging": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "DDoS Protection Protocols",
+              "column": "State"
+            }
+          },
+          "outputs": {
+            "out": "Protocols in Violation State per System"
+          }
+        },
+        {
+          "name": "Violation Counter Increments",
+          "type": "periodic_change",
+          "properties": {
+            "graph_query": [],
+            "period": 60,
+            "enable_streaming": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "DDoS Protection Protocols",
+              "column": "Violation_Count"
+            }
+          },
+          "outputs": {
+            "out": "Violation Counter Increments"
+          }
+        },
+        {
+          "name": "Systems Exceeding Violation Threshold",
+          "type": "range_check",
+          "properties": {
+            "property": "value",
+            "raise_on_nan": false,
+            "raise_anomaly": true,
+            "graph_query": [],
+            "anomaly_retention_duration": 86400,
+            "range": {
+              "min": 1
+            },
+            "enable_streaming": false,
+            "anomaly_retention_size": 1073741824,
+            "enable_anomaly_logging": false
+          },
+          "inputs": {
+            "in": {
+              "stage": "Violation Counter Increments",
+              "column": "value"
+            }
+          },
+          "outputs": {
+            "out": "Systems Exceeding Violation Threshold"
+          }
+        }
+      ],
+      "predefined_probe": null,
+      "stages": [
+        {
+          "name": "Protocols in Violation State per System",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 2592000,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Count of Protocols in Violation State per System",
+          "description": "",
+          "units": {
+            "total_count": "",
+            "value": ""
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 2592000,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Systems Exceeding Violation Threshold",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 1800,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "Violation Counter Increments",
+          "description": "",
+          "units": {
+            "value": ""
+          },
+          "enable_metric_logging": true,
+          "retention_duration": 2592000,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        },
+        {
+          "name": "DDoS Protection Protocols",
+          "description": "",
+          "units": {
+            "Packets_Per_Second": "",
+            "Violation_Count": "",
+            "Accepted_Packets_Count": "",
+            "Dropped_Packets_Count": "",
+            "Total_Received_Packet_Count": "",
+            "State": ""
+          },
+          "enable_metric_logging": false,
+          "retention_duration": 86400,
+          "retention_size": 0,
+          "graph_annotation_properties": {}
+        }
+      ]
+    }
+  }
+}
